@@ -1,59 +1,22 @@
 // 7 Sentidos: shared data, components and bag. Loaded on every page.
 
+const ASSETS = "design/assets/";
+
+// `anchor` is the band id on the flavours page; `pouch` is the pack shot in design/assets
 const FLAVOURS = {
-  "chocolate": {
-    name: "Chocolate",
-    description: "Deep, dark and a little bitter. The buttery pecan does the rest.",
-    pairing: "Tawny port, or a strong espresso",
-    label: {
-      logo: "vlogo-choc.png", field: "#300602", origin: "#EED3AF",
-      strip: "#D1793A", stripText: "#300602",
-      band: "#AD3D25", bandPattern: 0.22, bandFilter: "brightness(0)", bandText: "#FBE6C4",
-      box: "#EED3AF", boxText: "#300602",
-    },
-  },
-  "chocolate-sea-salt": {
-    name: "Chocolate & sea salt",
-    description: "The same chocolate, finished with flakes of sea salt that crackle first.",
-    pairing: "A bold red and aged Gouda",
-    label: {
-      logo: "vlogo-orange.png", field: "#005656", origin: "#FFF1D8",
-      strip: "#003B3D", stripText: "#FFF1D8",
-      band: "#00E1E1", bandPattern: 0.4, bandFilter: "none", bandText: "#003B3D",
-      box: "#005656", boxText: "#FFFFFF",
-    },
-  },
-  "caramel": {
-    name: "Caramel",
-    description: "Slow-cooked caramel that sets into a thin, glassy shell.",
-    pairing: "Brie, or a young goat's cheese",
-    label: {
-      logo: "vlogo-cream.png", field: "#EED3AF", origin: "#542821",
-      strip: "#542821", stripText: "#EED3AF",
-      band: "#DA6B20", bandPattern: 0.25, bandFilter: "none", bandText: "#300602",
-      box: "#542821", boxText: "#FFF1D8",
-    },
-  },
-  "salted-caramel": {
-    name: "Salted caramel",
-    description: "Sweet, then salty, then sweet again. The one people buy twice.",
-    pairing: "Blue cheese and a sweet white",
-    label: {
-      logo: "vlogo-orange.png", field: "#FF9B00", origin: "#003B3D",
-      strip: "#005656", stripText: "#FFF1D8",
-      band: "#D7E100", bandPattern: 0.4, bandFilter: "none", bandText: "#005656",
-      box: "#005656", boxText: "#FFFFFF",
-    },
-  },
+  "chocolate": { name: "Chocolate", anchor: "chocolate", pouch: "pouch-chocolate.webp" },
+  "chocolate-sea-salt": { name: "Chocolate & sea salt", anchor: "sea-salt", pouch: "pouch-sea-salt.webp" },
+  "caramel": { name: "Caramel", anchor: "caramel", pouch: "pouch-caramel.webp" },
+  "salted-caramel": { name: "Salted caramel", anchor: "salted-caramel", pouch: "pouch-salted-caramel.webp" },
 };
 
 // Everything that can go in the bag. Prices in cents.
 const PRODUCTS = {
   ...Object.fromEntries(Object.entries(FLAVOURS).map(([id, f]) => [id, {
-    name: f.name, price: 595, detail: "100 g bag, €5,95", thumb: id,
+    name: f.name, price: 595, detail: "100 g bag, €5,95", pouch: f.pouch,
   }])),
   "tasting-set": {
-    name: "Tasting set", price: 2200, detail: "One bag of each flavour, 400 g, €22,00", thumb: "chocolate-sea-salt",
+    name: "Tasting set", price: 2200, detail: "One bag of each flavour, 400 g, €22,00", pouch: "pouch-sea-salt.webp",
   },
 };
 
@@ -118,7 +81,7 @@ class SiteHeader extends HTMLElement {
     this.innerHTML = `
       <header class="site-header">
         <div class="wrap">
-          <a class="site-header__logo" href="index.html"><img src="design/assets/logo-cream.png" alt="7 Sentidos Super Foods, home" width="137" height="58"></a>
+          <a class="site-header__logo" href="index.html"><img src="${ASSETS}logo-cream.png" alt="7 Sentidos Super Foods, home" width="137" height="58"></a>
           <nav aria-label="Main">
             ${link("flavour.html", "flavour", "Flavours")}
             ${link("about.html", "about", "About us")}
@@ -152,7 +115,7 @@ class SiteFooter extends HTMLElement {
         <div class="claim-strip">El Porvenir Farms | Santa Cruz do Sul - Brazil</div>
         <div class="wrap site-footer__main">
           <div class="site-footer__brand">
-            <a href="index.html"><img src="design/assets/logo-cream.png" alt="7 Sentidos Super Foods, home" width="245" height="104"></a>
+            <a href="index.html"><img src="${ASSETS}logo-cream.png" alt="7 Sentidos Super Foods, home" width="245" height="104"></a>
             <p>Brazilian pecans dipped in chocolate and caramel by a father and son.</p>
           </div>
           <div class="site-footer__col">
@@ -171,40 +134,8 @@ class SiteFooter extends HTMLElement {
   }
 }
 
-/* <flavour-label flavour="caramel">: the packaging label, scales with its width */
-
-class FlavourLabel extends HTMLElement {
-  static observedAttributes = ["flavour"];
-
-  connectedCallback() { this.render(); }
-  attributeChangedCallback() { if (this.isConnected) this.render(); }
-
-  render() {
-    const flavour = FLAVOURS[this.getAttribute("flavour")];
-    if (!flavour) return;
-    const l = flavour.label;
-    const style = [
-      `--field:${l.field}`, `--origin:${l.origin}`, `--strip:${l.strip}`, `--strip-text:${l.stripText}`,
-      `--band:${l.band}`, `--band-pattern:${l.bandPattern}`, `--band-filter:${l.bandFilter}`,
-      `--band-text:${l.bandText}`, `--box:${l.box}`, `--box-text:${l.boxText}`,
-    ].join(";");
-
-    this.innerHTML = `
-      <div class="label" role="img" aria-label="7 Sentidos ${escapeHTML(flavour.name)} label" style="${style}">
-        <img class="label__logo" src="design/assets/${l.logo}" alt="">
-        <div class="label__origin" aria-hidden="true">El Porvenir Farms | Santa Cruz do Sul - Brazil</div>
-        <div class="label__strip" aria-hidden="true">Nature wonders</div>
-        <div class="label__band" aria-hidden="true">
-          <div class="label__nuts">Brazilian<br>pecan nuts</div>
-          <div class="label__box-row"><div class="label__box">${escapeHTML(flavour.name)}</div></div>
-        </div>
-      </div>`;
-  }
-}
-
 customElements.define("site-header", SiteHeader);
 customElements.define("site-footer", SiteFooter);
-customElements.define("flavour-label", FlavourLabel);
 
 /* Any link with data-add="productId" adds to the bag, then follows its href (the bag page) */
 
@@ -214,17 +145,24 @@ document.addEventListener("click", (event) => {
   bag.add(trigger.dataset.add);
 });
 
-/* A flavour card on Home hands its label to the flavour page, so it flies into place */
+/* A pouch clicked on Home flies to its band on the flavours page.
+   Both pages give the pouch the same view-transition name for the length of the transition. */
 
 document.addEventListener("click", (event) => {
   const card = event.target.closest(".flavour-card > a");
-  if (!card) return;
-  card.querySelector("flavour-label").style.viewTransitionName = "product-label";
+  if (card) card.querySelector("img").style.viewTransitionName = "pouch";
 });
 
-// Clear it again if the page comes back from the back/forward cache
 window.addEventListener("pageshow", () => {
-  document.querySelectorAll(".flavour-card flavour-label").forEach((l) => { l.style.viewTransitionName = ""; });
+  document.querySelectorAll(".flavour-card img").forEach((img) => { img.style.viewTransitionName = ""; });
+});
+
+window.addEventListener("pagereveal", (event) => {
+  if (!event.viewTransition || !location.hash) return;
+  const pouch = document.querySelector(`${CSS.escape(location.hash)} .flavour-band__pouch img`);
+  if (!pouch) return;
+  pouch.style.viewTransitionName = "pouch";
+  event.viewTransition.finished.finally(() => { pouch.style.viewTransitionName = ""; });
 });
 
 /* Scroll reveal: [data-reveal] containers get .is-in once they are on screen */

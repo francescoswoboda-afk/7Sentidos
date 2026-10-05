@@ -50,7 +50,7 @@
       const name = escapeHTML(p.name);
       return `
         <li class="bag__line" data-id="${id}">
-          <div class="bag__thumb"><flavour-label flavour="${p.thumb}"></flavour-label></div>
+          <div class="bag__thumb" role="img" aria-label="7 Sentidos ${name} pouch"><img src="${ASSETS}${p.pouch}" alt="" width="880" height="1444"></div>
           <div class="bag__name"><strong>${name}</strong>${escapeHTML(p.detail)}</div>
           <div class="stepper" role="group" aria-label="Quantity of ${name}">
             <button type="button" data-step="-1" aria-label="Remove one ${name}">−</button>

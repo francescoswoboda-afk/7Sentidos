@@ -182,6 +182,8 @@ site-footer { display: block; background: var(--teal); }
   inset: 0;
   background: url("../design/assets/pattern-white.png") center / cover no-repeat;
   opacity: var(--pattern-opacity, 0.08);
+  filter: var(--pattern-filter, none);
+  scale: var(--pattern-flip, 1) 1;
   pointer-events: none;
 }
 
@@ -191,91 +193,6 @@ site-footer { display: block; background: var(--teal); }
 .band--orange { background: var(--orange); color: var(--deep-teal); --pattern-opacity: 0.22; }
 .band--turquoise { background: var(--turquoise); color: var(--deep-teal); --pattern-opacity: 0.35; }
 .band--lime { background: var(--lime); color: #005656; --pattern-opacity: 0.4; }
-
-/* Flavour label: built to match the packaging */
-
-flavour-label { display: block; }
-
-.label {
-  container-type: inline-size;
-  position: relative;
-  aspect-ratio: 300 / 412.5;
-  overflow: hidden;
-  background: var(--field);
-  font-family: var(--heading);
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 1;
-}
-
-.label__logo { position: absolute; left: 49.3%; top: 8.6%; width: 32.3%; }
-
-.label__origin {
-  position: absolute;
-  left: 0; right: 0; top: 66.3%;
-  font-size: 2.3cqw;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--origin);
-}
-
-.label__strip {
-  position: absolute;
-  left: 0; right: 0; top: 70.45%;
-  height: 4.55%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 0.5cqw;
-  background: var(--strip);
-  color: var(--strip-text);
-  font-size: 2.5cqw;
-  font-weight: 600;
-  letter-spacing: 0.5em;
-}
-
-.label__band {
-  position: absolute;
-  left: 0; right: 0; top: 75%; bottom: 0;
-  overflow: hidden;
-  background: var(--band);
-}
-
-.label__band::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("../design/assets/pattern-white.png") center / cover no-repeat;
-  opacity: var(--band-pattern);
-  filter: var(--band-filter, none);
-}
-
-.label__nuts {
-  position: absolute;
-  left: 0; right: 0; top: 15%;
-  font-size: 4.5cqw;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  line-height: 1.5;
-  color: var(--band-text);
-}
-
-.label__box-row {
-  position: absolute;
-  left: 0; right: 0; bottom: 13%;
-  display: flex;
-  justify-content: center;
-}
-
-.label__box {
-  padding: 1.9cqw 5cqw 1.3cqw;
-  background: var(--box);
-  color: var(--box-text);
-  font-size: 3.3cqw;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  white-space: nowrap;
-}
 
 /* Photo and map placeholders */
 
@@ -324,7 +241,19 @@ flavour-label { display: block; }
 .hero h1 { font-size: var(--h1); line-height: 0.98; }
 .hero .lead { margin-top: 24px; max-width: 28em; }
 .hero__actions { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 14px; }
-.hero__pack { flex: 0 1 330px; min-width: 0; margin: 0 auto; }
+.hero__pouches {
+  flex: 1 1 380px;
+  min-width: 0;
+  max-width: 540px;
+  margin: 0 auto;
+  position: relative;
+  aspect-ratio: 10 / 8.6;
+}
+
+.hero__pouches img { position: absolute; height: auto; rotate: var(--r, 0deg); }
+.hero__pouches img:nth-child(1) { left: 0; top: 9%; width: 45%; --r: -9deg; }
+.hero__pouches img:nth-child(2) { right: 0; top: 9%; width: 45%; --r: 9deg; }
+.hero__pouches img:nth-child(3) { left: 25%; top: 0; width: 50%; }
 
 .lime-claim {
   margin: 0;
@@ -355,7 +284,7 @@ flavour-label { display: block; }
   gap: 40px 28px;
 }
 
-.flavour-card > a { display: block; box-shadow: 0 18px 30px -18px rgba(48, 6, 2, 0.55); }
+.flavour-card > a { display: block; padding: 0 10%; }
 .flavour-card h3 { margin: 24px 0 6px; font-size: 30px; line-height: 1.1; }
 
 .pairings { margin: 0; gap: 32px 36px; }
@@ -371,12 +300,20 @@ flavour-label { display: block; }
 
 .tasting h2 { font-size: var(--h2-cta); line-height: 1.02; margin-bottom: 18px; }
 .tasting .split { gap: 48px 72px; }
-.tasting__labels {
-  max-width: 600px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+.tasting__pouches {
+  flex: 1 1 420px;
+  min-width: 0;
+  max-width: 620px;
+  display: flex;
+  align-items: flex-end;
 }
+
+.tasting__pouches img { width: 28%; height: auto; rotate: var(--r); }
+.tasting__pouches img + img { margin-left: -4%; }
+.tasting__pouches img:nth-child(1) { --r: -4deg; }
+.tasting__pouches img:nth-child(2) { --r: 3deg; }
+.tasting__pouches img:nth-child(3) { --r: -2deg; }
+.tasting__pouches img:nth-child(4) { --r: 5deg; }
 
 /* Closing CTA band (flavour and about pages) */
 
@@ -391,40 +328,90 @@ flavour-label { display: block; }
 .cta-band .wrap > div { flex: 1 1 420px; min-width: 0; }
 .cta-band h2 { margin-bottom: 12px; }
 
-/* Flavour page */
+/* Flavours page */
 
-.switcher { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+.flavours-intro h1 {
+  max-width: 11em;
+  font-size: clamp(48px, 7.4vw, 112px);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+}
 
-.switcher button {
+.flavours-intro .lead { margin-top: 28px; max-width: 30em; }
+
+.jump-links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+.jump-links a {
+  display: inline-flex;
+  align-items: center;
   min-height: 48px;
   padding: 0 20px;
-  border: 2px solid var(--teal);
   border-radius: var(--radius);
-  background: transparent;
-  color: var(--ink);
+  background: var(--chip);
+  color: var(--chip-text);
   font-weight: 700;
+  text-decoration: none;
 }
 
-.switcher button[aria-pressed="true"] { background: var(--teal); color: var(--cream); }
+.flavour-band { color: var(--ink-band); scroll-margin-top: 0; }
 
-.product { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 48px 72px; }
-
-.product__panel {
-  flex: 1 1 380px;
-  min-width: 0;
-  max-width: 560px;
-  padding: clamp(24px, 5vw, 56px) clamp(32px, 8vw, 96px);
-  background: var(--sand);
+.flavour-band .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px 72px;
+  padding-top: 88px;
+  padding-bottom: 88px;
 }
 
-.product__panel flavour-label { box-shadow: 0 26px 40px -22px rgba(48, 6, 2, 0.6); }
+.flavour-band--reverse .wrap { flex-direction: row-reverse; }
 
-.product__info { flex: 1 1 440px; min-width: 0; }
-.product__info h1 { font-size: clamp(44px, 6vw, 88px); }
-.product__info .lead { margin-top: 18px; max-width: 28em; }
-.product__price { margin-top: 18px; font-size: 22px; font-weight: 700; }
+.flavour-band__pouch { flex: 1 1 300px; min-width: 0; display: flex; justify-content: center; }
+.flavour-band__pouch > div { width: 82%; max-width: 400px; }
+.flavour-band__pouch img { width: 100%; rotate: var(--r); }
 
-.buy { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 20px; }
+.flavour-band__copy { flex: 1.4 1 440px; min-width: 0; }
+
+.flavour-band h2 {
+  font-size: clamp(52px, 8vw, 116px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.flavour-band__desc { margin-top: 22px; max-width: 24em; font-size: 23px; line-height: 1.4; }
+.flavour-band__pairing { margin-top: 18px; max-width: 28em; }
+
+.flavour-band .buy { margin-top: 32px; gap: 16px 22px; }
+.flavour-band__price { font-size: 23px; font-weight: 700; }
+.flavour-band .stepper { border-color: currentColor; }
+.flavour-band .stepper--lg button { width: 54px; }
+.flavour-band .status { margin-top: 14px; }
+.flavour-band .btn { background: var(--btn); color: var(--btn-text); }
+
+.flavour-band :focus-visible { outline-color: var(--deep-teal); box-shadow: 0 0 0 6px var(--cream); }
+
+.flavour-band--chocolate {
+  background: var(--rust); --ink-band: #FBE6C4;
+  --pattern-opacity: 0.18; --pattern-filter: brightness(0);
+  --btn: var(--chocolate); --btn-text: #FBE6C4; --r: -5deg;
+}
+.flavour-band--sea-salt {
+  background: var(--turquoise); --ink-band: var(--deep-teal);
+  --pattern-opacity: 0.35; --pattern-flip: -1;
+  --btn: #005656; --btn-text: var(--cream); --r: 5deg;
+}
+.flavour-band--caramel {
+  background: var(--caramel-orange); --ink-band: var(--chocolate);
+  --pattern-opacity: 0.22;
+  --btn: var(--chocolate); --btn-text: #FBE6C4; --r: -5deg;
+}
+.flavour-band--salted-caramel {
+  background: var(--lime); --ink-band: #005656;
+  --pattern-opacity: 0.4; --pattern-flip: -1;
+  --btn: #005656; --btn-text: var(--cream); --r: 5deg;
+}
+
+.buy { display: flex; flex-wrap: wrap; align-items: center; }
 
 .stepper {
   display: inline-flex;
@@ -451,17 +438,15 @@ flavour-label { display: block; }
 
 .status { margin-top: 16px; min-height: 1.6em; font-weight: 700; }
 
-.details { margin: 28px 0 0; border-bottom: 2px solid var(--teal); }
-.details > div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px 24px;
-  padding: 14px 0;
-  border-top: 1px solid rgba(0, 71, 74, 0.35);
+.every-bag {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0 56px;
 }
-.details > div:first-child { border-top: 2px solid var(--teal); }
-.details dt { flex: 0 0 150px; font-weight: 700; }
-.details dd { flex: 1 1 220px; margin: 0; }
+.every-bag > div { padding: 18px 0; border-top: 2px solid var(--teal); }
+.every-bag dt { font-weight: 700; }
+.every-bag dd { margin: 2px 0 0; }
 
 /* About page */
 
@@ -539,7 +524,7 @@ flavour-label { display: block; }
   border-top: 2px solid var(--teal);
 }
 
-.bag__thumb { width: 80px; flex-shrink: 0; }
+.bag__thumb { width: 68px; flex-shrink: 0; }
 .bag__name { flex: 1 1 200px; min-width: 0; }
 .bag__name strong { display: block; font-family: var(--heading); font-size: 27px; line-height: 1.15; }
 .bag__total { min-width: 96px; text-align: right; font-size: 21px; font-weight: 700; }
@@ -593,16 +578,8 @@ flavour-label { display: block; }
   from { opacity: 0; transform: translateY(8px); }
 }
 
-@keyframes tube-in {
-  from { opacity: 0; transform: translateY(48px) rotate(6deg); }
-}
-
-@keyframes label-out {
-  to { opacity: 0; transform: translateX(-32px) rotate(-4deg); }
-}
-
-@keyframes label-in {
-  from { opacity: 0; transform: translateX(32px) rotate(4deg); }
+@keyframes pouch-in {
+  from { opacity: 0; transform: translateY(56px) rotate(8deg); }
 }
 
 @keyframes bump {
@@ -628,22 +605,15 @@ flavour-label { display: block; }
   ::view-transition-old(root) { animation: var(--motion-150) var(--ease-in) both fade-out; }
   ::view-transition-new(root) { animation: var(--motion-300) var(--ease-out) both page-in; }
 
-  /* A label clicked on Home flies into place on the flavour page */
-  .product__panel flavour-label { view-transition-name: product-label; }
-  .product__info { view-transition-name: product-info; }
-  ::view-transition-group(product-label) { animation-duration: var(--motion-hero); animation-timing-function: var(--ease-out); }
-
-  /* Flavour switcher on the flavour page: old label out, new label in */
-  html[data-swap]::view-transition-old(product-label) { animation: var(--motion-200) var(--ease-in) both label-out; }
-  html[data-swap]::view-transition-new(product-label) { animation: var(--motion-300) var(--ease-out) 100ms both label-in; }
-  html[data-swap]::view-transition-old(product-info) { animation: var(--motion-150) var(--ease-in) both fade-out; }
-  html[data-swap]::view-transition-new(product-info) { animation: var(--motion-200) var(--ease-out) 100ms both fade-in; }
+  /* A pouch clicked on Home flies to its band on the flavours page (names set in site.js) */
+  ::view-transition-group(pouch) { animation-duration: var(--motion-hero); animation-timing-function: var(--ease-out); }
 
   /* Hero entrance: one sequence on load */
   .hero__copy > * { animation: var(--motion-hero) var(--ease-out) both rise; }
   .hero__copy > :nth-child(2) { animation-delay: 100ms; }
   .hero__copy > :nth-child(3) { animation-delay: 200ms; }
-  .hero__pack img { animation: var(--motion-hero) var(--ease-out) 150ms both tube-in; }
+  .hero__pouches img { animation: var(--motion-hero) var(--ease-out) 250ms both pouch-in; }
+  .hero__pouches img:nth-child(3) { animation-delay: 150ms; }
 
   /* Scroll reveal: children of [data-reveal] rise in, one after another */
   .js [data-reveal] > * {
@@ -658,6 +628,11 @@ flavour-label { display: block; }
   [data-reveal] > :nth-child(2) { --i: 1; }
   [data-reveal] > :nth-child(3) { --i: 2; }
   [data-reveal] > :nth-child(4) { --i: 3; }
+
+  /* Each pouch on the flavours page swings in as its band arrives */
+  .js .flavour-band__pouch[data-reveal] > * { transform: translateY(48px) rotate(-6deg); }
+  .js .flavour-band--reverse .flavour-band__pouch[data-reveal] > * { transform: translateY(48px) rotate(6deg); }
+  .js .flavour-band__pouch[data-reveal].is-in > * { transform: none; }
 
   /* The sun-and-leaves pattern drifts slowly as the band scrolls past */
   @supports (animation-timeline: view()) {
@@ -675,7 +650,8 @@ flavour-label { display: block; }
   .flavour-card > a { transition: transform var(--motion-300) var(--ease-out); }
   .flavour-card > a:hover { transform: translateY(-8px) rotate(-1.5deg); }
 
-  .switcher button { transition: background-color var(--motion-150) var(--ease-out), color var(--motion-150) var(--ease-out); }
+  .jump-links a { transition: transform var(--motion-150) var(--ease-out); }
+  .jump-links a:hover { transform: translateY(-2px); }
 
   .stepper button { transition: transform var(--motion-150) var(--ease-out); }
   .stepper button:active:not(:disabled) { transform: scale(0.85); }

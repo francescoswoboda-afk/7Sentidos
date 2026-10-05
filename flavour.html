@@ -15,57 +15,127 @@
   <site-header current="flavour"></site-header>
 
   <main>
-    <section class="wrap" style="padding-top: 56px; padding-bottom: 104px">
-      <div class="switcher" role="group" aria-label="Flavour">
-        <button type="button" data-flavour="chocolate" aria-pressed="false">Chocolate</button>
-        <button type="button" data-flavour="chocolate-sea-salt" aria-pressed="false">Chocolate &amp; sea salt</button>
-        <button type="button" data-flavour="caramel" aria-pressed="false">Caramel</button>
-        <button type="button" data-flavour="salted-caramel" aria-pressed="true">Salted caramel</button>
-      </div>
+    <section class="wrap flavours-intro" style="padding-top: 80px; padding-bottom: 72px">
+      <h1>Four ways to dip a pecan</h1>
+      <p class="lead">Every bag holds 100 g of whole Brazilian pecan halves and costs €5,95. Pick one, or scroll through all four.</p>
+      <nav class="jump-links" aria-label="Flavours">
+        <a href="#chocolate" style="--chip: var(--chocolate); --chip-text: #FBE6C4">Chocolate</a>
+        <a href="#sea-salt" style="--chip: #005656; --chip-text: var(--cream)">Chocolate &amp; sea salt</a>
+        <a href="#caramel" style="--chip: var(--sand); --chip-text: #542821">Caramel</a>
+        <a href="#salted-caramel" style="--chip: var(--orange); --chip-text: var(--deep-teal)">Salted caramel</a>
+      </nav>
+    </section>
 
-      <div class="product">
-        <div class="product__panel">
-          <flavour-label flavour="salted-caramel" id="product-label"></flavour-label>
-        </div>
-
-        <div class="product__info">
-          <h1 id="product-name">Salted caramel</h1>
-          <p class="lead" id="product-description">Sweet, then salty, then sweet again. The one people buy twice.</p>
-          <p class="product__price">€5,95 / 100 g</p>
-
+    <section id="chocolate" class="band flavour-band flavour-band--chocolate" data-product="chocolate">
+      <div class="wrap">
+        <div class="flavour-band__pouch" data-reveal><div><img src="design/assets/pouch-chocolate.webp" alt="7 Sentidos Chocolate pouch" width="880" height="1444"></div></div>
+        <div class="flavour-band__copy">
+          <h2>Chocolate</h2>
+          <p class="flavour-band__desc">Deep, dark and a little bitter. The buttery pecan does the rest.</p>
+          <p class="flavour-band__pairing"><strong>Goes well with</strong> tawny port, or a strong espresso.</p>
           <div class="buy">
-            <div class="stepper stepper--lg" role="group" aria-label="Number of bags" id="product-qty">
-              <button type="button" data-step="-1" aria-label="Remove one bag">−</button>
+            <span class="flavour-band__price">€5,95 / 100 g</span>
+            <div class="stepper stepper--lg" role="group" aria-label="Number of Chocolate bags">
+              <button type="button" data-step="-1" aria-label="Remove one Chocolate bag">−</button>
               <output aria-live="polite">1</output>
-              <button type="button" data-step="1" aria-label="Add one bag">+</button>
+              <button type="button" data-step="1" aria-label="Add one Chocolate bag">+</button>
             </div>
-            <button type="button" class="btn btn--lg btn--teal" id="product-add">
-              <span>Add to bag</span>
-              <span class="btn__price" id="product-total">€5,95</span>
-            </button>
+            <button type="button" class="btn btn--lg" data-buy><span>Add to bag</span><span class="btn__price">€5,95</span></button>
           </div>
-          <p class="status" role="status" id="product-status"></p>
-
-          <dl class="details">
-            <div><dt>Weight</dt><dd>100 g of whole pecan halves</dd></div>
-            <div><dt>Origin</dt><dd>El Porvenir Farms, Santa Cruz do Sul, Brazil</dd></div>
-            <div><dt>Allergens</dt><dd>Contains nuts and milk</dd></div>
-            <div><dt>Ingredients</dt><dd>[Ingredients list for this flavour]</dd></div>
-            <div><dt>Keeps for</dt><dd>[Shelf life], closed, cool and dry</dd></div>
-            <div><dt>Goes well with</dt><dd id="product-pairing">Blue cheese and a sweet white</dd></div>
-            <div><dt>Delivery</dt><dd>Across the Netherlands in 1–3 working days</dd></div>
-          </dl>
+          <p class="status" role="status"></p>
         </div>
       </div>
     </section>
 
-    <section class="cta-band band band--turquoise">
-      <div class="wrap" style="padding-top: 72px; padding-bottom: 72px">
-        <div>
-          <h2 style="font-size: clamp(32px, 4vw, 52px); margin-bottom: 10px">Can't pick one? Try all four.</h2>
-          <p>One bag of each flavour, 400 g in total, for €22,00.</p>
+    <section id="sea-salt" class="band flavour-band flavour-band--sea-salt flavour-band--reverse" data-product="chocolate-sea-salt">
+      <div class="wrap">
+        <div class="flavour-band__pouch" data-reveal><div><img src="design/assets/pouch-sea-salt.webp" alt="7 Sentidos Chocolate and sea salt pouch" width="880" height="1444"></div></div>
+        <div class="flavour-band__copy">
+          <h2>Chocolate &amp; sea salt</h2>
+          <p class="flavour-band__desc">The same chocolate, finished with flakes of sea salt that crackle first.</p>
+          <p class="flavour-band__pairing"><strong>Goes well with</strong> a bold red and aged Gouda.</p>
+          <div class="buy">
+            <span class="flavour-band__price">€5,95 / 100 g</span>
+            <div class="stepper stepper--lg" role="group" aria-label="Number of Chocolate and sea salt bags">
+              <button type="button" data-step="-1" aria-label="Remove one Chocolate and sea salt bag">−</button>
+              <output aria-live="polite">1</output>
+              <button type="button" data-step="1" aria-label="Add one Chocolate and sea salt bag">+</button>
+            </div>
+            <button type="button" class="btn btn--lg" data-buy><span>Add to bag</span><span class="btn__price">€5,95</span></button>
+          </div>
+          <p class="status" role="status"></p>
         </div>
-        <a class="btn btn--lg btn--teal" href="bag.html" data-add="tasting-set">Add the tasting set</a>
+      </div>
+    </section>
+
+    <section id="caramel" class="band flavour-band flavour-band--caramel" data-product="caramel">
+      <div class="wrap">
+        <div class="flavour-band__pouch" data-reveal><div><img src="design/assets/pouch-caramel.webp" alt="7 Sentidos Caramel pouch" width="880" height="1444"></div></div>
+        <div class="flavour-band__copy">
+          <h2>Caramel</h2>
+          <p class="flavour-band__desc">Slow-cooked caramel that sets into a thin, glassy shell.</p>
+          <p class="flavour-band__pairing"><strong>Goes well with</strong> Brie, or a young goat's cheese.</p>
+          <div class="buy">
+            <span class="flavour-band__price">€5,95 / 100 g</span>
+            <div class="stepper stepper--lg" role="group" aria-label="Number of Caramel bags">
+              <button type="button" data-step="-1" aria-label="Remove one Caramel bag">−</button>
+              <output aria-live="polite">1</output>
+              <button type="button" data-step="1" aria-label="Add one Caramel bag">+</button>
+            </div>
+            <button type="button" class="btn btn--lg" data-buy><span>Add to bag</span><span class="btn__price">€5,95</span></button>
+          </div>
+          <p class="status" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="salted-caramel" class="band flavour-band flavour-band--salted-caramel flavour-band--reverse" data-product="salted-caramel">
+      <div class="wrap">
+        <div class="flavour-band__pouch" data-reveal><div><img src="design/assets/pouch-salted-caramel.webp" alt="7 Sentidos Salted caramel pouch" width="880" height="1444"></div></div>
+        <div class="flavour-band__copy">
+          <h2>Salted caramel</h2>
+          <p class="flavour-band__desc">Sweet, then salty, then sweet again. The one people buy twice.</p>
+          <p class="flavour-band__pairing"><strong>Goes well with</strong> blue cheese and a sweet white.</p>
+          <div class="buy">
+            <span class="flavour-band__price">€5,95 / 100 g</span>
+            <div class="stepper stepper--lg" role="group" aria-label="Number of Salted caramel bags">
+              <button type="button" data-step="-1" aria-label="Remove one Salted caramel bag">−</button>
+              <output aria-live="polite">1</output>
+              <button type="button" data-step="1" aria-label="Add one Salted caramel bag">+</button>
+            </div>
+            <button type="button" class="btn btn--lg" data-buy><span>Add to bag</span><span class="btn__price">€5,95</span></button>
+          </div>
+          <p class="status" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <h2 style="margin-bottom: 36px">In every bag</h2>
+      <dl class="every-bag">
+        <div><dt>Weight</dt><dd>100 g of whole pecan halves</dd></div>
+        <div><dt>Origin</dt><dd>El Porvenir Farms, Santa Cruz do Sul, Brazil</dd></div>
+        <div><dt>Allergens</dt><dd>Contains nuts and milk</dd></div>
+        <div><dt>Ingredients</dt><dd>[Ingredients list for each flavour]</dd></div>
+        <div><dt>Keeps for</dt><dd>[Shelf life], closed, cool and dry</dd></div>
+        <div><dt>Delivery</dt><dd>Across the Netherlands in 1–3 working days</dd></div>
+      </dl>
+    </section>
+
+    <section class="tasting band band--teal">
+      <div class="wrap section split" style="padding-top: 96px; padding-bottom: 96px">
+        <div>
+          <h2>Can't pick one? Try all four.</h2>
+          <p style="margin-bottom: 6px; max-width: 30em">One bag of each flavour, 400 g in total. Delivered across the Netherlands in 1–3 working days.</p>
+          <p style="max-width: 30em; font-weight: 700">That's €1,80 less than four separate bags.</p>
+          <a class="btn btn--lg btn--orange" href="bag.html" data-add="tasting-set" style="margin-top: 30px"><span>Add the tasting set</span><span class="btn__price">€22,00</span></a>
+        </div>
+        <div class="tasting__pouches" data-reveal>
+          <img src="design/assets/pouch-chocolate.webp" alt="" width="880" height="1444">
+          <img src="design/assets/pouch-sea-salt.webp" alt="" width="880" height="1444">
+          <img src="design/assets/pouch-caramel.webp" alt="" width="880" height="1444">
+          <img src="design/assets/pouch-salted-caramel.webp" alt="One pouch of each of the four flavours" width="880" height="1444">
+        </div>
       </div>
     </section>
   </main>
@@ -73,61 +143,23 @@
   <site-footer></site-footer>
 
   <script>
-    const switcher = document.querySelector(".switcher");
-    const label = document.getElementById("product-label");
-    const nameEl = document.getElementById("product-name");
-    const descriptionEl = document.getElementById("product-description");
-    const pairingEl = document.getElementById("product-pairing");
-    const totalEl = document.getElementById("product-total");
-    const statusEl = document.getElementById("product-status");
+    // Each flavour band has its own stepper, "Add to bag" and status line
+    document.querySelectorAll("[data-product]").forEach((band) => {
+      const id = band.dataset.product;
+      const price = band.querySelector(".btn__price");
+      const status = band.querySelector(".status");
 
-    let current = "salted-caramel";
-
-    const qty = stepper(document.getElementById("product-qty"), {
-      onChange: (value) => { totalEl.textContent = formatPrice(PRODUCTS[current].price * value); },
-    });
-
-    function show(id) {
-      if (!FLAVOURS[id]) id = "salted-caramel";
-      current = id;
-      const flavour = FLAVOURS[id];
-
-      switcher.querySelectorAll("button").forEach((button) => {
-        button.setAttribute("aria-pressed", String(button.dataset.flavour === id));
+      const qty = stepper(band.querySelector(".stepper"), {
+        onChange: (value) => { price.textContent = formatPrice(PRODUCTS[id].price * value); },
       });
-      label.setAttribute("flavour", id);
-      nameEl.textContent = flavour.name;
-      descriptionEl.textContent = flavour.description;
-      pairingEl.textContent = flavour.pairing;
-      totalEl.textContent = formatPrice(PRODUCTS[id].price * qty.value);
-      statusEl.textContent = "";
-      document.title = `${flavour.name} · 7 Sentidos`;
-    }
 
-    switcher.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-flavour]");
-      if (!button || button.dataset.flavour === current) return;
-      const id = button.dataset.flavour;
-      history.replaceState(null, "", `?f=${id}`);
-
-      // Slide the old label out and the new one in, where the browser supports it
-      if (!document.startViewTransition || reducedMotion()) {
-        show(id);
-        return;
-      }
-      document.documentElement.dataset.swap = "";
-      const transition = document.startViewTransition(() => show(id));
-      transition.finished.finally(() => delete document.documentElement.dataset.swap);
+      band.querySelector("[data-buy]").addEventListener("click", () => {
+        bag.add(id, qty.value);
+        const bags = qty.value === 1 ? "1 bag" : `${qty.value} bags`;
+        status.textContent = `${bags} of ${FLAVOURS[id].name} added to your bag.`;
+        replay(status, "is-new");
+      });
     });
-
-    document.getElementById("product-add").addEventListener("click", () => {
-      bag.add(current, qty.value);
-      const bags = qty.value === 1 ? "1 bag" : `${qty.value} bags`;
-      statusEl.textContent = `${bags} of ${FLAVOURS[current].name} added to your bag.`;
-      replay(statusEl, "is-new");
-    });
-
-    show(new URLSearchParams(location.search).get("f"));
   </script>
 </body>
 </html>

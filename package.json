@@ -1,0 +1,9 @@
+{
+  "name": "7sentidos",
+  "version": "0.1.0",
+  "private": true,
+  "description": "7 Sentidos website: dipped pecans",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

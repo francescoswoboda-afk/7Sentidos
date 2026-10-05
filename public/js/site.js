@@ -1,8 +1,8 @@
 // 7 Sentidos: shared data, components and bag. Loaded on every page.
 
-const ASSETS = "design/assets/";
+const ASSETS = "assets/";
 
-// `anchor` is the band id on the flavours page; `pouch` is the pack shot in design/assets
+// `anchor` is the band id on the flavours page; `pouch` is the pack shot in assets/
 const FLAVOURS = {
   "chocolate": { name: "Chocolate", anchor: "chocolate", pouch: "pouch-chocolate.webp" },
   "chocolate-sea-salt": { name: "Chocolate & sea salt", anchor: "sea-salt", pouch: "pouch-sea-salt.webp" },

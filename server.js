@@ -3,7 +3,8 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
-const root = __dirname;
+// Serves the website folder only; design/ stays out of reach
+const root = path.join(__dirname, "public");
 const port = process.env.PORT || 3000;
 
 const types = {

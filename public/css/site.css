@@ -180,7 +180,7 @@ site-footer { display: block; background: var(--teal); }
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../design/assets/pattern-white.png") center / cover no-repeat;
+  background: url("../assets/pattern-white.png") center / cover no-repeat;
   opacity: var(--pattern-opacity, 0.08);
   filter: var(--pattern-filter, none);
   scale: var(--pattern-flip, 1) 1;

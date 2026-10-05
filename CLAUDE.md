@@ -14,3 +14,9 @@ The approved design is in `design/`. Read `design/README.md` before changing any
 
 - Prices use a comma: `€5,95`.
 - Copy is in English.
+
+## Site
+
+- The website is in `public/`, and only that folder is deployed (Cloudflare Pages, output directory `public`, no build command). `design/` is reference material and is never published.
+- Images the site uses are copied from `design/assets/` into `public/assets/`.
+- Run it locally with `npm run start` (http://localhost:3000).

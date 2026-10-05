@@ -78,6 +78,8 @@ class SiteHeader extends HTMLElement {
     const link = (href, id, text) =>
       `<a href="${href}"${current === id ? ' aria-current="page"' : ""}>${text}</a>`;
 
+    const bagLink = `<a class="btn btn--orange site-header__bag" href="bag.html"${current === "bag" ? ' aria-current="page"' : ""}>Bag<span data-bag-count></span></a>`;
+
     this.innerHTML = `
       <header class="site-header">
         <div class="wrap">
@@ -86,21 +88,61 @@ class SiteHeader extends HTMLElement {
             ${link("flavour.html", "flavour", "Flavours")}
             ${link("about.html", "about", "About us")}
             ${link("where-to-buy.html", "where-to-buy", "Where to buy")}
-            <a class="btn btn--orange" href="bag.html"${current === "bag" ? ' aria-current="page"' : ""}>Bag<span data-bag-count></span></a>
+            ${bagLink}
           </nav>
+          <div class="site-header__compact">
+            ${bagLink}
+            <button type="button" class="menu-button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu">
+              <span aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
-      </header>`;
+      </header>
+      <div class="mobile-menu" id="mobile-menu" tabindex="-1" hidden>
+        <nav aria-label="Main">
+          ${link("index.html", "home", "Home")}
+          ${link("flavour.html", "flavour", "Flavours")}
+          ${link("about.html", "about", "About us")}
+          ${link("where-to-buy.html", "where-to-buy", "Where to buy")}
+          ${link("bag.html", "bag", "Bag")}
+        </nav>
+        <p class="mobile-menu__contact"><a href="mailto:hallo@7sentidos.nl">hallo@7sentidos.nl</a></p>
+      </div>`;
+
+    this.menuButton = this.querySelector(".menu-button");
+    this.menu = this.querySelector(".mobile-menu");
+    this.menuButton.addEventListener("click", () => this.toggleMenu());
+    this.menu.addEventListener("click", (event) => { if (event.target.closest("a")) this.toggleMenu(false); });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !this.menu.hidden) {
+        this.toggleMenu(false);
+        this.menuButton.focus();
+      }
+    });
+    // Close the menu if the screen grows past phone size while it's open
+    matchMedia("(min-width: 768px)").addEventListener("change", (e) => { if (e.matches) this.toggleMenu(false); });
 
     this.updateCount();
     document.addEventListener("bag:change", () => this.updateCount());
     window.addEventListener("storage", () => this.updateCount());
   }
 
+  toggleMenu(open = this.menu.hidden) {
+    this.menu.hidden = !open;
+    this.menuButton.setAttribute("aria-expanded", String(open));
+    this.menuButton.setAttribute("aria-label", open ? "Close menu" : "Menu");
+    document.documentElement.classList.toggle("menu-open", open);
+    // The page behind the open menu can't be reached by keyboard or screen reader
+    document.querySelectorAll("main, site-footer").forEach((el) => el.toggleAttribute("inert", open));
+    // Focus the panel itself: the next Tab lands on the first link, and touch users see no ring
+    if (open) this.menu.focus();
+  }
+
   updateCount() {
     const count = bag.count();
-    this.querySelector("[data-bag-count]").textContent = count ? ` (${count})` : "";
+    this.querySelectorAll("[data-bag-count]").forEach((el) => { el.textContent = count ? ` (${count})` : ""; });
     if (this.lastCount !== undefined && count > this.lastCount) {
-      replay(this.querySelector(".btn"), "is-bumped");
+      this.querySelectorAll(".site-header__bag").forEach((el) => replay(el, "is-bumped"));
     }
     this.lastCount = count;
   }

@@ -21,16 +21,19 @@
   <site-header current="flavour"></site-header>
 
   <main>
-    <section class="wrap flavours-intro" style="padding-top: 80px; padding-bottom: 72px">
+    <section class="wrap flavours-intro pad" style="--pt: 80px; --pb: 0px">
       <h1>Four ways to dip a pecan</h1>
       <p class="lead">Every bag holds 100 g of whole Brazilian pecan halves and costs €5,95. Pick one, or scroll through all four.</p>
+    </section>
+
+    <div class="jump-bar">
       <nav class="jump-links" aria-label="Flavours">
         <a href="#chocolate" style="--chip: var(--chocolate); --chip-text: #FBE6C4">Chocolate</a>
         <a href="#sea-salt" style="--chip: #005656; --chip-text: var(--cream)">Chocolate &amp; sea salt</a>
         <a href="#caramel" style="--chip: var(--sand); --chip-text: #542821">Caramel</a>
         <a href="#salted-caramel" style="--chip: var(--orange); --chip-text: var(--deep-teal)">Salted caramel</a>
       </nav>
-    </section>
+    </div>
 
     <section id="chocolate" class="band flavour-band flavour-band--chocolate" data-product="chocolate">
       <div class="wrap">
@@ -129,7 +132,7 @@
     </section>
 
     <section class="tasting band band--teal">
-      <div class="wrap section split" style="padding-top: 96px; padding-bottom: 96px">
+      <div class="wrap section split pad" style="--pt: 96px; --pb: 96px">
         <div>
           <h2>Can't pick one? Try all four.</h2>
           <p style="margin-bottom: 6px; max-width: 30em">One bag of each flavour, 400 g in total. Delivered across the Netherlands in 1–3 working days.</p>
@@ -149,6 +152,23 @@
   <site-footer></site-footer>
 
   <script>
+    // Highlight the jump link for the flavour band currently on screen (shown on phones,
+    // where the bar stays pinned under the header) and keep that chip scrolled into view
+    const chips = new Map([...document.querySelectorAll(".jump-links a")].map((a) => [a.hash.slice(1), a]));
+    const bandObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        chips.forEach((chip, id) => {
+          const active = id === entry.target.id;
+          chip.toggleAttribute("aria-current", active);
+          if (active && matchMedia("(max-width: 767.98px)").matches) {
+            chip.scrollIntoView({ block: "nearest", inline: "center", behavior: reducedMotion() ? "auto" : "smooth" });
+          }
+        });
+      });
+    }, { rootMargin: "-45% 0px -45% 0px" });
+    document.querySelectorAll(".flavour-band").forEach((band) => bandObserver.observe(band));
+
     // Each flavour band has its own stepper, "Add to bag" and status line
     document.querySelectorAll("[data-product]").forEach((band) => {
       const id = band.dataset.product;

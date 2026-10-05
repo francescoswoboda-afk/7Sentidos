@@ -29,8 +29,14 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
+  -webkit-tap-highlight-color: rgba(0, 59, 61, 0.15);
   background: var(--cream);
   color: var(--ink);
   font-family: var(--body);
@@ -136,6 +142,74 @@ site-header { display: block; min-height: 86px; background: var(--teal); }
 
 .site-header .btn { min-height: 46px; padding: 0 22px; gap: 6px; }
 
+/* Phone header: logo, Bag and a menu button. Hidden on wider screens. */
+.site-header__compact { display: none; align-items: center; gap: 8px; }
+
+.menu-button {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border: 2px solid rgba(255, 241, 216, 0.5);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--cream);
+}
+
+/* Three bars that turn into a cross when the menu is open */
+.menu-button span,
+.menu-button span::before,
+.menu-button span::after {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  transition: transform var(--motion-200) var(--ease-out), background-color var(--motion-150) var(--ease-out);
+}
+.menu-button span { top: 50%; left: 50%; margin: -1px 0 0 -10px; }
+.menu-button span::before, .menu-button span::after { content: ""; left: 0; top: 0; }
+.menu-button span::before { transform: translateY(-7px); }
+.menu-button span::after { transform: translateY(7px); }
+.menu-button[aria-expanded="true"] span { background-color: transparent; }
+.menu-button[aria-expanded="true"] span::before { transform: rotate(45deg); background-color: var(--cream); }
+.menu-button[aria-expanded="true"] span::after { transform: rotate(-45deg); background-color: var(--cream); }
+
+.mobile-menu {
+  position: fixed;
+  inset: var(--header-h) 0 0 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px var(--gutter) calc(32px + env(safe-area-inset-bottom));
+  background: var(--teal);
+  color: var(--cream);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.mobile-menu:focus { outline: none; }
+
+.mobile-menu nav { display: flex; flex-direction: column; }
+
+.mobile-menu nav a {
+  display: flex;
+  align-items: center;
+  min-height: 68px;
+  border-bottom: 1px solid rgba(255, 241, 216, 0.2);
+  font-family: var(--heading);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.mobile-menu nav a[aria-current="page"] { color: var(--orange); }
+.mobile-menu__contact { padding-top: 24px; font-size: 18px; }
+.mobile-menu__contact a { display: inline-block; padding: 10px 0; }
+
+html.menu-open { overflow: hidden; }
+
 /* Footer */
 
 site-footer { display: block; background: var(--teal); }
@@ -224,6 +298,9 @@ site-footer { display: block; background: var(--teal); }
 .section { padding-top: 104px; padding-bottom: 104px; }
 .section--lg { padding-top: 112px; padding-bottom: 112px; }
 .section--sand { background: var(--sand); }
+
+/* Sections whose spacing is set per page with --pt / --pb (scaled down on phones) */
+.pad { padding-top: var(--pt); padding-bottom: var(--pb); }
 
 /* Home */
 
@@ -339,7 +416,13 @@ site-footer { display: block; background: var(--teal); }
 
 .flavours-intro .lead { margin-top: 28px; max-width: 30em; }
 
-.jump-links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; }
+.jump-bar {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px var(--gutter) 72px;
+}
+
+.jump-links { display: flex; flex-wrap: wrap; gap: 10px; }
 
 .jump-links a {
   display: inline-flex;
@@ -644,21 +727,181 @@ site-footer { display: block; background: var(--teal); }
 
   /* Hover and press */
   .btn { transition: transform var(--motion-150) var(--ease-out); }
-  .btn:hover { transform: translateY(-2px); }
+  @media (hover: hover) { .btn:hover { transform: translateY(-2px); } }
   .btn:active { transform: translateY(0) scale(0.97); }
 
   .flavour-card > a { transition: transform var(--motion-300) var(--ease-out); }
-  .flavour-card > a:hover { transform: translateY(-8px) rotate(-1.5deg); }
+  @media (hover: hover) { .flavour-card > a:hover { transform: translateY(-8px) rotate(-1.5deg); } }
 
   .jump-links a { transition: transform var(--motion-150) var(--ease-out); }
-  .jump-links a:hover { transform: translateY(-2px); }
+  @media (hover: hover) { .jump-links a:hover { transform: translateY(-2px); } }
 
   .stepper button { transition: transform var(--motion-150) var(--ease-out); }
   .stepper button:active:not(:disabled) { transform: scale(0.85); }
+
+  .mobile-menu:not([hidden]) nav a { animation: var(--motion-300) var(--ease-out) both rise; }
+  .mobile-menu:not([hidden]) nav a:nth-child(2) { animation-delay: 40ms; }
+  .mobile-menu:not([hidden]) nav a:nth-child(3) { animation-delay: 80ms; }
+  .mobile-menu:not([hidden]) nav a:nth-child(4) { animation-delay: 120ms; }
+  .mobile-menu:not([hidden]) nav a:nth-child(5) { animation-delay: 160ms; }
 
   /* Feedback */
   .site-header .btn.is-bumped { animation: var(--motion-300) var(--ease-out) bump; }
   .status.is-new { animation: var(--motion-200) var(--ease-out) rise; }
   .bag__line.is-leaving { animation: var(--motion-150) var(--ease-in) forwards leave; pointer-events: none; }
   .faq details[open] p { animation: var(--motion-200) var(--ease-out) rise; }
+}
+
+/* ------------------------------------------------------------------
+   Phones (narrow: under 768px)
+   ------------------------------------------------------------------ */
+
+:root { --header-h: 68px; }
+
+@media (max-width: 767.98px) {
+  :root { --gutter: 20px; }
+
+  body { font-size: 17px; }
+  .lead { font-size: 19px; }
+  h2 { font-size: clamp(32px, 9vw, 40px); }
+
+  /* Section spacing: about 60% of desktop */
+  .section { padding-top: 64px; padding-bottom: 64px; }
+  .section--lg { padding-top: 72px; padding-bottom: 72px; }
+  .pad { padding-top: calc(var(--pt) * 0.6); padding-bottom: calc(var(--pb) * 0.6); }
+  .split { gap: 36px !important; }
+  .split > * { flex-basis: 100% !important; }
+
+  /* Header: sticky, compact, menu button instead of the link row */
+  site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    min-height: var(--header-h);
+  }
+  .site-header .wrap { flex-wrap: nowrap; height: var(--header-h); padding-top: 0; padding-bottom: 0; }
+  .site-header__logo img { height: 44px; }
+  .site-header nav { display: none; }
+  .site-header__compact { display: flex; }
+  .site-header .btn { min-height: 48px; padding: 0 18px; }
+
+  .btn--lg { font-size: 18px; padding: 0 22px; gap: 12px; white-space: nowrap; }
+
+  /* Main buttons fill the width so they are easy to hit and line up */
+  .hero__actions .btn,
+  .cta-band .btn,
+  .tasting .btn { width: 100%; justify-content: center; }
+
+  /* Home */
+  .hero .wrap { padding-top: 36px; padding-bottom: 40px; gap: 28px; }
+  .hero h1 { font-size: clamp(44px, 13vw, 56px); }
+  .hero .lead { margin-top: 16px; }
+  .hero__actions { margin-top: 24px; gap: 10px; }
+  .hero__pouches { flex-basis: 100%; max-width: 380px; }
+
+  .lime-claim { padding: 24px 16px 18px; font-size: 15px; letter-spacing: 0.18em; }
+  .claim-strip { font-size: 13px; letter-spacing: 0.3em; padding: 14px 16px 10px; }
+
+  .section-head { margin-bottom: 24px; }
+
+  /* The four flavours become a swipeable row; the next pouch peeks in */
+  .flavour-grid {
+    display: flex;
+    gap: 16px;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 8px var(--gutter) 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .flavour-grid::-webkit-scrollbar { display: none; }
+  .flavour-grid > .flavour-card { flex: 0 0 68%; scroll-snap-align: start; }
+  .flavour-card > a { padding: 0 6%; }
+  .flavour-card h3 { margin-top: 16px; font-size: 26px; }
+  .flavour-card p { font-size: 16px; }
+
+  .pairings { gap: 24px; }
+  .pairings dd { font-size: 23px; }
+
+  .tasting h2 { font-size: clamp(36px, 10vw, 44px); }
+  .tasting__pouches { max-width: 100%; }
+
+  /* Flavours page: the chip bar stays pinned under the header */
+  .flavours-intro h1 { font-size: clamp(44px, 13vw, 56px); }
+  .flavours-intro .lead { margin-top: 18px; }
+
+  .jump-bar {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 30;
+    padding: 10px 0;
+    margin-top: 20px;
+    background: var(--cream);
+    box-shadow: 0 1px 0 rgba(0, 71, 74, 0.15);
+  }
+  .jump-links {
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 4px var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .jump-links::-webkit-scrollbar { display: none; }
+  .jump-links a { flex: 0 0 auto; min-height: 44px; padding: 0 16px; font-size: 16px; white-space: nowrap; }
+  .jump-links a[aria-current] { box-shadow: 0 0 0 2px var(--cream), 0 0 0 4px var(--chip); }
+
+  /* Anything linked to by #id lands below the sticky header (and the chip bar on the flavours page) */
+  [id] { scroll-margin-top: calc(var(--header-h) + 8px); }
+  .flavour-band { scroll-margin-top: calc(var(--header-h) + 64px); }
+  .flavour-band .wrap { display: block; padding-top: 48px; padding-bottom: 56px; }
+  /* Plain block layout: inside the vertical flex stack the pouch box came out shorter than the image */
+  .flavour-band__pouch { display: block; flex: none; }
+  .flavour-band__pouch > div { width: 58%; max-width: 240px; margin: 0 auto; }
+  .flavour-band__copy { margin-top: 24px; }
+  .flavour-band h2 { font-size: clamp(44px, 13vw, 60px); }
+  .flavour-band__desc { margin-top: 14px; font-size: 19px; }
+  .flavour-band__pairing { font-size: 17px; }
+  .flavour-band .buy { margin-top: 24px; gap: 12px; }
+  .flavour-band__price { flex-basis: 100%; font-size: 21px; }
+  .flavour-band .stepper--lg button { width: 46px; }
+  .flavour-band .btn { flex: 1; padding: 0 18px; gap: 12px; justify-content: space-between; white-space: nowrap; }
+
+  .every-bag { grid-template-columns: 1fr; }
+
+  /* About */
+  .seven { flex: 0 1 180px !important; max-width: 180px; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
+  .steps__num { font-size: 48px; }
+  .steps h3 { font-size: 20px; }
+  .steps p { font-size: 16px; }
+  .people { grid-template-columns: 1fr; gap: 36px; }
+  .people .slot { aspect-ratio: 4 / 3; }
+
+  /* Where to buy */
+  .form { padding: 24px 20px; }
+  .form .btn { align-self: stretch; }
+  .faq summary { font-size: 19px; min-height: 44px; }
+
+  /* Bag: thumbnail beside the name; stepper and line total on the row below */
+  .bag__line {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    grid-template-areas: "thumb name name" "thumb stepper total";
+    gap: 10px 16px;
+    padding: 18px 0;
+  }
+  .bag__thumb { grid-area: thumb; width: 56px; align-self: start; }
+  .bag__name { grid-area: name; }
+  .bag__name strong { font-size: 23px; }
+  .bag__line .stepper { grid-area: stepper; justify-self: start; }
+  .bag__total { grid-area: total; min-width: 0; align-self: center; font-size: 19px; }
+  .summary { padding: 24px 20px 28px; margin-inline: calc(-1 * var(--gutter)); }
+  .empty .btn { width: 100%; }
+
+  /* Footer */
+  .site-footer__main { padding-top: 40px; padding-bottom: calc(40px + env(safe-area-inset-bottom)); gap: 24px 48px; }
+  .site-footer__brand img { height: 80px; }
+  .site-footer__col > * { padding: 10px 0; }
 }

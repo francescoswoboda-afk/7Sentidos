@@ -1,0 +1,9 @@
+// Cloudflare Workers config: serves the static site in public/ and nothing else.
+// design/ (brand PDFs, previews, notes) is never uploaded.
+{
+  "name": "7sentidos",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./public"
+  }
+}

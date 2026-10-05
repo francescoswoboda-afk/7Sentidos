@@ -17,6 +17,6 @@ The approved design is in `design/`. Read `design/README.md` before changing any
 
 ## Site
 
-- The website is in `public/`, and only that folder is deployed (Cloudflare Pages, output directory `public`, no build command). `design/` is reference material and is never published.
+- The website is in `public/`, and only that folder is deployed: a Cloudflare Worker named `7sentidos` serves it as static assets, set in `wrangler.jsonc`. Every push to `main` redeploys. `design/` is reference material and is never published.
 - Images the site uses are copied from `design/assets/` into `public/assets/`.
 - Run it locally with `npm run start` (http://localhost:3000).

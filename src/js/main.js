@@ -316,9 +316,10 @@ const App = (() => {
   // perch at the end of a panel title (cart, product sheet, checkout)
   function birdTo(el) {
     if (!el) return;
-    setTimeout(() => Bird.perchOn({ el, get: () => { const r = el.getBoundingClientRect(); const t = el.firstChild && el.firstChild.nodeType === 3 ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); })() : r; return { x: Math.min(t.right + Bird.state.size * .45, innerWidth - Bird.state.size * .5), y: t.bottom - 4 }; } }, { force: true }), 380);
+    Bird.setMini(true);
+    setTimeout(() => Bird.perchOn({ el, get: () => { const r = el.getBoundingClientRect(); const t = el.firstChild && el.firstChild.nodeType === 3 ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); })() : r; return { x: Math.min(t.right + Bird.state.size * .45, innerWidth - Bird.state.size * .5), y: t.top >= 0 ? Math.max(t.bottom - 4, Bird.state.size * .92 + 8) : t.bottom - 4 }; } }, { force: true }), 380);
   }
-  function birdHome() { setTimeout(() => { const b = bestPerch(); if (b) Bird.perchOn(b, { force: true }); }, 300); }
+  function birdHome() { Bird.setMini(false); setTimeout(() => { const b = bestPerch(); if (b) Bird.perchOn(b, { force: true }); }, 300); }
   return { init, bestPerch, birdTo, birdHome, lenis: null };
 })();
 

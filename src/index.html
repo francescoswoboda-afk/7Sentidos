@@ -48,7 +48,7 @@
   </div>
 </header>
 
-<div class="menu" id="menu" hidden>
+<div class="menu" id="menu" data-lenis-prevent hidden>
   <nav aria-label="Mobile">
     <a href="#shop" data-i18n="nav.shop">Shop</a>
     <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
@@ -293,7 +293,7 @@
 <!-- ============ OVERLAYS ============ -->
 <div class="scrim" id="scrim" hidden></div>
 
-<aside class="drawer" id="cart" aria-labelledby="cartTitle" role="dialog" aria-modal="true" hidden>
+<aside class="drawer" id="cart" data-lenis-prevent aria-labelledby="cartTitle" role="dialog" aria-modal="true" hidden>
   <div class="drawer-head">
     <h2 id="cartTitle" data-i18n="cart.title">Your cart</h2>
     <button type="button" class="icon-btn close" data-close aria-label="Close cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
@@ -312,12 +312,12 @@
   </div>
 </aside>
 
-<div class="sheet" id="product" role="dialog" aria-modal="true" aria-labelledby="pdTitle" hidden>
+<div class="sheet" id="product" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="pdTitle" hidden>
   <button type="button" class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="sheet-body" id="productBody"></div>
 </div>
 
-<div class="checkout" id="checkout" role="dialog" aria-modal="true" aria-labelledby="coTitle" hidden>
+<div class="checkout" id="checkout" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="coTitle" hidden>
   <div class="co-inner">
     <div class="co-head">
       <h2 id="coTitle" data-i18n="co.title">Checkout</h2>
@@ -333,7 +333,7 @@
   </div>
 </div>
 
-<div class="sheet legal" id="legal" role="dialog" aria-modal="true" aria-labelledby="legalTitle" hidden>
+<div class="sheet legal" id="legal" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="legalTitle" hidden>
   <button type="button" class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="sheet-body" id="legalBody"></div>
 </div>

@@ -562,7 +562,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 .cookies .btn-solid { --b-bg: var(--cream); --b-fg: var(--ink); }
 .cookies .btn-line { --b-bg: var(--cream); }
 
-.toast { opacity: 0; visibility: hidden; position: fixed; z-index: 96; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 140%); background: var(--ink); color: var(--cream); padding: 13px 20px 11px; border-radius: 999px; font-family: var(--display); font-weight: 600; letter-spacing: .06em; font-size: .9rem; transition: transform .5s var(--ease-out); max-width: calc(100% - 32px); text-align: center; pointer-events: none; }
+.toast { opacity: 0; visibility: hidden; position: fixed; z-index: 89; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 140%); background: var(--ink); color: var(--cream); padding: 13px 20px 11px; border-radius: 999px; font-family: var(--display); font-weight: 600; letter-spacing: .06em; font-size: .9rem; transition: transform .5s var(--ease-out); max-width: calc(100% - 32px); text-align: center; pointer-events: none; }
 .toast.show { transform: translate(-50%, 0); opacity: 1; visibility: visible; }
 
 /* ---------- bird ---------- */
@@ -643,8 +643,8 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   .co-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
   .co-nav .btn-line { flex: 0 0 auto; padding-inline: 18px; }
   .co-nav .btn-solid { min-width: 0; white-space: normal; text-align: center; line-height: 1.25; letter-spacing: .1em; font-size: .74rem; }
-  .toast { top: calc(var(--nav-h) + 22px + env(safe-area-inset-top, 0px)); bottom: auto; transform: translate(-50%, -30px); }
-  .toast.show { transform: translate(-50%, 0); }
+  .toast { top: calc(var(--nav-h) + 22px + env(safe-area-inset-top, 0px)); bottom: auto; left: max(16px, env(safe-area-inset-left, 0px)); max-width: calc(100% - 140px); text-align: left; transform: translate(0, -30px); }
+  .toast.show { transform: translate(0, 0); }
   .co-main { grid-template-columns: minmax(0, 1fr); }
   .co-summary { position: static; order: -1; padding: 14px 18px; }
   .co-steps li { font-size: .62rem; letter-spacing: .08em; }
@@ -719,7 +719,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   </div>
 </header>
 
-<div class="menu" id="menu" hidden>
+<div class="menu" id="menu" data-lenis-prevent hidden>
   <nav aria-label="Mobile">
     <a href="#shop" data-i18n="nav.shop">Shop</a>
     <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
@@ -964,7 +964,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 <!-- ============ OVERLAYS ============ -->
 <div class="scrim" id="scrim" hidden></div>
 
-<aside class="drawer" id="cart" aria-labelledby="cartTitle" role="dialog" aria-modal="true" hidden>
+<aside class="drawer" id="cart" data-lenis-prevent aria-labelledby="cartTitle" role="dialog" aria-modal="true" hidden>
   <div class="drawer-head">
     <h2 id="cartTitle" data-i18n="cart.title">Your cart</h2>
     <button type="button" class="icon-btn close" data-close aria-label="Close cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
@@ -983,12 +983,12 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   </div>
 </aside>
 
-<div class="sheet" id="product" role="dialog" aria-modal="true" aria-labelledby="pdTitle" hidden>
+<div class="sheet" id="product" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="pdTitle" hidden>
   <button type="button" class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="sheet-body" id="productBody"></div>
 </div>
 
-<div class="checkout" id="checkout" role="dialog" aria-modal="true" aria-labelledby="coTitle" hidden>
+<div class="checkout" id="checkout" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="coTitle" hidden>
   <div class="co-inner">
     <div class="co-head">
       <h2 id="coTitle" data-i18n="co.title">Checkout</h2>
@@ -1004,7 +1004,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   </div>
 </div>
 
-<div class="sheet legal" id="legal" role="dialog" aria-modal="true" aria-labelledby="legalTitle" hidden>
+<div class="sheet legal" id="legal" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="legalTitle" hidden>
   <button type="button" class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="sheet-body" id="legalBody"></div>
 </div>
@@ -1688,7 +1688,10 @@ const Bird = (() => {
     }, { passive: true });
     requestAnimationFrame(tick);
   }
-  function setSize() { S.size = innerWidth < 700 ? 84 : innerWidth < 1100 ? 104 : 124; el.style.setProperty('--bird-w', S.size + 'px'); }
+  let sizeMul = 1, sizeT = 124;
+  function setSize() { sizeT = (innerWidth < 700 ? 84 : innerWidth < 1100 ? 104 : 124) * sizeMul; if (S.size === 120) { S.size = sizeT; el.style.setProperty('--bird-w', sizeT + 'px'); } }
+  // inside panels (cart, product sheet, checkout) the bird shrinks so it fits beside the title
+  function setMini(on) { sizeMul = on ? .62 : 1; setSize(); }
   function setAccent(c) {
     el.style.setProperty('--b-acc', c.band);
     el.style.setProperty('--b-acc-d', Util.mix(c.band, '#13333a', .3));
@@ -1750,6 +1753,8 @@ const Bird = (() => {
       nextIdle -= dt;
       if (nextIdle <= 0) { idle(); nextIdle = rand(3.5, 7.5); }
     }
+    // size eases toward its target (smaller inside panels)
+    if (Math.abs(sizeT - S.size) > .3) { S.size += (sizeT - S.size) * k(dt, 8); el.style.setProperty('--bird-w', S.size.toFixed(1) + 'px'); }
     // breathing
     const breathe = Math.sin(t * 2.2) * .012;
     S.scale = 1 + breathe;
@@ -1926,7 +1931,8 @@ const Bird = (() => {
     await flyTo(r0, { after: 'busy', speed: .7, lift: .6 });
     parts.carryImg.setAttribute('href', imgSrc); parts.carry.setAttribute('transform', 'translate(106 176)'); parts.carry.setAttribute('opacity', '1');
     hopOnce(10); await wait(160);
-    const r1 = () => { const r = toEl.getBoundingClientRect(); return { x: r.left + r.width * .5, y: r.top - 4 }; };
+    // land just under the cart button so the whole bird stays on screen
+    const r1 = () => { const r = toEl.getBoundingClientRect(); return { x: r.left + r.width * .5, y: Math.max(r.top - 4, S.size * .92 + 8) }; };
     await flyTo(r1, { after: 'busy', speed: .75, lift: .8 });
     parts.carry.setAttribute('opacity', '0');
     Cart.bump(); say(I18N.s().bird.cart, 1400); Sound.pluck(784);
@@ -2007,7 +2013,7 @@ const Bird = (() => {
   }
 
   return {
-    build, perchOn, currentPerch, flyTo, track, untrack, hop, crack, celebrate, say, sleep, toss, showBeak, wave, deliver, setAccent, burst, happy,
+    build, setMini, perchOn, currentPerch, flyTo, track, untrack, hop, crack, celebrate, say, sleep, toss, showBeak, wave, deliver, setAccent, burst, happy,
     get busy() { return busy || delivering; }, set busy(v) { busy = v; },
     get mode() { return mode; }, set mode(v) { mode = v; }, get state() { return S; },
   };
@@ -3565,9 +3571,10 @@ const App = (() => {
   // perch at the end of a panel title (cart, product sheet, checkout)
   function birdTo(el) {
     if (!el) return;
-    setTimeout(() => Bird.perchOn({ el, get: () => { const r = el.getBoundingClientRect(); const t = el.firstChild && el.firstChild.nodeType === 3 ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); })() : r; return { x: Math.min(t.right + Bird.state.size * .45, innerWidth - Bird.state.size * .5), y: t.bottom - 4 }; } }, { force: true }), 380);
+    Bird.setMini(true);
+    setTimeout(() => Bird.perchOn({ el, get: () => { const r = el.getBoundingClientRect(); const t = el.firstChild && el.firstChild.nodeType === 3 ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); })() : r; return { x: Math.min(t.right + Bird.state.size * .45, innerWidth - Bird.state.size * .5), y: t.top >= 0 ? Math.max(t.bottom - 4, Bird.state.size * .92 + 8) : t.bottom - 4 }; } }, { force: true }), 380);
   }
-  function birdHome() { setTimeout(() => { const b = bestPerch(); if (b) Bird.perchOn(b, { force: true }); }, 300); }
+  function birdHome() { Bird.setMini(false); setTimeout(() => { const b = bestPerch(); if (b) Bird.perchOn(b, { force: true }); }, 300); }
   return { init, bestPerch, birdTo, birdHome, lenis: null };
 })();
 

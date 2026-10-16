@@ -109,7 +109,10 @@ const Bird = (() => {
     }, { passive: true });
     requestAnimationFrame(tick);
   }
-  function setSize() { S.size = innerWidth < 700 ? 84 : innerWidth < 1100 ? 104 : 124; el.style.setProperty('--bird-w', S.size + 'px'); }
+  let sizeMul = 1, sizeT = 124;
+  function setSize() { sizeT = (innerWidth < 700 ? 84 : innerWidth < 1100 ? 104 : 124) * sizeMul; if (S.size === 120) { S.size = sizeT; el.style.setProperty('--bird-w', sizeT + 'px'); } }
+  // inside panels (cart, product sheet, checkout) the bird shrinks so it fits beside the title
+  function setMini(on) { sizeMul = on ? .62 : 1; setSize(); }
   function setAccent(c) {
     el.style.setProperty('--b-acc', c.band);
     el.style.setProperty('--b-acc-d', Util.mix(c.band, '#13333a', .3));
@@ -171,6 +174,8 @@ const Bird = (() => {
       nextIdle -= dt;
       if (nextIdle <= 0) { idle(); nextIdle = rand(3.5, 7.5); }
     }
+    // size eases toward its target (smaller inside panels)
+    if (Math.abs(sizeT - S.size) > .3) { S.size += (sizeT - S.size) * k(dt, 8); el.style.setProperty('--bird-w', S.size.toFixed(1) + 'px'); }
     // breathing
     const breathe = Math.sin(t * 2.2) * .012;
     S.scale = 1 + breathe;
@@ -347,7 +352,8 @@ const Bird = (() => {
     await flyTo(r0, { after: 'busy', speed: .7, lift: .6 });
     parts.carryImg.setAttribute('href', imgSrc); parts.carry.setAttribute('transform', 'translate(106 176)'); parts.carry.setAttribute('opacity', '1');
     hopOnce(10); await wait(160);
-    const r1 = () => { const r = toEl.getBoundingClientRect(); return { x: r.left + r.width * .5, y: r.top - 4 }; };
+    // land just under the cart button so the whole bird stays on screen
+    const r1 = () => { const r = toEl.getBoundingClientRect(); return { x: r.left + r.width * .5, y: Math.max(r.top - 4, S.size * .92 + 8) }; };
     await flyTo(r1, { after: 'busy', speed: .75, lift: .8 });
     parts.carry.setAttribute('opacity', '0');
     Cart.bump(); say(I18N.s().bird.cart, 1400); Sound.pluck(784);
@@ -428,7 +434,7 @@ const Bird = (() => {
   }
 
   return {
-    build, perchOn, currentPerch, flyTo, track, untrack, hop, crack, celebrate, say, sleep, toss, showBeak, wave, deliver, setAccent, burst, happy,
+    build, setMini, perchOn, currentPerch, flyTo, track, untrack, hop, crack, celebrate, say, sleep, toss, showBeak, wave, deliver, setAccent, burst, happy,
     get busy() { return busy || delivering; }, set busy(v) { busy = v; },
     get mode() { return mode; }, set mode(v) { mode = v; }, get state() { return S; },
   };

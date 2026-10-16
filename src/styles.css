@@ -547,7 +547,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 .cookies .btn-solid { --b-bg: var(--cream); --b-fg: var(--ink); }
 .cookies .btn-line { --b-bg: var(--cream); }
 
-.toast { opacity: 0; visibility: hidden; position: fixed; z-index: 96; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 140%); background: var(--ink); color: var(--cream); padding: 13px 20px 11px; border-radius: 999px; font-family: var(--display); font-weight: 600; letter-spacing: .06em; font-size: .9rem; transition: transform .5s var(--ease-out); max-width: calc(100% - 32px); text-align: center; pointer-events: none; }
+.toast { opacity: 0; visibility: hidden; position: fixed; z-index: 89; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 140%); background: var(--ink); color: var(--cream); padding: 13px 20px 11px; border-radius: 999px; font-family: var(--display); font-weight: 600; letter-spacing: .06em; font-size: .9rem; transition: transform .5s var(--ease-out); max-width: calc(100% - 32px); text-align: center; pointer-events: none; }
 .toast.show { transform: translate(-50%, 0); opacity: 1; visibility: visible; }
 
 /* ---------- bird ---------- */
@@ -628,8 +628,8 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   .co-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
   .co-nav .btn-line { flex: 0 0 auto; padding-inline: 18px; }
   .co-nav .btn-solid { min-width: 0; white-space: normal; text-align: center; line-height: 1.25; letter-spacing: .1em; font-size: .74rem; }
-  .toast { top: calc(var(--nav-h) + 22px + env(safe-area-inset-top, 0px)); bottom: auto; transform: translate(-50%, -30px); }
-  .toast.show { transform: translate(-50%, 0); }
+  .toast { top: calc(var(--nav-h) + 22px + env(safe-area-inset-top, 0px)); bottom: auto; left: max(16px, env(safe-area-inset-left, 0px)); max-width: calc(100% - 140px); text-align: left; transform: translate(0, -30px); }
+  .toast.show { transform: translate(0, 0); }
   .co-main { grid-template-columns: minmax(0, 1fr); }
   .co-summary { position: static; order: -1; padding: 14px 18px; }
   .co-steps li { font-size: .62rem; letter-spacing: .08em; }

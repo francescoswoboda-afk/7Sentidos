@@ -1,22 +1,24 @@
-# 7 Sentidos
+# Araçari
 
-Website for 7 Sentidos, a father-and-son business selling Brazilian pecans dipped in chocolate and caramel, delivered in the Netherlands.
+Website and shop for Araçari, a father-and-son business importing flavoured Brazilian pecans from El Porvenir Farms (Santa Cruz do Sul, Brazil) to the Netherlands.
 
-## Design
+## Brand
 
-The approved design is in `design/`. Read `design/README.md` before changing anything visual. It lists the pages, colours, type, components, behaviour and the facts used in the copy.
+The brand kit is in `design/`. Read `design/BRAND.md` before changing anything visual or any copy. `design/flavours.json` holds the pack colours; the pack images, wordmark and toucan illustrations are in `design/packs`, `design/logo` and `design/illustrations`.
 
-- `design/preview/*.html` are static reference pages. Open them in a browser to see the target. Build the design in the site's own stack; do not paste the preview HTML in as-is.
-- `design/assets/` holds the logo, pattern and pack shot as transparent PNGs.
-- Text in `[square brackets]` is a placeholder the owner still has to supply. Keep it visible, and do not invent facts to fill it.
+- Text in `[TBD]` or `[VERIFY]` is a placeholder the owners still have to supply or check. Keep it visible, and do not invent facts to fill it.
+- No fake reviews, awards, certifications, stock counts or health claims.
+- Prices use a comma: `€5,95`. Prices are placeholders while `DATA.pricesConfirmed` is `false`.
+- Copy is in English with a Dutch toggle; Dutch strings live in `src/js/i18n.js`.
 
-## Conventions
+## Code
 
-- Prices use a comma: `€5,95`.
-- Copy is in English.
+- `src/` is the source: `index.html`, `styles.css`, `js/` (loaded in the order listed in `build.js`) and `assets/` (600 px pack webps, wordmarks, icons).
+- `src/js/data.js` holds every flavour, product, bundle, price, shipping rule and pairing. Change shop data there only.
+- `npm run build` inlines everything into one self-contained `public/index.html`. Always rebuild after editing `src/`, and commit the rebuilt file.
+- `docs/DECISIONES.md` (Spanish) explains the design decisions; `docs/type-study/` is the typography study.
 
 ## Site
 
-- The website is in `public/`, and only that folder is deployed: a Cloudflare Worker named `7sentidos` serves it as static assets, set in `wrangler.jsonc`. Every push to `main` redeploys. `design/` is reference material and is never published.
-- Images the site uses are copied from `design/assets/` into `public/assets/`.
+- Only `public/` is deployed: a Cloudflare Worker serves it as static assets, set in `wrangler.jsonc`. Every push to `main` redeploys. `src/`, `design/` and `docs/` are never published.
 - Run it locally with `npm run start` (http://localhost:3000).

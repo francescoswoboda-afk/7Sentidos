@@ -1,0 +1,256 @@
+{
+  "brand": "Araçari",
+  "tagline": "Wildly good pecans",
+  "producer": "El Porvenir Farms, Santa Cruz do Sul, Rio Grande do Sul, Brazil",
+  "pack_size_g": 100,
+  "flavours": [
+    {
+      "slug": "salted-caramel",
+      "name": "Salted caramel",
+      "status": "core",
+      "colors": {
+        "body": "#e88028",
+        "strip": "#285c69",
+        "band": "#c1d04a",
+        "label_bg": "#13333a",
+        "label_ink": "#f4fbc4"
+      },
+      "notes": [
+        "slow roasted",
+        "real sea salt",
+        "glassy caramel"
+      ],
+      "images": {
+        "perched": {
+          "cutout_png": "packs/core/salted-caramel/aracari-salted-caramel-perched.png",
+          "cutout_webp": "packs/core/salted-caramel/aracari-salted-caramel-perched.webp",
+          "small_webp": "packs/core/salted-caramel/aracari-salted-caramel-perched-600.webp",
+          "photo_jpg": "packs/core/salted-caramel/aracari-salted-caramel-perched-photo.jpg"
+        },
+        "flying": {
+          "cutout_png": "packs/core/salted-caramel/aracari-salted-caramel-flying.png",
+          "cutout_webp": "packs/core/salted-caramel/aracari-salted-caramel-flying.webp",
+          "small_webp": "packs/core/salted-caramel/aracari-salted-caramel-flying-600.webp",
+          "photo_jpg": "packs/core/salted-caramel/aracari-salted-caramel-flying-photo.jpg"
+        }
+      }
+    },
+    {
+      "slug": "chocolate",
+      "name": "Chocolate",
+      "status": "core",
+      "colors": {
+        "body": "#4a221a",
+        "strip": "#a8662c",
+        "band": "#b4472b",
+        "label_bg": "#fbefd6",
+        "label_ink": "#3b1713"
+      },
+      "notes": [
+        "slow roasted",
+        "dark chocolate",
+        "hand dipped"
+      ],
+      "images": {
+        "perched": {
+          "cutout_png": "packs/core/chocolate/aracari-chocolate-perched.png",
+          "cutout_webp": "packs/core/chocolate/aracari-chocolate-perched.webp",
+          "small_webp": "packs/core/chocolate/aracari-chocolate-perched-600.webp",
+          "photo_jpg": "packs/core/chocolate/aracari-chocolate-perched-photo.jpg"
+        },
+        "flying": {
+          "cutout_png": "packs/core/chocolate/aracari-chocolate-flying.png",
+          "cutout_webp": "packs/core/chocolate/aracari-chocolate-flying.webp",
+          "small_webp": "packs/core/chocolate/aracari-chocolate-flying-600.webp",
+          "photo_jpg": "packs/core/chocolate/aracari-chocolate-flying-photo.jpg"
+        }
+      }
+    },
+    {
+      "slug": "chocolate-sea-salt",
+      "name": "Chocolate & sea salt",
+      "status": "core",
+      "colors": {
+        "body": "#1f5a5c",
+        "strip": "#113a3c",
+        "band": "#63d8da",
+        "label_bg": "#143f41",
+        "label_ink": "#d7f7f6"
+      },
+      "notes": [
+        "slow roasted",
+        "real sea salt",
+        "dark chocolate"
+      ],
+      "images": {
+        "perched": {
+          "cutout_png": "packs/core/chocolate-sea-salt/aracari-chocolate-sea-salt-perched.png",
+          "cutout_webp": "packs/core/chocolate-sea-salt/aracari-chocolate-sea-salt-perched.webp",
+          "small_webp": "packs/core/chocolate-sea-salt/aracari-chocolate-sea-salt-perched-600.webp",
+          "photo_jpg": "packs/core/chocolate-sea-salt/aracari-chocolate-sea-salt-perched-photo.jpg"
+        },
+        "flying": {
+          "cutout_png": "packs/core/chocolate-sea-salt/aracari-chocolate-sea-salt-flying.png",
+          "cutout_webp": "packs/core/chocolate-sea-salt/aracari-chocolate-sea-salt-flying.webp",
+          "small_webp": "packs/core/chocolate-sea-salt/aracari-chocolate-sea-salt-flying-600.webp",
+          "photo_jpg": "packs/core/chocolate-sea-salt/aracari-chocolate-sea-salt-flying-photo.jpg"
+        }
+      }
+    },
+    {
+      "slug": "caramel",
+      "name": "Caramel",
+      "status": "core",
+      "colors": {
+        "body": "#e6d2a8",
+        "strip": "#4b2a1a",
+        "band": "#e17c20",
+        "label_bg": "#46210f",
+        "label_ink": "#fbefd6"
+      },
+      "notes": [
+        "slow roasted",
+        "golden caramel",
+        "glassy shell"
+      ],
+      "images": {
+        "perched": {
+          "cutout_png": "packs/core/caramel/aracari-caramel-perched.png",
+          "cutout_webp": "packs/core/caramel/aracari-caramel-perched.webp",
+          "small_webp": "packs/core/caramel/aracari-caramel-perched-600.webp",
+          "photo_jpg": "packs/core/caramel/aracari-caramel-perched-photo.jpg"
+        },
+        "flying": {
+          "cutout_png": "packs/core/caramel/aracari-caramel-flying.png",
+          "cutout_webp": "packs/core/caramel/aracari-caramel-flying.webp",
+          "small_webp": "packs/core/caramel/aracari-caramel-flying-600.webp",
+          "photo_jpg": "packs/core/caramel/aracari-caramel-flying-photo.jpg"
+        }
+      }
+    },
+    {
+      "slug": "doce-de-leite",
+      "name": "Doce de leite",
+      "status": "concept",
+      "colors": {
+        "body": "#c08243",
+        "strip": "#5a2f17",
+        "band": "#f2dfb6",
+        "label_bg": "#5a2f17",
+        "label_ink": "#fbefd6"
+      },
+      "notes": [
+        "slow roasted",
+        "doce de leite",
+        "half dipped"
+      ],
+      "images": {
+        "perched": {
+          "cutout_png": "packs/concept/doce-de-leite/aracari-doce-de-leite-perched.png",
+          "cutout_webp": "packs/concept/doce-de-leite/aracari-doce-de-leite-perched.webp",
+          "small_webp": "packs/concept/doce-de-leite/aracari-doce-de-leite-perched-600.webp",
+          "photo_jpg": "packs/concept/doce-de-leite/aracari-doce-de-leite-perched-photo.jpg"
+        },
+        "flying": {
+          "cutout_png": "packs/concept/doce-de-leite/aracari-doce-de-leite-flying.png",
+          "cutout_webp": "packs/concept/doce-de-leite/aracari-doce-de-leite-flying.webp",
+          "small_webp": "packs/concept/doce-de-leite/aracari-doce-de-leite-flying-600.webp",
+          "photo_jpg": "packs/concept/doce-de-leite/aracari-doce-de-leite-flying-photo.jpg"
+        }
+      }
+    },
+    {
+      "slug": "cinnamon-sugar",
+      "name": "Cinnamon sugar",
+      "status": "concept",
+      "colors": {
+        "body": "#93301f",
+        "strip": "#4a1410",
+        "band": "#f2b46a",
+        "label_bg": "#4a1410",
+        "label_ink": "#fbefd6"
+      },
+      "notes": [
+        "slow roasted",
+        "real cinnamon",
+        "sugar crust"
+      ],
+      "images": {
+        "perched": {
+          "cutout_png": "packs/concept/cinnamon-sugar/aracari-cinnamon-sugar-perched.png",
+          "cutout_webp": "packs/concept/cinnamon-sugar/aracari-cinnamon-sugar-perched.webp",
+          "small_webp": "packs/concept/cinnamon-sugar/aracari-cinnamon-sugar-perched-600.webp",
+          "photo_jpg": "packs/concept/cinnamon-sugar/aracari-cinnamon-sugar-perched-photo.jpg"
+        },
+        "flying": {
+          "cutout_png": "packs/concept/cinnamon-sugar/aracari-cinnamon-sugar-flying.png",
+          "cutout_webp": "packs/concept/cinnamon-sugar/aracari-cinnamon-sugar-flying.webp",
+          "small_webp": "packs/concept/cinnamon-sugar/aracari-cinnamon-sugar-flying-600.webp",
+          "photo_jpg": "packs/concept/cinnamon-sugar/aracari-cinnamon-sugar-flying-photo.jpg"
+        }
+      }
+    },
+    {
+      "slug": "coffee-chocolate",
+      "name": "Coffee & chocolate",
+      "status": "concept",
+      "colors": {
+        "body": "#33201a",
+        "strip": "#a67a3c",
+        "band": "#7d4a2c",
+        "label_bg": "#fbefd6",
+        "label_ink": "#2e1d18"
+      },
+      "notes": [
+        "slow roasted",
+        "real coffee",
+        "dark chocolate"
+      ],
+      "images": {
+        "perched": {
+          "cutout_png": "packs/concept/coffee-chocolate/aracari-coffee-chocolate-perched.png",
+          "cutout_webp": "packs/concept/coffee-chocolate/aracari-coffee-chocolate-perched.webp",
+          "small_webp": "packs/concept/coffee-chocolate/aracari-coffee-chocolate-perched-600.webp",
+          "photo_jpg": "packs/concept/coffee-chocolate/aracari-coffee-chocolate-perched-photo.jpg"
+        },
+        "flying": {
+          "cutout_png": "packs/concept/coffee-chocolate/aracari-coffee-chocolate-flying.png",
+          "cutout_webp": "packs/concept/coffee-chocolate/aracari-coffee-chocolate-flying.webp",
+          "small_webp": "packs/concept/coffee-chocolate/aracari-coffee-chocolate-flying-600.webp",
+          "photo_jpg": "packs/concept/coffee-chocolate/aracari-coffee-chocolate-flying-photo.jpg"
+        }
+      }
+    },
+    {
+      "slug": "honey-sea-salt",
+      "name": "Honey & sea salt",
+      "status": "concept",
+      "colors": {
+        "body": "#e0a00c",
+        "strip": "#6a4208",
+        "band": "#fff0b0",
+        "label_bg": "#6a4208",
+        "label_ink": "#fff3c4"
+      },
+      "notes": [
+        "slow roasted",
+        "real sea salt",
+        "golden honey"
+      ],
+      "images": {
+        "perched": {
+          "cutout_png": "packs/concept/honey-sea-salt/aracari-honey-sea-salt-perched.png",
+          "cutout_webp": "packs/concept/honey-sea-salt/aracari-honey-sea-salt-perched.webp",
+          "small_webp": "packs/concept/honey-sea-salt/aracari-honey-sea-salt-perched-600.webp",
+          "photo_jpg": "packs/concept/honey-sea-salt/aracari-honey-sea-salt-perched-photo.jpg"
+        },
+        "flying": {
+          "cutout_png": "packs/concept/honey-sea-salt/aracari-honey-sea-salt-flying.png",
+          "cutout_webp": "packs/concept/honey-sea-salt/aracari-honey-sea-salt-flying.webp",
+          "small_webp": "packs/concept/honey-sea-salt/aracari-honey-sea-salt-flying-600.webp",
+          "photo_jpg": "packs/concept/honey-sea-salt/aracari-honey-sea-salt-flying-photo.jpg"
+        }
+      }
+    }
+  ]
+}

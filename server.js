@@ -38,5 +38,5 @@ http.createServer((req, res) => {
     res.end(data);
   });
 }).listen(port, () => {
-  console.log(`7 Sentidos running at http://localhost:${port}`);
+  console.log(`Araçari running at http://localhost:${port}`);
 });

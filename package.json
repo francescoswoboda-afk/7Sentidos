@@ -1,9 +1,10 @@
 {
-  "name": "7sentidos",
+  "name": "aracari",
   "version": "0.1.0",
   "private": true,
-  "description": "7 Sentidos website: dipped pecans",
+  "description": "Araçari website and shop: flavoured Brazilian pecans",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "node build.js"
   }
 }

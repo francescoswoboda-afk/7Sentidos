@@ -1,5 +1,5 @@
 // Cloudflare Workers config: serves the static site in public/ and nothing else.
-// design/ (brand PDFs, previews, notes) is never uploaded.
+// public/index.html is built from src/ with `npm run build`; src/, design/ and docs/ are never uploaded.
 {
   "name": "7sentidos",
   "compatibility_date": "2026-10-01",

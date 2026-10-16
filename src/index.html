@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Araçari Pecans</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#e88028">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/touch-icon.png">
+<meta name="description" content="Araçari: flavoured pecans from El Porvenir Farms in the south of Brazil, delivered in the Netherlands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Josefin+Sans:wght@300..700&family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,400&display=swap">
+<!--STYLES-->
+</head>
+<body>
+<a class="skip" href="#shop" data-i18n="skip">Skip to the shop</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a class="nav-logo" href="#top" aria-label="Araçari, back to top">
+    <img src="assets/aracari-wordmark-dark.svg" alt="Araçari" width="144" height="36">
+  </a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#shop" data-i18n="nav.shop">Shop</a>
+    <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
+    <a href="#origin" data-i18n="nav.origin">Origin</a>
+    <a href="#family" data-i18n="nav.family">Family</a>
+    <a href="#retail" data-i18n="nav.retail">For shops</a>
+  </nav>
+  <div class="nav-tools">
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" class="lang-btn" data-lang="nl" aria-pressed="false">NL</button>
+    </div>
+    <button type="button" class="icon-btn" id="soundBtn" aria-pressed="false" aria-label="Sound off. Turn sound on" title="Sound">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="wave1" d="M15.5 9a4 4 0 0 1 0 6"/><path class="wave2" d="M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="mute" d="M16 9.5l5 5m0-5l-5 5"/></svg>
+    </button>
+    <button type="button" class="cart-btn" id="cartBtn" aria-controls="cart" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.3 11.2a2 2 0 0 1-2 1.8H8.3a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+      <span class="cart-label" data-i18n="nav.cart">Cart</span>
+      <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+    </button>
+    <button type="button" class="icon-btn menu-btn" id="menuBtn" aria-controls="menu" aria-expanded="false" aria-label="Menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Mobile">
+    <a href="#shop" data-i18n="nav.shop">Shop</a>
+    <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
+    <a href="#origin" data-i18n="nav.origin">Origin</a>
+    <a href="#nut" data-i18n="nav.nut">Crack one</a>
+    <a href="#bird" data-i18n="nav.bird">The bird</a>
+    <a href="#family" data-i18n="nav.family">Family</a>
+    <a href="#retail" data-i18n="nav.retail">For shops</a>
+  </nav>
+</div>
+
+<main id="top">
+<!-- ============ HERO ============ -->
+<section class="hero world" id="hero" aria-labelledby="heroTitle">
+  <div class="hero-swirl" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow" data-i18n="hero.eyebrow">Brazilian pecans · El Porvenir Farms</p>
+      <h1 class="display split" id="heroTitle" data-i18n="hero.title">Wildly good pecans</h1>
+      <p class="lead" data-i18n="hero.lead">Grown in the far south of Brazil, where winters are cold enough for pecans. Roasted, coated in eight flavours and brought to the Netherlands by a father and son.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid magnetic" href="#shop" data-i18n="hero.cta">Shop now</a>
+        <a class="btn btn-line magnetic" href="#pairing" data-i18n="hero.cta2">Find your pairing</a>
+      </div>
+    </div>
+    <div class="hero-stage">
+      <div class="pack3d hero-pack" id="heroPack" data-perch="hero" data-perch-x="0.64" data-perch-y="0.035"></div>
+      <div class="hero-note" aria-hidden="true">
+        <span class="hn hn1"></span><span class="hn hn2"></span><span class="hn hn3"></span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-picker">
+    <p class="picker-label"><span data-i18n="hero.picker">Eight flavours</span> · <strong id="heroFlavourName">Salted caramel</strong></p>
+    <div class="swatches" id="heroSwatches" role="radiogroup" aria-label="Choose a flavour"></div>
+  </div>
+  <div class="strip" aria-hidden="true"><div class="strip-track"><span>EL PORVENIR FARMS · SANTA CRUZ DO SUL · RIO GRANDE DO SUL · BRAZIL → NEDERLAND ·&nbsp;</span><span>EL PORVENIR FARMS · SANTA CRUZ DO SUL · RIO GRANDE DO SUL · BRAZIL → NEDERLAND ·&nbsp;</span></div></div>
+</section>
+
+<!-- ============ ORIGIN ============ -->
+<section class="origin" id="origin" aria-labelledby="originTitle">
+  <div class="origin-pin">
+    <div class="origin-text">
+      <p class="eyebrow" data-i18n="origin.eyebrow">Origin · 29°43′ S</p>
+      <h2 class="h2 split" id="originTitle" data-i18n="origin.title">Four real seasons</h2>
+      <ol class="season-list">
+        <li class="season" data-step="0"><h3 data-i18n="origin.s1.t">Spring · September to November</h3><p data-i18n="origin.s1.p">Pecan trees wake up late. Long green catkins hang from the branches and the wind does the pollinating.</p></li>
+        <li class="season" data-step="1"><h3 data-i18n="origin.s2.t">Summer · December to February</h3><p data-i18n="origin.s2.p">Hot days in Rio Grande do Sul. The nuts grow inside green husks, out of sight.</p></li>
+        <li class="season" data-step="2"><h3 data-i18n="origin.s3.t">Autumn · the harvest</h3><p data-i18n="origin.s3.p">The husks split and the pecans drop. Harvest runs through the southern autumn. <span class="tbd">[VERIFY exact harvest months with El Porvenir]</span></p></li>
+        <li class="season" data-step="3"><h3 data-i18n="origin.s4.t">Winter · June to August</h3><p data-i18n="origin.s4.p">Bare branches and real cold. Pecans need that chill to rest, which is why they grow here, in the south of Brazil, and not in the tropics.</p></li>
+        <li class="season" data-step="4"><h3 data-i18n="origin.s5.t">10 687 km to your table</h3><p data-i18n="origin.s5.p">From Santa Cruz do Sul across the Atlantic to the Netherlands. Europe is next.</p></li>
+      </ol>
+    </div>
+    <div class="origin-stage" aria-hidden="true">
+      <svg class="orchard" id="orchard" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"></svg>
+      <svg class="map" id="map" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="season-dial" id="seasonDial"><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE NUT ============ -->
+<section class="nut" id="nut" aria-labelledby="nutTitle">
+  <div class="wrap nut-grid">
+    <div class="nut-copy">
+      <p class="eyebrow" data-i18n="nut.eyebrow">The nut</p>
+      <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Crack one open</h2>
+      <p class="lead" data-i18n="nut.lead">Under a thin, striped shell: two buttery halves, folded like a little brain. That is the part we roast and coat. Go on, crack a few.</p>
+      <dl class="nut-stats">
+        <div><dt data-i18n="nut.count">Cracked</dt><dd id="nutCount">0</dd></div>
+        <div><dt data-i18n="nut.best">Best streak</dt><dd id="nutBest">0</dd></div>
+      </dl>
+    </div>
+    <div class="nut-stage" data-perch="nut" data-perch-x="0.82" data-perch-y="0.02">
+      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it." role="img" tabindex="0"></canvas>
+      <p class="nut-hint" id="nutHint" data-i18n="nut.hint">Press and hold to crack · or tap three times</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOP ============ -->
+<section class="shop world" id="shop" aria-labelledby="shopTitle">
+  <div class="wrap">
+    <div class="shop-head">
+      <div>
+        <p class="eyebrow" data-i18n="shop.eyebrow">The shop · 100 g pouches</p>
+        <h2 class="h2 split" id="shopTitle" data-i18n="shop.title">Pick a colour</h2>
+      </div>
+      <p class="lead" data-i18n="shop.lead">Every flavour has its own pouch and its own mood. Turn a pack around to read the back.</p>
+    </div>
+    <ul class="ship-facts" id="shipFacts"></ul>
+    <p class="price-note" id="priceNote" hidden data-i18n="shop.priceNote">Prices shown are placeholders until launch. [TBD]</p>
+    <div class="product-grid" id="productGrid"></div>
+
+    <div class="bundles-head">
+      <p class="eyebrow" data-i18n="bundles.eyebrow">Boxes</p>
+      <h3 class="h2 h2-sm split" data-i18n="bundles.title">More than one pack</h3>
+    </div>
+    <div class="bundle-grid" id="bundleGrid"></div>
+  </div>
+</section>
+
+<!-- ============ PAIRING ============ -->
+<section class="pairing" id="pairing" aria-labelledby="pairTitle">
+  <div class="wrap pair-grid">
+    <div class="pair-copy">
+      <p class="eyebrow" data-i18n="pair.eyebrow">The pairing ritual</p>
+      <h2 class="h2 split" id="pairTitle" data-i18n="pair.title">What are you pouring tonight?</h2>
+      <p class="lead" data-i18n="pair.lead">Tell us what is in your glass or on the board. We will pour you a flavour.</p>
+      <div class="pair-tabs" role="tablist" aria-label="Wine or cheese">
+        <button type="button" role="tab" id="tabWine" aria-selected="true" aria-controls="pairOptions" data-kind="wine" data-i18n="pair.wine">In my glass</button>
+        <button type="button" role="tab" id="tabCheese" aria-selected="false" aria-controls="pairOptions" data-kind="cheese" data-i18n="pair.cheese">On the board</button>
+      </div>
+      <div class="pair-options" id="pairOptions" role="tabpanel" aria-labelledby="tabWine"></div>
+      <p class="small muted" data-i18n="pair.note">Our suggestions, to be confirmed at a proper tasting. [TBD]</p>
+    </div>
+    <div class="pair-stage" id="pairStage" aria-live="polite" data-perch="pair" data-perch-x="0.15" data-perch-y="0.02">
+      <svg class="pair-art" id="pairArt" viewBox="0 0 300 300" aria-hidden="true"></svg>
+      <div class="pair-result" id="pairResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE BIRD ============ -->
+<section class="birdfacts" id="bird" aria-labelledby="birdTitle">
+  <div class="wrap bird-grid">
+    <div>
+      <p class="eyebrow" data-i18n="bird.eyebrow">Meet the araçari</p>
+      <h2 class="h2 split" id="birdTitle" data-i18n="bird.title">The small toucan on the pack</h2>
+      <p class="lead" data-i18n="bird.lead">Araçaris are small, colourful toucans from the forests of South America, Brazil included. Ours is a cartoon, but the real ones are just as cheerful. Press a fact and our bird will show you.</p>
+      <p class="small muted" data-i18n="bird.verify">Every fact below is marked [VERIFY]: check them before launch.</p>
+    </div>
+    <ul class="facts" id="facts">
+      <li><button type="button" class="fact" data-act="sleep"><span class="fact-n">01</span><span data-i18n="bird.f1">They sleep in old tree holes, and fold their tail up over their back to fit. <span class="tbd">[VERIFY]</span></span></button></li>
+      <li><button type="button" class="fact" data-act="toss"><span class="fact-n">02</span><span data-i18n="bird.f2">They eat mostly fruit, and toss food in the air to catch it in their bill. <span class="tbd">[VERIFY]</span></span></button></li>
+      <li><button type="button" class="fact" data-act="beak"><span class="fact-n">03</span><span data-i18n="bird.f3">That big bill is light: inside it is a honeycomb of keratin, mostly air. <span class="tbd">[VERIFY]</span></span></button></li>
+      <li><button type="button" class="fact" data-act="hop"><span class="fact-n">04</span><span data-i18n="bird.f4">They live in small, noisy family groups that travel the canopy together. <span class="tbd">[VERIFY]</span></span></button></li>
+      <li><button type="button" class="fact" data-act="sing"><span class="fact-n">05</span><span data-i18n="bird.f5">The name comes from Tupi, an indigenous language of Brazil. <span class="tbd">[VERIFY meaning]</span></span></button></li>
+    </ul>
+    <div class="bird-perch-rail" data-perch="bird" data-perch-x="0.5" data-perch-y="0" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ============ FAMILY ============ -->
+<section class="family" id="family" aria-labelledby="familyTitle">
+  <div class="wrap family-grid">
+    <div class="portraits" aria-hidden="true">
+      <figure class="portrait p1" data-perch="family" data-perch-x="0.78" data-perch-y="0"><div class="frame"><span>[TBD]<br>photo · father</span></div><figcaption>[TBD] name</figcaption></figure>
+      <figure class="portrait p2"><div class="frame"><span>[TBD]<br>photo · son</span></div><figcaption>[TBD] name</figcaption></figure>
+    </div>
+    <div class="family-copy">
+      <p class="eyebrow" data-i18n="family.eyebrow">The family</p>
+      <h2 class="h2 split" id="familyTitle" data-i18n="family.title">Father and son</h2>
+      <p class="lead" data-i18n="family.lead">Araçari is a family business: a father and son bringing pecans from the south of Brazil to the Netherlands.</p>
+      <div class="tbd-block">
+        <p><span class="tbd">[TBD]</span> <span data-i18n="family.p1">How the family is connected to El Porvenir Farms and to Brazil.</span></p>
+        <p><span class="tbd">[TBD]</span> <span data-i18n="family.p2">Why pecans, and why the Netherlands.</span></p>
+        <p><span class="tbd">[TBD]</span> <span data-i18n="family.p3">Who does what: the father, the son.</span></p>
+      </div>
+      <p class="signoff">— <span>[TBD]</span> &amp; <span>[TBD]</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RETAIL ============ -->
+<section class="retail" id="retail" aria-labelledby="retailTitle">
+  <div class="wrap retail-grid">
+    <div class="retail-copy">
+      <p class="eyebrow" data-i18n="retail.eyebrow">For shops</p>
+      <h2 class="h2 split" id="retailTitle" data-i18n="retail.title">For wine shops, cheese shops and organic stores</h2>
+      <p class="lead" data-i18n="retail.lead">Araçari is made to sit next to a good bottle or a cheese counter. Ask for samples or the wholesale price list.</p>
+      <ul class="retail-points">
+        <li><strong data-i18n="retail.pt1.t">Pairs with what you already sell.</strong> <span data-i18n="retail.pt1.p">Eight flavours, matched to wines and cheeses.</span></li>
+        <li><strong data-i18n="retail.pt2.t">Colour on the shelf.</strong> <span data-i18n="retail.pt2.p">Eight bright pouches that people pick up.</span></li>
+        <li><strong data-i18n="retail.pt3.t">Terms.</strong> <span>[TBD]</span> <span data-i18n="retail.pt3.p">wholesale prices, minimum order, delivery.</span></li>
+      </ul>
+    </div>
+    <form class="retail-form card-form" id="retailForm" novalidate>
+      <div class="form-success" hidden id="retailSuccess" tabindex="-1">
+        <svg viewBox="0 0 120 90" aria-hidden="true" class="envelope"><rect x="8" y="18" width="104" height="64" rx="6"/><path d="M8 24l52 34 52-34"/></svg>
+        <h3 data-i18n="retail.ok.t">Request sent. Thank you.</h3>
+        <p data-i18n="retail.ok.p">This is a demo form: nothing has been sent yet. [TBD] connect it to an inbox.</p>
+      </div>
+      <div class="form-fields">
+        <div class="field"><label for="rBiz" data-i18n="retail.f.biz">Shop name</label><input id="rBiz" name="biz" required autocomplete="organization"></div>
+        <div class="field"><label for="rName" data-i18n="retail.f.name">Your name</label><input id="rName" name="name" required autocomplete="name"></div>
+        <div class="field"><label for="rEmail" data-i18n="retail.f.email">Email</label><input id="rEmail" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="rType" data-i18n="retail.f.type">Type of shop</label>
+          <select id="rType" name="type" required>
+            <option value="" data-i18n="retail.f.choose">Choose one</option>
+            <option value="wine" data-i18n="retail.f.wine">Wine shop</option>
+            <option value="cheese" data-i18n="retail.f.cheese">Cheese shop</option>
+            <option value="organic" data-i18n="retail.f.organic">Organic store</option>
+            <option value="super" data-i18n="retail.f.super">Small supermarket</option>
+            <option value="other" data-i18n="retail.f.other">Something else</option>
+          </select></div>
+        <div class="field"><label for="rCity" data-i18n="retail.f.city">City</label><input id="rCity" name="city" required autocomplete="address-level2"></div>
+        <fieldset class="field chips">
+          <legend data-i18n="retail.f.want">I would like</legend>
+          <label><input type="checkbox" name="want" value="samples" checked> <span data-i18n="retail.f.samples">Samples</span></label>
+          <label><input type="checkbox" name="want" value="prices"> <span data-i18n="retail.f.prices">Price list</span></label>
+          <label><input type="checkbox" name="want" value="call"> <span data-i18n="retail.f.call">A call</span></label>
+        </fieldset>
+        <div class="field full"><label for="rMsg" data-i18n="retail.f.msg">Anything else (optional)</label><textarea id="rMsg" name="msg" rows="3"></textarea></div>
+        <button class="btn btn-solid magnetic" type="submit" data-i18n="retail.f.send">Request samples</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER + FOOTER ============ -->
+<section class="letter world" id="letter" aria-labelledby="letterTitle">
+  <div class="wrap letter-inner">
+    <h2 class="h2 split" id="letterTitle" data-i18n="letter.title">Até logo</h2>
+    <p class="lead" data-i18n="letter.lead">One email when we launch, and when a new flavour hatches. Nothing else.</p>
+    <form class="letter-form" id="letterForm" novalidate>
+      <div class="field"><label for="nlEmail" data-i18n="letter.email">Your email</label>
+        <div class="inline"><input id="nlEmail" type="email" required autocomplete="email"><button class="btn btn-solid magnetic" type="submit" data-i18n="letter.send">Keep me posted</button></div></div>
+      <label class="check"><input type="checkbox" id="nlConsent" required> <span data-i18n="letter.consent">I agree to receive emails from Araçari. Unsubscribe any time.</span></label>
+      <p class="form-msg" id="letterMsg" aria-live="polite"></p>
+    </form>
+  </div>
+  <div class="letter-perch" data-perch="footer" data-perch-x="0.5" data-perch-y="0" aria-hidden="true"></div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <img src="assets/aracari-wordmark-white.svg" alt="Araçari" width="180" height="45" class="footer-logo">
+    <nav class="footer-links" aria-label="Legal">
+      <button type="button" data-legal="shipping" data-i18n="foot.shipping">Shipping &amp; returns</button>
+      <button type="button" data-legal="terms" data-i18n="foot.terms">Terms</button>
+      <button type="button" data-legal="privacy" data-i18n="foot.privacy">Privacy</button>
+      <button type="button" data-legal="contact" data-i18n="foot.contact">Contact</button>
+      <button type="button" id="cookieOpen" data-i18n="foot.cookies">Cookies</button>
+    </nav>
+    <p class="footer-meta"><span data-i18n="foot.origin">Pecans from El Porvenir Farms, Santa Cruz do Sul, Brazil.</span> KvK [TBD] · BTW [TBD]</p>
+    <p class="footer-secret" id="footerSecret" aria-live="polite"></p>
+  </div>
+</footer>
+
+<!-- ============ OVERLAYS ============ -->
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="drawer" id="cart" aria-labelledby="cartTitle" role="dialog" aria-modal="true" hidden>
+  <div class="drawer-head">
+    <h2 id="cartTitle" data-i18n="cart.title">Your cart</h2>
+    <button type="button" class="icon-btn close" data-close aria-label="Close cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="ship-bar" id="shipBar"><p id="shipBarText"></p><div class="bar"><span id="shipBarFill"></span></div></div>
+  <ul class="cart-lines" id="cartLines"></ul>
+  <div class="cart-empty" id="cartEmpty" hidden>
+    <p data-i18n="cart.empty">Your cart is empty. The bird is a little disappointed.</p>
+    <a class="btn btn-solid" href="#shop" data-close data-i18n="cart.browse">See the flavours</a>
+  </div>
+  <div class="upsell" id="upsell"></div>
+  <div class="drawer-foot" id="cartFoot">
+    <dl class="totals" id="cartTotals"></dl>
+    <button type="button" class="btn btn-solid btn-wide magnetic" id="toCheckout" data-i18n="cart.checkout">Go to checkout</button>
+    <p class="small muted center" data-i18n="cart.allergen">All products contain tree nuts (pecans).</p>
+  </div>
+</aside>
+
+<div class="sheet" id="product" role="dialog" aria-modal="true" aria-labelledby="pdTitle" hidden>
+  <button type="button" class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="sheet-body" id="productBody"></div>
+</div>
+
+<div class="checkout" id="checkout" role="dialog" aria-modal="true" aria-labelledby="coTitle" hidden>
+  <div class="co-inner">
+    <div class="co-head">
+      <h2 id="coTitle" data-i18n="co.title">Checkout</h2>
+      <button type="button" class="icon-btn close" data-close aria-label="Close checkout"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <ol class="co-steps" id="coSteps">
+      <li data-i18n="co.s1">Details</li><li data-i18n="co.s2">Shipping</li><li data-i18n="co.s3">Payment</li><li data-i18n="co.s4">Review</li>
+    </ol>
+    <div class="co-main">
+      <form class="co-form" id="coForm" novalidate></form>
+      <aside class="co-summary" id="coSummary" aria-label="Order summary"></aside>
+    </div>
+  </div>
+</div>
+
+<div class="sheet legal" id="legal" role="dialog" aria-modal="true" aria-labelledby="legalTitle" hidden>
+  <button type="button" class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="sheet-body" id="legalBody"></div>
+</div>
+
+<div class="cookies" id="cookies" role="region" aria-label="Cookies" hidden>
+  <p data-i18n="cookie.text">We only use what the shop needs to work (your cart and language). Analytics stay off unless you allow them. [TBD: have this checked]</p>
+  <div class="cookie-btns">
+    <button type="button" class="btn btn-solid btn-sm" id="cookieDecline" data-i18n="cookie.decline">Only essential</button>
+    <button type="button" class="btn btn-line btn-sm" id="cookieAccept" data-i18n="cookie.accept">Allow analytics</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="bird-layer" id="birdLayer" aria-hidden="true"></div>
+<div class="bubble" id="bubble" aria-live="polite" hidden></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-ring"><em id="cursorLabel"></em></span></div>
+<div class="grain" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<!--SCRIPTS-->
+</body>
+</html>

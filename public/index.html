@@ -3390,7 +3390,7 @@ const App = (() => {
     addEventListener('pointerdown', () => gsap?.to(ring, { scale: .8, duration: .15 }));
     addEventListener('pointerup', () => gsap?.to(ring, { scale: 1, duration: .4, ease: 'elastic.out(1,.5)' }));
     const loop = () => {
-      rx += (x - rx) * .18; ry += (y - ry) * .18;
+      rx += (x - rx) * .5; ry += (y - ry) * .5;
       dot.style.transform = `translate3d(${x}px, ${y}px, 0)`; ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
       requestAnimationFrame(loop);
     };

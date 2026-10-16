@@ -13,7 +13,7 @@ function createPack(host, flavour, opts = {}) {
   const img = host.querySelector('.pack-front img'), sheen = host.querySelector('.pack-sheen');
   const backShape = host.querySelector('.back-shape'), print = host.querySelector('.back-print');
   const st = { ry: opts.ry ?? -14, rx: 4, try: opts.ry ?? -14, trx: 4, vel: 0, dragging: false, idle: opts.idle ?? true, hoverX: 0, hoverY: 0 };
-  let current = null, raf = null, visible = true;
+  let current = null, raf = null, visible = true, lastF = '', lastI = '';
 
   function paint(f) {
     current = f;
@@ -91,9 +91,10 @@ function createPack(host, flavour, opts = {}) {
     st.ry += (st.try + st.hoverX * 26 - st.ry) * .12;
     st.rx += (st.trx - st.hoverY * 14 - st.rx) * .12;
     const bob = st.idle && !Util.reduced.matches ? Math.sin(t / 900 + (opts.phase || 0)) : 0;
-    float.style.transform = `translateY(${bob * (opts.bob ?? 8)}px)`;
-    inner.style.transform = `rotateX(${st.rx.toFixed(2)}deg) rotateY(${st.ry.toFixed(2)}deg) rotateZ(${(bob * (opts.sway ?? 1.2)).toFixed(2)}deg)`;
-    sheen.style.setProperty('--sheen', (50 - ((st.ry % 360) + 360) % 360 / 3.6 * .9) + '%');
+    const ft = `translateY(${(bob * (opts.bob ?? 8)).toFixed(1)}px)`;
+    const it = `rotateX(${st.rx.toFixed(1)}deg) rotateY(${st.ry.toFixed(1)}deg) rotateZ(${(bob * (opts.sway ?? 1.2)).toFixed(1)}deg)`;
+    if (ft !== lastF) { float.style.transform = ft; lastF = ft; }
+    if (it !== lastI) { inner.style.transform = it; lastI = it; sheen.style.setProperty('--sheen', (50 - ((st.ry % 360) + 360) % 360 / 3.6 * .9).toFixed(1) + '%'); }
   }
   raf = requestAnimationFrame(frame);
   // only animate packs that are on screen

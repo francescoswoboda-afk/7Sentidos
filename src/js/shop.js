@@ -154,7 +154,7 @@ const Shop = (() => {
         </div>
       </article>`).join('');
     $$('#productGrid .card').forEach((c, i) => {
-      const p = createPack(c.querySelector('.pack-slot'), DATA.flavours[i], { ry: -12, bob: 5, sway: .8, phase: i * .9 });
+      const p = createPack(c.querySelector('.pack-slot'), DATA.flavours[i], { ry: -12, idle: false });
       packs.push(p);
       const f = DATA.flavours[i];
       c.addEventListener('pointerenter', () => World.set(f, { duration: .8 }));

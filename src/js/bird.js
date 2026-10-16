@@ -193,32 +193,35 @@ const Bird = (() => {
     }
   }
 
+  const cache = new WeakMap();
+  function setA(node, name, val) { let m = cache.get(node); if (!m) cache.set(node, m = {}); if (m[name] !== val) { m[name] = val; node.setAttribute(name, val); } }
   function render() {
     const s = S.size / 200, ax = ANCHOR.x * s, ay = ANCHOR.y * s;
-    el.style.transformOrigin = `${ax}px ${ay}px`;
-    el.style.transform = `translate3d(${S.x - ax}px, ${S.y - ay - S.hop}px, 0) rotate(${S.tilt}deg) scale(${S.flip * S.scale}, ${S.scale * S.squash})`;
-    el.style.opacity = S.alpha;
-    const R = (g, a, cx, cy, extra = '') => g.setAttribute('transform', `rotate(${a.toFixed(2)} ${cx} ${cy})${extra}`);
+    const tf = `translate3d(${(S.x - ax).toFixed(1)}px, ${(S.y - ay - S.hop).toFixed(1)}px, 0) rotate(${S.tilt.toFixed(1)}deg) scale(${(S.flip * S.scale).toFixed(3)}, ${(S.scale * S.squash).toFixed(3)})`;
+    if (tf !== el._tf) { el.style.transformOrigin = `${ax}px ${ay}px`; el.style.transform = tf; el._tf = tf; }
+    if (el._a !== S.alpha) { el.style.opacity = S.alpha; el._a = S.alpha; }
+    const R = (g, a, cx, cy, extra = '') => setA(g, 'transform', `rotate(${a.toFixed(1)} ${cx} ${cy})${extra}`);
     R(parts.head, S.headRot + S.sleep * 70, NECK.x, NECK.y);
-    parts.eye.setAttribute('transform', `translate(${S.pupilX.toFixed(2)} ${S.pupilY.toFixed(2)})`);
+    setA(parts.eye, 'transform', `translate(${S.pupilX.toFixed(1)} ${S.pupilY.toFixed(1)})`);
     const lid = clamp(Math.max(S.lid, S.blink, S.sleep), 0, 1);
-    parts.lid.setAttribute('transform', `translate(0 41) scale(1 ${lid.toFixed(3)}) translate(0 -41)`);
-    parts.happy.setAttribute('opacity', (Math.max(S.happy, S.sleep) * (lid > .85 ? 1 : 0)).toFixed(2));
+    setA(parts.lid, 'transform', `translate(0 41) scale(1 ${lid.toFixed(2)}) translate(0 -41)`);
+    setA(parts.happy, 'opacity', (Math.max(S.happy, S.sleep) * (lid > .85 ? 1 : 0)).toFixed(2));
     R(parts.up, -S.beak * 7, 141, 60);
     R(parts.low, S.beak * 16, 141, 68);
     R(parts.tail, S.tail + S.sleep * 148, TAIL.x, TAIL.y);
     // folded wing vs flight wings
     const sp = S.spread;
-    parts.wing.setAttribute('opacity', (1 - sp).toFixed(2));
-    parts.near.setAttribute('opacity', sp.toFixed(2)); parts.far.setAttribute('opacity', (S.flying ? sp : 0).toFixed(2));
+    setA(parts.wing, 'opacity', (1 - sp).toFixed(2));
+    setA(parts.near, 'opacity', sp.toFixed(2)); setA(parts.far, 'opacity', (S.flying ? sp : 0).toFixed(2));
     let flapA, flapS;
     if (S.flying) { const f = Math.sin(S.flap); flapA = -18 + f * 46; flapS = .72 + .28 * Math.abs(Math.cos(S.flap * .5 + .4)); }
     else { flapA = 40 + Math.sin(performance.now() / 120) * 22 * S.wave; flapS = .9; }
-    parts.near.setAttribute('transform', `translate(${SHOULDER.x} ${SHOULDER.y}) rotate(${flapA.toFixed(1)}) scale(1 ${flapS.toFixed(2)})`);
-    parts.far.setAttribute('transform', `translate(${SHOULDER.x + 8} ${SHOULDER.y - 4}) rotate(${(flapA - 12).toFixed(1)}) scale(.9 ${(flapS * .9).toFixed(2)})`);
+    setA(parts.near, 'transform', `translate(${SHOULDER.x} ${SHOULDER.y}) rotate(${flapA.toFixed(1)}) scale(1 ${flapS.toFixed(2)})`);
+    setA(parts.far, 'transform', `translate(${SHOULDER.x + 8} ${SHOULDER.y - 4}) rotate(${(flapA - 12).toFixed(1)}) scale(.9 ${(flapS * .9).toFixed(2)})`);
     R(parts.wing, S.sleep * -6, SHOULDER.x, SHOULDER.y);
-    parts.feet.setAttribute('transform', `translate(0 ${(1 - S.feet) * -6}) scale(1 ${(.4 + .6 * S.feet).toFixed(2)})`);
-    if (S.gold > .01) el.style.filter = `drop-shadow(0 0 ${12 * S.gold}px rgba(246,214,65,${S.gold}))`; else el.style.filter = '';
+    setA(parts.feet, 'transform', `translate(0 ${(1 - S.feet) * -6}) scale(1 ${(.4 + .6 * S.feet).toFixed(2)})`);
+    const fl = S.gold > .01 ? `drop-shadow(0 0 ${(12 * S.gold).toFixed(1)}px rgba(246,214,65,${S.gold.toFixed(2)}))` : '';
+    if (fl !== el._fl) { el.style.filter = fl; el._fl = fl; }
     Bubble.follow(S.x, S.y - S.size * .95);
   }
 

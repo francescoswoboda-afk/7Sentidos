@@ -114,7 +114,6 @@ const App = (() => {
     });
     batch('.card'); batch('.bundle'); batch('.fact'); batch('.retail-points li'); batch('.ship-facts li', { y: 14 }); batch('.portrait', { y: 60 }); batch('.tbd-block p', { y: 20 });
     // the hero headline gets lighter as it leaves
-    gsap.to('#heroTitle', { fontWeight: 300, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to('#heroPack', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
   }
 

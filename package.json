@@ -5,6 +5,7 @@
   "description": "Araçari website and shop: flavoured Brazilian pecans",
   "scripts": {
     "start": "node server.js",
-    "build": "node build.js"
+    "build": "node build.js",
+    "deploy": "node build.js && npx --yes wrangler@4.40.0 deploy"
   }
 }

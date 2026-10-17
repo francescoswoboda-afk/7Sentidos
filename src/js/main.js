@@ -8,7 +8,7 @@ const App = (() => {
   // line: true = sit at the end of the heading's first line, on the baseline
   const PERCHES = [
     { sec: '#hero', sel: '#heroPack', fx: .64, fy: .035 },
-    { sec: '#origin', sel: '.origin-stage', fx: .84, fy: 0 },
+    { sec: '#origin', sel: '.origin-stage', fx: .84, fy: 0, fixed: true },   // pinned while you scroll
     { sec: '#nut', sel: '.nut-stage', fx: .8, fy: 0 },
     { sec: '#shop', sel: '#shopTitle, .bundles-head .h2', line: true },
     { sec: '#pairing', sel: '#pairTitle', line: true },
@@ -44,7 +44,7 @@ const App = (() => {
   }
   function candidates(sec) {
     return PERCHES.filter(c => c.sec === sec).flatMap(cfg => $$(cfg.sel).filter(el => el.offsetParent !== null)
-      .map(el => ({ el, fx: cfg.fx, fy: cfg.fy, dy: cfg.dy, get: cfg.line ? () => lineEnd(el) : null })));
+      .map(el => ({ el, fx: cfg.fx, fy: cfg.fy, dy: cfg.dy, fixed: cfg.fixed, get: cfg.line ? () => lineEnd(el) : null })));
   }
   function bestPerch() {
     const sec = activeSection(); if (!sec) return null;
@@ -109,7 +109,6 @@ const App = (() => {
     });
     batch('.card'); batch('.bundle'); batch('.fact'); batch('.retail-points li'); batch('.ship-facts li', { y: 14 }); batch('.portrait', { y: 60 }); batch('.tbd-block p', { y: 20 });
     // the hero headline gets lighter as it leaves
-    gsap.to('#heroPack', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
   }
 
   /* ---------- headings: letters near the pointer turn lighter ---------- */
@@ -327,7 +326,7 @@ const App = (() => {
   function birdTo(el) {
     if (!el) return;
     Bird.setMini(true);
-    setTimeout(() => Bird.perchOn({ el, get: () => { const r = el.getBoundingClientRect(); const t = el.firstChild && el.firstChild.nodeType === 3 ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); })() : r; return { x: Math.min(t.right + Bird.state.size * .45, innerWidth - Bird.state.size * .5), y: t.top >= 0 ? Math.max(t.bottom - 4, Bird.state.size * .92 + 8) : t.bottom - 4 }; } }, { force: true }), 380);
+    setTimeout(() => Bird.perchOn({ el, fixed: true, get: () => { const r = el.getBoundingClientRect(); const t = el.firstChild && el.firstChild.nodeType === 3 ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); })() : r; return { x: Math.min(t.right + Bird.state.size * .45, innerWidth - Bird.state.size * .5), y: t.top >= 0 ? Math.max(t.bottom - 4, Bird.state.size * .92 + 8) : t.bottom - 4 }; } }, { force: true }), 380);
   }
   function birdHome() { setTimeout(() => { const b = bestPerch(); if (b) { Bird.setMini(1); Bird.perchOn(b, { force: true }); } else goHome(); }, 300); }
   return { init, bestPerch, birdTo, birdHome };

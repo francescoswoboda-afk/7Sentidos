@@ -62,8 +62,8 @@
   <nav aria-label="Mobile">
     <a href="#shop" data-i18n="nav.shop">Shop</a>
     <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
-    <a href="#origin" data-i18n="nav.origin">Origin</a>
     <a href="#nut" data-i18n="nav.nut">Crack one</a>
+    <a href="#origin" data-i18n="nav.origin">Origin</a>
     <a href="#bird" data-i18n="nav.bird">The bird</a>
     <a href="#family" data-i18n="nav.family">Family</a>
     <a href="#retail" data-i18n="nav.retail">For shops</a>
@@ -96,47 +96,6 @@
     <div class="swatches" id="heroSwatches" role="radiogroup" aria-label="Choose a flavour"></div>
   </div>
   <div class="strip" aria-hidden="true"><div class="strip-track"><span>EL PORVENIR FARMS · SANTA CRUZ DO SUL · RIO GRANDE DO SUL · BRAZIL → NEDERLAND ·&nbsp;</span><span>EL PORVENIR FARMS · SANTA CRUZ DO SUL · RIO GRANDE DO SUL · BRAZIL → NEDERLAND ·&nbsp;</span></div></div>
-</section>
-
-<!-- ============ ORIGIN ============ -->
-<section class="origin" id="origin" aria-labelledby="originTitle">
-  <div class="origin-pin">
-    <div class="origin-text">
-      <p class="eyebrow" data-i18n="origin.eyebrow">Origin · 29°43′ S</p>
-      <h2 class="h2 split" id="originTitle" data-i18n="origin.title">Four real seasons</h2>
-      <ol class="season-list">
-        <li class="season" data-step="0"><h3 data-i18n="origin.s1.t">Spring · September to November</h3><p data-i18n="origin.s1.p">Pecan trees wake up late. Long green catkins hang from the branches and the wind does the pollinating.</p></li>
-        <li class="season" data-step="1"><h3 data-i18n="origin.s2.t">Summer · December to February</h3><p data-i18n="origin.s2.p">Hot days in Rio Grande do Sul. The nuts grow inside green husks, out of sight.</p></li>
-        <li class="season" data-step="2"><h3 data-i18n="origin.s3.t">Autumn · the harvest</h3><p data-i18n="origin.s3.p">The husks split and the pecans drop. Harvest runs through the southern autumn. <span class="tbd">[VERIFY exact harvest months with El Porvenir]</span></p></li>
-        <li class="season" data-step="3"><h3 data-i18n="origin.s4.t">Winter · June to August</h3><p data-i18n="origin.s4.p">Bare branches and real cold. Pecans need that chill to rest, which is why they grow here, in the south of Brazil, and not in the tropics.</p></li>
-        <li class="season" data-step="4"><h3 data-i18n="origin.s5.t">10 687 km to your table</h3><p data-i18n="origin.s5.p">From Santa Cruz do Sul across the Atlantic to the Netherlands. Europe is next.</p></li>
-      </ol>
-    </div>
-    <div class="origin-stage" aria-hidden="true">
-      <canvas class="orchard" id="orchard"></canvas>
-      <svg class="map" id="map" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet"></svg>
-      <div class="season-dial" id="seasonDial"><span></span><span></span><span></span><span></span><span></span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ THE NUT ============ -->
-<section class="nut" id="nut" aria-labelledby="nutTitle">
-  <div class="wrap nut-grid">
-    <div class="nut-copy">
-      <p class="eyebrow" data-i18n="nut.eyebrow">The nut</p>
-      <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Crack one open</h2>
-      <p class="lead" data-i18n="nut.lead">Under a thin, striped shell: two buttery halves, folded like a little brain. That is the part we roast and coat. Go on, crack a few.</p>
-      <dl class="nut-stats">
-        <div><dt data-i18n="nut.count">Cracked</dt><dd id="nutCount">0</dd></div>
-        <div><dt data-i18n="nut.best">Best streak</dt><dd id="nutBest">0</dd></div>
-      </dl>
-    </div>
-    <div class="nut-stage" data-perch="nut" data-perch-x="0.82" data-perch-y="0.02">
-      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it." role="img" tabindex="0"></canvas>
-      <p class="nut-hint" id="nutHint" data-i18n="nut.hint">Press and hold to crack · or tap three times</p>
-    </div>
-  </div>
 </section>
 
 <!-- ============ SHOP ============ -->
@@ -178,6 +137,47 @@
     <div class="pair-stage" id="pairStage" aria-live="polite" data-perch="pair" data-perch-x="0.15" data-perch-y="0.02">
       <svg class="pair-art" id="pairArt" viewBox="0 0 300 300" aria-hidden="true"></svg>
       <div class="pair-result" id="pairResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE NUT ============ -->
+<section class="nut" id="nut" aria-labelledby="nutTitle">
+  <div class="wrap nut-grid">
+    <div class="nut-copy">
+      <p class="eyebrow" data-i18n="nut.eyebrow">The nut</p>
+      <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Crack one open</h2>
+      <p class="lead" data-i18n="nut.lead">Under a thin, striped shell: two buttery halves, folded like a little brain. That is the part we roast and coat. Go on, crack a few.</p>
+      <dl class="nut-stats">
+        <div><dt data-i18n="nut.count">Cracked</dt><dd id="nutCount">0</dd></div>
+        <div><dt data-i18n="nut.best">Best streak</dt><dd id="nutBest">0</dd></div>
+      </dl>
+    </div>
+    <div class="nut-stage" data-perch="nut" data-perch-x="0.82" data-perch-y="0.02">
+      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it." role="img" tabindex="0"></canvas>
+      <p class="nut-hint" id="nutHint" data-i18n="nut.hint">Press and hold to crack · or tap three times</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORIGIN ============ -->
+<section class="origin" id="origin" aria-labelledby="originTitle">
+  <div class="origin-pin">
+    <div class="origin-text">
+      <p class="eyebrow" data-i18n="origin.eyebrow">Origin · 29°43′ S</p>
+      <h2 class="h2 split" id="originTitle" data-i18n="origin.title">Four real seasons</h2>
+      <ol class="season-list">
+        <li class="season" data-step="0"><h3 data-i18n="origin.s1.t">Spring · September to November</h3><p data-i18n="origin.s1.p">Pecan trees wake up late. Long green catkins hang from the branches and the wind does the pollinating.</p></li>
+        <li class="season" data-step="1"><h3 data-i18n="origin.s2.t">Summer · December to February</h3><p data-i18n="origin.s2.p">Hot days in Rio Grande do Sul. The nuts grow inside green husks, out of sight.</p></li>
+        <li class="season" data-step="2"><h3 data-i18n="origin.s3.t">Autumn · the harvest</h3><p data-i18n="origin.s3.p">The husks split and the pecans drop. Harvest runs through the southern autumn. <span class="tbd">[VERIFY exact harvest months with El Porvenir]</span></p></li>
+        <li class="season" data-step="3"><h3 data-i18n="origin.s4.t">Winter · June to August</h3><p data-i18n="origin.s4.p">Bare branches and real cold. Pecans need that chill to rest, which is why they grow here, in the south of Brazil, and not in the tropics.</p></li>
+        <li class="season" data-step="4"><h3 data-i18n="origin.s5.t">10 687 km to your table</h3><p data-i18n="origin.s5.p">From Santa Cruz do Sul across the Atlantic to the Netherlands. Europe is next.</p></li>
+      </ol>
+    </div>
+    <div class="origin-stage" aria-hidden="true">
+      <canvas class="orchard" id="orchard"></canvas>
+      <svg class="map" id="map" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="season-dial" id="seasonDial"><span></span><span></span><span></span><span></span><span></span></div>
     </div>
   </div>
 </section>
@@ -358,6 +358,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="bird-layer" id="birdLayer" aria-hidden="true"></div>
+<div class="bird-page-layer" id="birdPage" aria-hidden="true"></div>
 <div class="bubble" id="bubble" aria-live="polite" hidden></div>
 <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-ring"><em id="cursorLabel"></em></span></div>
 <div class="grain" aria-hidden="true"></div>

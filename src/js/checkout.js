@@ -169,7 +169,7 @@ const Checkout = (() => {
     $('#coDone').onclick = () => Util.close($('#checkout'));
     $('#coDone').focus();
     const perchEl = $('#confirmPerch');
-    Bird.perchOn({ el: perchEl, fx: .5, fy: 1 }, { force: true }).then(() => Bird.celebrate());
+    Bird.perchOn({ el: perchEl, fx: .5, fy: 1, fixed: true }, { force: true }).then(() => Bird.celebrate());
   }
 
   function bind() {

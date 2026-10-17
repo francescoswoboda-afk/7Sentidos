@@ -93,7 +93,8 @@ const Bird = (() => {
 
   function build() {
     el = document.createElement('div'); el.className = 'bird'; el.innerHTML = svgMarkup();
-    document.getElementById('birdLayer').appendChild(el);
+    fixedLayer = document.getElementById('birdLayer'); pageLayer = document.getElementById('birdPage');
+    fixedLayer.appendChild(el);
     const q = s => el.querySelector(s);
     parts = { root: q('.b-root'), tail: q('.b-tail'), wing: q('.b-wing'), near: q('.b-wing-near'), far: q('.b-wing-far'), head: q('.b-head'), eye: q('.b-eye'), lid: q('.b-lid'), happy: q('.b-happy'), up: q('.b-beak-up'), low: q('.b-beak-low'), feet: q('.b-feet'), body: q('.b-body'), carry: q('.b-carry'), carryImg: q('.b-carry-img'), pecan: q('.b-pecan') };
     setSize();
@@ -200,9 +201,16 @@ const Bird = (() => {
 
   const cache = new WeakMap();
   function setA(node, name, val) { let m = cache.get(node); if (!m) cache.set(node, m = {}); if (m[name] !== val) { m[name] = val; node.setAttribute(name, val); } }
+  // While perched on page content the bird lives in a layer that scrolls with the page, so the
+  // browser moves it together with its perch (no one-frame lag, no wobble while scrolling).
+  // Flying, on the navbar, in panels or on a pinned scene, it lives in the fixed layer.
+  let pageLayer = null, fixedLayer = null;
   function render() {
     const s = S.size / 200, ax = ANCHOR.x * s, ay = ANCHOR.y * s;
-    const tf = `translate3d(${(S.x - ax).toFixed(1)}px, ${(S.y - ay - S.hop).toFixed(1)}px, 0) rotate(${S.tilt.toFixed(1)}deg) scale(${(S.flip * S.scale).toFixed(3)}, ${(S.scale * S.squash).toFixed(3)})`;
+    const anchored = mode === 'perched' && !!perch && !perch.nav && !perch.fixed;
+    if (anchored !== el._anch) { (anchored ? pageLayer : fixedLayer).appendChild(el); el._anch = anchored; el._tf = null; }
+    const ox = anchored ? scrollX : 0, oy = anchored ? scrollY : 0;
+    const tf = `translate3d(${(S.x + ox - ax).toFixed(1)}px, ${(S.y + oy - ay - S.hop).toFixed(1)}px, 0) rotate(${S.tilt.toFixed(1)}deg) scale(${(S.flip * S.scale).toFixed(3)}, ${(S.scale * S.squash).toFixed(3)})`;
     if (tf !== el._tf) { el.style.transformOrigin = `${ax}px ${ay}px`; el.style.transform = tf; el._tf = tf; }
     if (el._a !== S.alpha) { el.style.opacity = S.alpha; el._a = S.alpha; }
     const R = (g, a, cx, cy, extra = '') => setA(g, 'transform', `rotate(${a.toFixed(1)} ${cx} ${cy})${extra}`);

@@ -582,6 +582,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 
 /* ---------- bird ---------- */
 .bird-layer { position: fixed; inset: 0; z-index: 90; pointer-events: none; overflow: hidden; }
+.bird-page-layer { position: absolute; left: 0; top: 0; width: 100%; height: 0; z-index: 90; pointer-events: none; }
 .bird { position: absolute; left: 0; top: 0; width: var(--bird-w, 120px); height: var(--bird-w, 120px); pointer-events: auto; cursor: pointer; will-change: transform; -webkit-tap-highlight-color: transparent; }
 .bird svg { width: 100%; height: 100%; overflow: visible; }
 .bird .feather { stroke: #fff; stroke-width: 1.4; stroke-linejoin: round; }
@@ -757,8 +758,8 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   <nav aria-label="Mobile">
     <a href="#shop" data-i18n="nav.shop">Shop</a>
     <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
-    <a href="#origin" data-i18n="nav.origin">Origin</a>
     <a href="#nut" data-i18n="nav.nut">Crack one</a>
+    <a href="#origin" data-i18n="nav.origin">Origin</a>
     <a href="#bird" data-i18n="nav.bird">The bird</a>
     <a href="#family" data-i18n="nav.family">Family</a>
     <a href="#retail" data-i18n="nav.retail">For shops</a>
@@ -791,47 +792,6 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
     <div class="swatches" id="heroSwatches" role="radiogroup" aria-label="Choose a flavour"></div>
   </div>
   <div class="strip" aria-hidden="true"><div class="strip-track"><span>EL PORVENIR FARMS · SANTA CRUZ DO SUL · RIO GRANDE DO SUL · BRAZIL → NEDERLAND ·&nbsp;</span><span>EL PORVENIR FARMS · SANTA CRUZ DO SUL · RIO GRANDE DO SUL · BRAZIL → NEDERLAND ·&nbsp;</span></div></div>
-</section>
-
-<!-- ============ ORIGIN ============ -->
-<section class="origin" id="origin" aria-labelledby="originTitle">
-  <div class="origin-pin">
-    <div class="origin-text">
-      <p class="eyebrow" data-i18n="origin.eyebrow">Origin · 29°43′ S</p>
-      <h2 class="h2 split" id="originTitle" data-i18n="origin.title">Four real seasons</h2>
-      <ol class="season-list">
-        <li class="season" data-step="0"><h3 data-i18n="origin.s1.t">Spring · September to November</h3><p data-i18n="origin.s1.p">Pecan trees wake up late. Long green catkins hang from the branches and the wind does the pollinating.</p></li>
-        <li class="season" data-step="1"><h3 data-i18n="origin.s2.t">Summer · December to February</h3><p data-i18n="origin.s2.p">Hot days in Rio Grande do Sul. The nuts grow inside green husks, out of sight.</p></li>
-        <li class="season" data-step="2"><h3 data-i18n="origin.s3.t">Autumn · the harvest</h3><p data-i18n="origin.s3.p">The husks split and the pecans drop. Harvest runs through the southern autumn. <span class="tbd">[VERIFY exact harvest months with El Porvenir]</span></p></li>
-        <li class="season" data-step="3"><h3 data-i18n="origin.s4.t">Winter · June to August</h3><p data-i18n="origin.s4.p">Bare branches and real cold. Pecans need that chill to rest, which is why they grow here, in the south of Brazil, and not in the tropics.</p></li>
-        <li class="season" data-step="4"><h3 data-i18n="origin.s5.t">10 687 km to your table</h3><p data-i18n="origin.s5.p">From Santa Cruz do Sul across the Atlantic to the Netherlands. Europe is next.</p></li>
-      </ol>
-    </div>
-    <div class="origin-stage" aria-hidden="true">
-      <canvas class="orchard" id="orchard"></canvas>
-      <svg class="map" id="map" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet"></svg>
-      <div class="season-dial" id="seasonDial"><span></span><span></span><span></span><span></span><span></span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ THE NUT ============ -->
-<section class="nut" id="nut" aria-labelledby="nutTitle">
-  <div class="wrap nut-grid">
-    <div class="nut-copy">
-      <p class="eyebrow" data-i18n="nut.eyebrow">The nut</p>
-      <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Crack one open</h2>
-      <p class="lead" data-i18n="nut.lead">Under a thin, striped shell: two buttery halves, folded like a little brain. That is the part we roast and coat. Go on, crack a few.</p>
-      <dl class="nut-stats">
-        <div><dt data-i18n="nut.count">Cracked</dt><dd id="nutCount">0</dd></div>
-        <div><dt data-i18n="nut.best">Best streak</dt><dd id="nutBest">0</dd></div>
-      </dl>
-    </div>
-    <div class="nut-stage" data-perch="nut" data-perch-x="0.82" data-perch-y="0.02">
-      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it." role="img" tabindex="0"></canvas>
-      <p class="nut-hint" id="nutHint" data-i18n="nut.hint">Press and hold to crack · or tap three times</p>
-    </div>
-  </div>
 </section>
 
 <!-- ============ SHOP ============ -->
@@ -873,6 +833,47 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
     <div class="pair-stage" id="pairStage" aria-live="polite" data-perch="pair" data-perch-x="0.15" data-perch-y="0.02">
       <svg class="pair-art" id="pairArt" viewBox="0 0 300 300" aria-hidden="true"></svg>
       <div class="pair-result" id="pairResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE NUT ============ -->
+<section class="nut" id="nut" aria-labelledby="nutTitle">
+  <div class="wrap nut-grid">
+    <div class="nut-copy">
+      <p class="eyebrow" data-i18n="nut.eyebrow">The nut</p>
+      <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Crack one open</h2>
+      <p class="lead" data-i18n="nut.lead">Under a thin, striped shell: two buttery halves, folded like a little brain. That is the part we roast and coat. Go on, crack a few.</p>
+      <dl class="nut-stats">
+        <div><dt data-i18n="nut.count">Cracked</dt><dd id="nutCount">0</dd></div>
+        <div><dt data-i18n="nut.best">Best streak</dt><dd id="nutBest">0</dd></div>
+      </dl>
+    </div>
+    <div class="nut-stage" data-perch="nut" data-perch-x="0.82" data-perch-y="0.02">
+      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it." role="img" tabindex="0"></canvas>
+      <p class="nut-hint" id="nutHint" data-i18n="nut.hint">Press and hold to crack · or tap three times</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORIGIN ============ -->
+<section class="origin" id="origin" aria-labelledby="originTitle">
+  <div class="origin-pin">
+    <div class="origin-text">
+      <p class="eyebrow" data-i18n="origin.eyebrow">Origin · 29°43′ S</p>
+      <h2 class="h2 split" id="originTitle" data-i18n="origin.title">Four real seasons</h2>
+      <ol class="season-list">
+        <li class="season" data-step="0"><h3 data-i18n="origin.s1.t">Spring · September to November</h3><p data-i18n="origin.s1.p">Pecan trees wake up late. Long green catkins hang from the branches and the wind does the pollinating.</p></li>
+        <li class="season" data-step="1"><h3 data-i18n="origin.s2.t">Summer · December to February</h3><p data-i18n="origin.s2.p">Hot days in Rio Grande do Sul. The nuts grow inside green husks, out of sight.</p></li>
+        <li class="season" data-step="2"><h3 data-i18n="origin.s3.t">Autumn · the harvest</h3><p data-i18n="origin.s3.p">The husks split and the pecans drop. Harvest runs through the southern autumn. <span class="tbd">[VERIFY exact harvest months with El Porvenir]</span></p></li>
+        <li class="season" data-step="3"><h3 data-i18n="origin.s4.t">Winter · June to August</h3><p data-i18n="origin.s4.p">Bare branches and real cold. Pecans need that chill to rest, which is why they grow here, in the south of Brazil, and not in the tropics.</p></li>
+        <li class="season" data-step="4"><h3 data-i18n="origin.s5.t">10 687 km to your table</h3><p data-i18n="origin.s5.p">From Santa Cruz do Sul across the Atlantic to the Netherlands. Europe is next.</p></li>
+      </ol>
+    </div>
+    <div class="origin-stage" aria-hidden="true">
+      <canvas class="orchard" id="orchard"></canvas>
+      <svg class="map" id="map" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="season-dial" id="seasonDial"><span></span><span></span><span></span><span></span><span></span></div>
     </div>
   </div>
 </section>
@@ -1053,6 +1054,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="bird-layer" id="birdLayer" aria-hidden="true"></div>
+<div class="bird-page-layer" id="birdPage" aria-hidden="true"></div>
 <div class="bubble" id="bubble" aria-live="polite" hidden></div>
 <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-ring"><em id="cursorLabel"></em></span></div>
 <div class="grain" aria-hidden="true"></div>
@@ -1704,7 +1706,8 @@ const Bird = (() => {
 
   function build() {
     el = document.createElement('div'); el.className = 'bird'; el.innerHTML = svgMarkup();
-    document.getElementById('birdLayer').appendChild(el);
+    fixedLayer = document.getElementById('birdLayer'); pageLayer = document.getElementById('birdPage');
+    fixedLayer.appendChild(el);
     const q = s => el.querySelector(s);
     parts = { root: q('.b-root'), tail: q('.b-tail'), wing: q('.b-wing'), near: q('.b-wing-near'), far: q('.b-wing-far'), head: q('.b-head'), eye: q('.b-eye'), lid: q('.b-lid'), happy: q('.b-happy'), up: q('.b-beak-up'), low: q('.b-beak-low'), feet: q('.b-feet'), body: q('.b-body'), carry: q('.b-carry'), carryImg: q('.b-carry-img'), pecan: q('.b-pecan') };
     setSize();
@@ -1811,9 +1814,16 @@ const Bird = (() => {
 
   const cache = new WeakMap();
   function setA(node, name, val) { let m = cache.get(node); if (!m) cache.set(node, m = {}); if (m[name] !== val) { m[name] = val; node.setAttribute(name, val); } }
+  // While perched on page content the bird lives in a layer that scrolls with the page, so the
+  // browser moves it together with its perch (no one-frame lag, no wobble while scrolling).
+  // Flying, on the navbar, in panels or on a pinned scene, it lives in the fixed layer.
+  let pageLayer = null, fixedLayer = null;
   function render() {
     const s = S.size / 200, ax = ANCHOR.x * s, ay = ANCHOR.y * s;
-    const tf = `translate3d(${(S.x - ax).toFixed(1)}px, ${(S.y - ay - S.hop).toFixed(1)}px, 0) rotate(${S.tilt.toFixed(1)}deg) scale(${(S.flip * S.scale).toFixed(3)}, ${(S.scale * S.squash).toFixed(3)})`;
+    const anchored = mode === 'perched' && !!perch && !perch.nav && !perch.fixed;
+    if (anchored !== el._anch) { (anchored ? pageLayer : fixedLayer).appendChild(el); el._anch = anchored; el._tf = null; }
+    const ox = anchored ? scrollX : 0, oy = anchored ? scrollY : 0;
+    const tf = `translate3d(${(S.x + ox - ax).toFixed(1)}px, ${(S.y + oy - ay - S.hop).toFixed(1)}px, 0) rotate(${S.tilt.toFixed(1)}deg) scale(${(S.flip * S.scale).toFixed(3)}, ${(S.scale * S.squash).toFixed(3)})`;
     if (tf !== el._tf) { el.style.transformOrigin = `${ax}px ${ay}px`; el.style.transform = tf; el._tf = tf; }
     if (el._a !== S.alpha) { el.style.opacity = S.alpha; el._a = S.alpha; }
     const R = (g, a, cx, cy, extra = '') => setA(g, 'transform', `rotate(${a.toFixed(1)} ${cx} ${cy})${extra}`);
@@ -3159,7 +3169,7 @@ const Checkout = (() => {
     $('#coDone').onclick = () => Util.close($('#checkout'));
     $('#coDone').focus();
     const perchEl = $('#confirmPerch');
-    Bird.perchOn({ el: perchEl, fx: .5, fy: 1 }, { force: true }).then(() => Bird.celebrate());
+    Bird.perchOn({ el: perchEl, fx: .5, fy: 1, fixed: true }, { force: true }).then(() => Bird.celebrate());
   }
 
   function bind() {
@@ -3297,7 +3307,7 @@ const App = (() => {
   // line: true = sit at the end of the heading's first line, on the baseline
   const PERCHES = [
     { sec: '#hero', sel: '#heroPack', fx: .64, fy: .035 },
-    { sec: '#origin', sel: '.origin-stage', fx: .84, fy: 0 },
+    { sec: '#origin', sel: '.origin-stage', fx: .84, fy: 0, fixed: true },   // pinned while you scroll
     { sec: '#nut', sel: '.nut-stage', fx: .8, fy: 0 },
     { sec: '#shop', sel: '#shopTitle, .bundles-head .h2', line: true },
     { sec: '#pairing', sel: '#pairTitle', line: true },
@@ -3333,7 +3343,7 @@ const App = (() => {
   }
   function candidates(sec) {
     return PERCHES.filter(c => c.sec === sec).flatMap(cfg => $$(cfg.sel).filter(el => el.offsetParent !== null)
-      .map(el => ({ el, fx: cfg.fx, fy: cfg.fy, dy: cfg.dy, get: cfg.line ? () => lineEnd(el) : null })));
+      .map(el => ({ el, fx: cfg.fx, fy: cfg.fy, dy: cfg.dy, fixed: cfg.fixed, get: cfg.line ? () => lineEnd(el) : null })));
   }
   function bestPerch() {
     const sec = activeSection(); if (!sec) return null;
@@ -3398,7 +3408,6 @@ const App = (() => {
     });
     batch('.card'); batch('.bundle'); batch('.fact'); batch('.retail-points li'); batch('.ship-facts li', { y: 14 }); batch('.portrait', { y: 60 }); batch('.tbd-block p', { y: 20 });
     // the hero headline gets lighter as it leaves
-    gsap.to('#heroPack', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
   }
 
   /* ---------- headings: letters near the pointer turn lighter ---------- */
@@ -3616,7 +3625,7 @@ const App = (() => {
   function birdTo(el) {
     if (!el) return;
     Bird.setMini(true);
-    setTimeout(() => Bird.perchOn({ el, get: () => { const r = el.getBoundingClientRect(); const t = el.firstChild && el.firstChild.nodeType === 3 ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); })() : r; return { x: Math.min(t.right + Bird.state.size * .45, innerWidth - Bird.state.size * .5), y: t.top >= 0 ? Math.max(t.bottom - 4, Bird.state.size * .92 + 8) : t.bottom - 4 }; } }, { force: true }), 380);
+    setTimeout(() => Bird.perchOn({ el, fixed: true, get: () => { const r = el.getBoundingClientRect(); const t = el.firstChild && el.firstChild.nodeType === 3 ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); })() : r; return { x: Math.min(t.right + Bird.state.size * .45, innerWidth - Bird.state.size * .5), y: t.top >= 0 ? Math.max(t.bottom - 4, Bird.state.size * .92 + 8) : t.bottom - 4 }; } }, { force: true }), 380);
   }
   function birdHome() { setTimeout(() => { const b = bestPerch(); if (b) { Bird.setMini(1); Bird.perchOn(b, { force: true }); } else goHome(); }, 300); }
   return { init, bestPerch, birdTo, birdHome };

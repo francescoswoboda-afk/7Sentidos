@@ -25,7 +25,9 @@ Una nuez pecana sola es una materia prima. Así que cada sección tenía que res
 | Para tiendas | Un apartado limpio para vinotecas, queserías y tiendas ecológicas. | Formulario de muestras/precios mayoristas. |
 | Newsletter | El pájaro se despide. | Captura de email para el lanzamiento. |
 
-**Cambio de estructura respecto al brief:** puse la tienda antes del maridaje (el brief los tenía en orden 4 y 5, igual que yo), pero añadí un acceso directo al maridaje desde el hero ("Find your pairing"), porque para quien llega desde una vinoteca o quesería esa es la entrada más natural. También puse "La nuez" antes de la tienda: abrir una pecana justo antes de ver los packs funciona como "abrir el apetito".
+**Orden actual (cambiado a petición del cliente):** hero, tienda y cajas, maridaje, la nuez, origen, el araçari, familia, para tiendas, newsletter. Los productos van primero y la historia después: quien llega quiere ver qué se vende antes de leer de dónde viene.
+
+**Orden original y por qué:** puse la tienda antes del maridaje (el brief los tenía en orden 4 y 5, igual que yo), pero añadí un acceso directo al maridaje desde el hero ("Find your pairing"), porque para quien llega desde una vinoteca o quesería esa es la entrada más natural. También puse "La nuez" antes de la tienda: abrir una pecana justo antes de ver los packs funciona como "abrir el apetito".
 
 ---
 

@@ -80,13 +80,13 @@ El SVG del pájaro del pack es una lista plana de trazados, sin partes, y no se 
 
 ## 5. Movimiento y oficio
 
-- GSAP 3.12.5 + ScrollTrigger y Lenis 1.1.13 para el scroll suave, cargados de cdnjs y jsDelivr.
+- GSAP 3.12.5 + ScrollTrigger, cargados de cdnjs. Al principio usé Lenis para un scroll suave, pero lo quité a petición del cliente: la página seguía moviéndose después de soltar la rueda y daba sensación de retraso. Ahora el scroll es el nativo del navegador.
 - **Descarté three.js.** Los packs son imágenes planas de una bolsa; un pack en CSS 3D con la ilustración real delante, una trasera impresa (con la misma silueta, sacada de la imagen como máscara), un brillo metálico que se mueve con el giro e inercia al arrastrar se ve más nítido, pesa cero y va a 60 fps en cualquier portátil. Con WebGL habría tenido que inventar una malla de bolsa que no se correspondería con la ilustración.
 - Coreografía: titulares que entran letra a letra con curvas expo, apariciones escalonadas, cursor propio (con etiquetas "turn" y "crack"), botones magnéticos, transición de color de toda la página entre sabores, grano sutil fijo.
 - **El origen** es una escena dibujada en código (árboles generados por recursión) que se desplaza con el scroll. Muestra los amentos de primavera (las "flores" del pecano), el verano verde, la cosecha con las nueces cayendo y el invierno con helada. Después pasa a un mapa estilizado donde la ruta se dibuja y el contador de km sube.
 - **La nuez** es un canvas: mantener pulsado (o tocar tres veces, o la barra espaciadora) aumenta la presión, aparecen grietas, la cáscara se rompe en fragmentos con gravedad y rebote, salen las dos mitades del fruto y entra rodando otra nuez. Lleva contador, racha y vibración en móvil.
 - **Sonido opcional**, apagado por defecto, sintetizado con Web Audio sin muestras: viento, trinos, un "pluck" al añadir al carrito, crujido al romper.
-- **prefers-reduced-motion:** sin scroll suave ni entradas animadas. El pájaro sigue ahí, pero se mueve con calma: aparece y desaparece en vez de volar, y solo parpadea.
+- **prefers-reduced-motion:** sin entradas animadas. El pájaro sigue ahí, pero se mueve con calma: aparece y desaparece en vez de volar, y solo parpadea.
 
 ---
 

@@ -578,21 +578,27 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 }
 
 /* ---------- cursor + grain ---------- */
-.cursor { position: fixed; left: 0; top: 0; z-index: 99; pointer-events: none; display: none; }
+/* Custom cursor: one fixed box moved to the pointer on every pointermove; dot and ring are
+   centred inside it, so they can never drift apart. Sizes change around the centre. */
+.cursor { position: fixed; left: 0; top: 0; z-index: 99; pointer-events: none; display: none; will-change: transform; }
 .has-cursor .cursor { display: block; }
-.cursor-dot, .cursor-ring { position: absolute; left: 0; top: 0; border-radius: 50%; will-change: transform; }
-.cursor-dot { width: 8px; height: 8px; margin: -4px 0 0 -4px; background: var(--ink); }
-.cursor-ring { width: 40px; height: 40px; margin: -20px 0 0 -20px; border: 1.5px solid var(--ink); transition: width .35s var(--ease-out), height .35s var(--ease-out), margin .35s var(--ease-out), background .35s, border-color .35s; display: grid; place-items: center; }
+.cursor.off { opacity: 0; }
+.cursor-dot, .cursor-ring { position: absolute; left: 0; top: 0; border-radius: 50%; transform: translate(-50%, -50%); }
+.cursor-dot { width: 8px; height: 8px; background: var(--ink); }
+.cursor-ring { width: 40px; height: 40px; border: 1.5px solid var(--ink); display: grid; place-items: center; transition: width .3s var(--ease-out), height .3s var(--ease-out), background-color .3s, border-color .3s, scale .15s; }
+.cursor.down .cursor-ring { scale: .82; }
 .cursor-ring em { font-style: normal; font-family: var(--display); font-weight: 700; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); opacity: 0; transition: opacity .2s; }
-.cursor.hover .cursor-ring { width: 64px; height: 64px; margin: -32px 0 0 -32px; background: color-mix(in srgb, var(--f-body) 30%, transparent); border-color: var(--f-body); }
-.cursor.label .cursor-ring { width: 76px; height: 76px; margin: -38px 0 0 -38px; background: var(--sun); border-color: var(--sun); }
+.cursor.hover .cursor-ring { width: 64px; height: 64px; background: color-mix(in srgb, var(--f-body) 30%, transparent); border-color: var(--f-body); }
+.cursor.label .cursor-ring { width: 76px; height: 76px; background: var(--sun); border-color: var(--sun); }
 .cursor.label .cursor-ring em { opacity: 1; }
-.cursor.label.on-nut .cursor-ring { background: transparent; border: 2px dashed var(--sunred); width: 92px; height: 92px; margin: -46px 0 0 -46px; }
+.cursor.label.on-nut .cursor-ring { background: transparent; border: 2px dashed var(--sunred); width: 92px; height: 92px; }
 .cursor.label.on-nut .cursor-ring em { transform: translateY(58px); color: var(--sunred); }
 .cursor.on-dark .cursor-dot { background: var(--cream); }
 .cursor.on-dark .cursor-ring { border-color: var(--cream); }
-.has-cursor, .has-cursor a, .has-cursor button, .has-cursor label, .has-cursor .bird { cursor: none; }
-.has-cursor input, .has-cursor textarea, .has-cursor select { cursor: auto; }
+/* the system cursor is hidden everywhere the custom one is shown, so there are never two */
+.has-cursor, .has-cursor * { cursor: none !important; }
+.has-cursor input:not([type=checkbox]):not([type=radio]), .has-cursor textarea, .has-cursor select { cursor: text !important; }
+.has-cursor select { cursor: pointer !important; }
 .grain { position: fixed; inset: 0; z-index: 98; pointer-events: none; opacity: .07; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
 /* ---------- responsive ---------- */

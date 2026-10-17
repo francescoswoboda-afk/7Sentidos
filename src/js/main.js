@@ -142,27 +142,36 @@ const App = (() => {
   function initCursor() {
     if (coarse.matches || reduced.matches) return;
     document.documentElement.classList.add('has-cursor');
-    const cur = $('#cursor'), dot = cur.querySelector('.cursor-dot'), ring = cur.querySelector('.cursor-ring'), label = $('#cursorLabel');
-    let x = -100, y = -100, rx = -100, ry = -100;
+    const cur = $('#cursor'), label = $('#cursorLabel');
+    const TYPING = 'input:not([type=checkbox]):not([type=radio]), textarea, select';
+    const NL = () => I18N.lang === 'nl';
+    let lastTarget = null;
+    // move on every pointer event (no animation loop, so it never trails behind)
     addEventListener('pointermove', e => {
-      x = e.clientX; y = e.clientY;
+      if (e.pointerType === 'touch') return;
+      cur.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       const t = e.target;
-      const interactive = t.closest && t.closest('a, button, label, select, [data-cursor], .bird, .pack-slot, canvas');
-      const lab = t.closest && (t.closest('canvas#nutCanvas') ? (I18N.lang === 'nl' ? 'kraak' : 'crack') : t.closest('[data-cursor="drag"]') ? (I18N.lang === 'nl' ? 'draai' : 'turn') : '');
+      if (t === lastTarget && !cur.classList.contains('off')) return;   // same element: states are unchanged
+      lastTarget = t;
+      if (!t.closest) return;
+      const typing = !!t.closest(TYPING);
+      const lab = t.closest('#nutCanvas') ? (NL() ? 'kraak' : 'crack') : t.closest('[data-cursor="drag"]') ? (NL() ? 'draai' : 'turn') : '';
+      const interactive = t.closest('a, button, label, summary, [data-cursor], .bird, .pack-slot, canvas, [role=tab], [role=radio]');
+      cur.classList.toggle('off', typing);                               // text fields keep the normal I-beam only
       cur.classList.toggle('hover', !!interactive && !lab);
       cur.classList.toggle('label', !!lab);
-      label.textContent = lab || '';
-      cur.classList.toggle('on-nut', !!(t.closest && t.closest('#nutCanvas')));
-      cur.classList.toggle('on-dark', !!(t.closest && t.closest('.pairing, .retail, .footer, .strip, .bundle')));
+      label.textContent = lab;
+      cur.classList.toggle('on-nut', !!t.closest('#nutCanvas'));
+      cur.classList.toggle('on-dark', !!t.closest('.pairing, .retail, .footer, .strip, .bundle'));
     }, { passive: true });
-    addEventListener('pointerdown', () => gsap?.to(ring, { scale: .8, duration: .15 }));
-    addEventListener('pointerup', () => gsap?.to(ring, { scale: 1, duration: .4, ease: 'elastic.out(1,.5)' }));
-    const loop = () => {
-      rx += (x - rx) * .5; ry += (y - ry) * .5;
-      dot.style.transform = `translate3d(${x}px, ${y}px, 0)`; ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-      requestAnimationFrame(loop);
-    };
-    loop();
+    addEventListener('pointerdown', e => { if (e.pointerType !== 'touch') cur.classList.add('down'); });
+    addEventListener('pointerup', () => cur.classList.remove('down'));
+    // hide when the pointer leaves the window, show again when it comes back
+    document.documentElement.addEventListener('pointerleave', () => cur.classList.add('off'));
+    document.documentElement.addEventListener('pointerenter', () => { lastTarget = null; cur.classList.remove('off'); });
+    addEventListener('blur', () => cur.classList.add('off'));
+    // a touch on a touchscreen laptop: step aside until the mouse moves again
+    addEventListener('touchstart', () => { cur.classList.add('off'); lastTarget = null; }, { passive: true });
     // magnetic buttons pull toward the pointer
     document.addEventListener('pointermove', e => {
       const m = e.target.closest && e.target.closest('.magnetic');

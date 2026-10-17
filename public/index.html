@@ -73,9 +73,6 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 24px); }
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-stopped { overflow: hidden; }
 body {
   margin: 0;
   background: var(--cream);
@@ -159,7 +156,10 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   border-radius: 999px; box-shadow: 0 1px 0 rgba(19,51,58,.06), 0 12px 30px -18px rgba(19,51,58,.4);
   transition: transform .5s var(--ease-out);
 }
-.nav.hide { transform: translateY(calc(-100% - 20px)); }
+/* a branch growing out of the navbar's lower edge: the bird's home */
+.nav-branch { position: absolute; left: 150px; bottom: -22px; width: 120px; height: 40px; pointer-events: none; }
+.nav-branch svg { width: 100%; height: 100%; overflow: visible; }
+.nav-branch .twig { display: none; }
 .nav-logo img { width: 132px; height: auto; }
 .nav-links { display: flex; gap: 4px; margin-inline: auto; }
 .nav-links a { font-family: var(--display); font-weight: 600; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; padding: 10px 12px 7px; border-radius: 999px; transition: background .25s; }
@@ -623,6 +623,9 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   :root { --nav-h: 58px; }
   .nav { padding-left: 16px; gap: 8px; }
   .nav-logo img { width: 112px; }
+  /* phones: no room beside the logo, so the branch hangs just below the bar on a little twig */
+  .nav-branch { left: 22px; bottom: -50px; width: 96px; height: 32px; }
+  .nav-branch .twig { display: inline; }
   .cart-label { display: none; }
   .cart-btn { padding: 0 6px 0 12px; }
   .hero { padding-top: calc(var(--nav-h) + 34px + env(safe-area-inset-top, 0px)); }
@@ -708,6 +711,16 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   <a class="nav-logo" href="#top" aria-label="Araçari, back to top">
     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjgzIDE5My42IDM1OCA4OC45IiB3aWR0aD0iNzE2IiBoZWlnaHQ9IjE3OCI+PGc+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNODkuMDAwMDAwMDAwMDAwMDMsMjU4IEwxMTUuNDk2NzEyMTg2NTE0LDIwMC4yMTAwMDYxMzYyODM2IEwxNDEuOTkzNDI0MzczMDI3OTgsMjU4IFogTTEwMS41LDI1OCBMMTEyLjEsMjM0LjkgTDExOC45LDIzNC45IEwxMjkuNSwyNTggWiIgZmlsbD0iIzEzMzMzYSIvPjxjbGlwUGF0aCBpZD0iY2F3bTAiPjxwb2x5Z29uIHBvaW50cz0iMTA1LjksMjMwLjcgMTE1LjUsMjA4LjIgMTI1LjEsMjMwLjciLz48L2NsaXBQYXRoPjxnIGNsaXAtcGF0aD0idXJsKCNjYXdtMCkiPjxyZWN0IHg9Ijg5LjAwMDAwMDAwMDAwMDAzIiB5PSIyMDAuMjEwMDA2MTM2MjgzNiIgd2lkdGg9IjUyLjk5MzQyNDM3MzAyNzk0IiBoZWlnaHQ9IjU3Ljc4OTk5Mzg2MzcxNjQwNCIgZmlsbD0iIzU4YjdlOCIvPjxwYXRoIGQ9Ik0xMjAuMSwyMTguOCBMMTIzLjQsMjE5LjYgTDEyMC4xLDIyMC40WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTkuNywyMjEuNyBMMTIxLjksMjI0LjMgTDExOC43LDIyMy4wWiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTcuNywyMjMuOCBMMTE3LjksMjI3LjEgTDExNi4yLDIyNC4zWiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTQuOCwyMjQuMyBMMTEzLjEsMjI3LjEgTDExMy4zLDIyMy44WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTIuMiwyMjMuMCBMMTA5LjEsMjI0LjMgTDExMS4zLDIyMS43WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTAuOSwyMjAuNCBMMTA3LjYsMjE5LjYgTDExMC45LDIxOC44WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTEuMywyMTcuNiBMMTA5LjEsMjE1LjAgTDExMi4yLDIxNi4zWiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTMuMywyMTUuNSBMMTEzLjEsMjEyLjEgTDExNC44LDIxNS4wWiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTYuMiwyMTUuMCBMMTE3LjksMjEyLjEgTDExNy43LDIxNS41WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTguNywyMTYuMyBMMTIxLjksMjE1LjAgTDExOS43LDIxNy42WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxjaXJjbGUgY3g9IjExNS40OTY3MTIxODY1MTQiIGN5PSIyMTkuNjI3NDQ0MDc0NDkyMyIgcj0iNC4xNzM3MjE3NzkwNDYxODUiIGZpbGw9IiNmNmQ2NDEiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxLjEiLz48cGF0aCBkPSJNMTEzLjYxODUzNzM4NTk0MzIxLDIxOS42Mjc0NDQwNzQ0OTIzIGExLjg3ODE3NDgwMDU3MDc4MzUsMS44NzgxNzQ4MDA1NzA3ODM1IDAgMSAxIDIuMDg2ODYwODg5NTIzMDkyNywxLjU4NjAxNDI3NjAzNzU1MDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2U5NjAxYyIgc3Ryb2tlLXdpZHRoPSIwLjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMDMuOTM0Mzg0ODc0NjA1NjEsMjIxLjY4NDAwMjQ1NDUxMzQ2IEMxMDkuNDk2NzEyMTg2NTE0LDIxNS42ODQwMDI0NTQ1MTM0NiAxMjEuNDk2NzEyMTg2NTE0LDIyNS42ODQwMDI0NTQ1MTM0NiAxMjcuMDU5MDM5NDk4NDIyNCwyMTguNjg0MDAyNDU0NTEzNDYgVjIzMi42ODQwMDI0NTQ1MTM0NiBIMTAzLjkzNDM4NDg3NDYwNTYxWiIgZmlsbD0iIzRkOTQyZiIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEuMSIvPjxwYXRoIGQ9Ik0xMDYuNSwyMjcuMiBRMTEwLjgsMjI3LjYgMTEzLjYsMjIzLjQgUTEwOC41LDIyMy40IDEwNi41LDIyNy4yWiIgZmlsbD0iIzg1YmI0OSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEuMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMDYuNSwyMjcuMiBMMTEyLjEsMjI0LjIiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTcuNSwyMjcuNyBRMTIxLjcsMjI4LjYgMTI0LjksMjI0LjcgUTExOS45LDIyNC4xIDExNy41LDIyNy43WiIgZmlsbD0iIzg1YmI0OSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEuMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMTcuNSwyMjcuNyBMMTIzLjQsMjI1LjMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMDMuOTM0Mzg0ODc0NjA1NjEsMjI4LjE4NDAwMjQ1NDUxMzQ2IHE0Ljc4MTE2MzY1NTk1NDE5NywtMyA5LjU2MjMyNzMxMTkwODM5NCwwIHQxMy41NjIzMjczMTE5MDgzOTQsMCBWMjMyLjY4NDAwMjQ1NDUxMzQ2IEgxMDMuOTM0Mzg0ODc0NjA1NjFaIiBmaWxsPSIjNDhiMWFjIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMC45Ii8+PC9nPjxwYXRoIGQ9Ik0zMTggNzM2UTM4NyA3MzYgNDQxLjAgNzE4LjVRNDk1IDcwMSA1MzEuNSA2NjguNVE1NjggNjM2IDU4Ny4wIDU5MC41UTYwNiA1NDUgNjA2IDQ4OFE2MDYgNDQzIDU5Mi41IDM5OC4wUTU3OSAzNTMgNTQ4LjUgMzE2LjBRNTE4IDI3OSA0NjguMCAyNTYuNVE0MTggMjM0IDM0NCAyMzRIMjQwVjBIOTVWNzM2WiBNMzQzIDM3NFEzNzYgMzc0IDM5OC4wIDM4NS4wUTQyMCAzOTYgNDMyLjUgNDEzLjBRNDQ1IDQzMCA0NTAuNSA0NDguNVE0NTYgNDY3IDQ1NiA0ODNRNDU2IDQ5NSA0NTIuNSA1MTMuNVE0NDkgNTMyIDQzOC4wIDU1MS4wUTQyNyA1NzAgNDA0LjUgNTgzLjBRMzgyIDU5NiAzNDQgNTk2SDI0MFYzNzRaIE00NzkgMjg0IDY2MSAwSDQ5MkwzMDYgMjgwWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQxLjE4LDI1OCkgc2NhbGUoMC4wNzg1MiwtMC4wNzg1MikiIGZpbGw9IiMxMzMzM2EiLz48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xOTkuNzI2ODg0NTQ3MDk1MDcsMjU4IEwyMjYuMjIzNTk2NzMzNjA5MDQsMjAwLjIxMDAwNjEzNjI4MzYgTDI1Mi43MjAzMDg5MjAxMjMwMiwyNTggWiBNMjEyLjIsMjU4IEwyMjIuOCwyMzQuOSBMMjI5LjcsMjM0LjkgTDI0MC4zLDI1OCBaIiBmaWxsPSIjMTMzMzNhIi8+PGNsaXBQYXRoIGlkPSJjYXdtMSI+PHBvbHlnb24gcG9pbnRzPSIyMTYuNywyMzAuNyAyMjYuMiwyMDguMiAyMzUuOCwyMzAuNyIvPjwvY2xpcFBhdGg+PGcgY2xpcC1wYXRoPSJ1cmwoI2Nhd20xKSI+PHJlY3QgeD0iMTk5LjcyNjg4NDU0NzA5NTA3IiB5PSIyMDAuMjEwMDA2MTM2MjgzNiIgd2lkdGg9IjUyLjk5MzQyNDM3MzAyNzk0IiBoZWlnaHQ9IjU3Ljc4OTk5Mzg2MzcxNjQwNCIgZmlsbD0iIzU4YjdlOCIvPjxwYXRoIGQ9Ik0yMjkuMywyMTguOCBMMjMyLjYsMjE5LjYgTDIyOS4zLDIyMC40WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjguOSwyMjEuNyBMMjMxLjEsMjI0LjMgTDIyOC4wLDIyMy4wWiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjYuOSwyMjMuOCBMMjI3LjIsMjI3LjEgTDIyNS40LDIyNC4zWiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjQuMSwyMjQuMyBMMjIyLjMsMjI3LjEgTDIyMi41LDIyMy44WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjEuNSwyMjMuMCBMMjE4LjQsMjI0LjMgTDIyMC41LDIyMS43WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjAuMSwyMjAuNCBMMjE2LjksMjE5LjYgTDIyMC4xLDIxOC44WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjAuNSwyMTcuNiBMMjE4LjQsMjE1LjAgTDIyMS41LDIxNi4zWiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjIuNSwyMTUuNSBMMjIyLjMsMjEyLjEgTDIyNC4xLDIxNS4wWiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjUuNCwyMTUuMCBMMjI3LjIsMjEyLjEgTDIyNi45LDIxNS41WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjguMCwyMTYuMyBMMjMxLjEsMjE1LjAgTDIyOC45LDIxNy42WiIgZmlsbD0iI2U5NjAxYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxjaXJjbGUgY3g9IjIyNC43MjM1OTY3MzM2MDkwNCIgY3k9IjIxOS42Mjc0NDQwNzQ0OTIzIiByPSI0LjE3MzcyMTc3OTA0NjE4NSIgZmlsbD0iI2Y2ZDY0MSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEuMSIvPjxwYXRoIGQ9Ik0yMjIuODQ1NDIxOTMzMDM4MjcsMjE5LjYyNzQ0NDA3NDQ5MjMgYTEuODc4MTc0ODAwNTcwNzgzNSwxLjg3ODE3NDgwMDU3MDc4MzUgMCAxIDEgMi4wODY4NjA4ODk1MjMwOTI3LDEuNTg2MDE0Mjc2MDM3NTUwNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTk2MDFjIiBzdHJva2Utd2lkdGg9IjAuOSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTIxNC42NjEyNjk0MjE3MDA2NCwyMjEuNjg0MDAyNDU0NTEzNDYgQzIyMC4yMjM1OTY3MzM2MDkwNCwyMTUuNjg0MDAyNDU0NTEzNDYgMjMyLjIyMzU5NjczMzYwOTA0LDIyNS42ODQwMDI0NTQ1MTM0NiAyMzcuNzg1OTI0MDQ1NTE3NDUsMjE4LjY4NDAwMjQ1NDUxMzQ2IFYyMzIuNjg0MDAyNDU0NTEzNDYgSDIxNC42NjEyNjk0MjE3MDA2NFoiIGZpbGw9IiM0ZDk0MmYiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxLjEiLz48cGF0aCBkPSJNMjE3LjIsMjI3LjIgUTIyMS41LDIyNy42IDIyNC4zLDIyMy40IFEyMTkuMywyMjMuNCAyMTcuMiwyMjcuMloiIGZpbGw9IiM4NWJiNDkiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMjE3LjIsMjI3LjIgTDIyMi45LDIyNC4yIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMC44IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjI4LjIsMjI3LjcgUTIzMi41LDIyOC42IDIzNS42LDIyNC43IFEyMzAuNywyMjQuMSAyMjguMiwyMjcuN1oiIGZpbGw9IiM4NWJiNDkiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMjI4LjIsMjI3LjcgTDIzNC4yLDIyNS4zIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMC44IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjE0LjY2MTI2OTQyMTcwMDY0LDIyOC4xODQwMDI0NTQ1MTM0NiBxNC43ODExNjM2NTU5NTQxOTcsLTMgOS41NjIzMjczMTE5MDgzOTQsMCB0MTMuNTYyMzI3MzExOTA4Mzk0LDAgVjIzMi42ODQwMDI0NTQ1MTM0NiBIMjE0LjY2MTI2OTQyMTcwMDY0WiIgZmlsbD0iIzQ4YjFhYyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuOSIvPjwvZz48cGF0aCBkPSJNNjQ3IDYxUTYzNSA1MSA2MDIuNSAzNC4wUTU3MCAxNyA1MjMuMCA0LjBRNDc2IC05IDQxOSAtOFEzMzIgLTYgMjYzLjUgMjMuNVExOTUgNTMgMTQ3LjUgMTA0LjBRMTAwIDE1NSA3NS4wIDIyMS4wUTUwIDI4NyA1MCAzNjJRNTAgNDQ2IDc1LjUgNTE2LjBRMTAxIDU4NiAxNDguNSA2MzcuMFExOTYgNjg4IDI2Mi4wIDcxNi4wUTMyOCA3NDQgNDA4IDc0NFE0ODIgNzQ0IDUzOS4wIDcyNC4wUTU5NiA3MDQgNjMyIDY4MUw1NzUgNTQ0UTU1MCA1NjMgNTA4LjUgNTgzLjVRNDY3IDYwNCA0MTMgNjA0UTM3MSA2MDQgMzMyLjUgNTg2LjVRMjk0IDU2OSAyNjQuNSA1MzcuMFEyMzUgNTA1IDIxOC4wIDQ2Mi41UTIwMSA0MjAgMjAxIDM3MFEyMDEgMzE3IDIxNi41IDI3My4wUTIzMiAyMjkgMjYxLjAgMTk3LjVRMjkwIDE2NiAzMzAuNSAxNDkuMFEzNzEgMTMyIDQyMiAxMzJRNDgxIDEzMiA1MjMuMCAxNTEuMFE1NjUgMTcwIDU4NyAxOTFaIE0zMTcgLTEzNlEzMjcgLTE0OCAzNDIuNSAtMTU1LjVRMzU4IC0xNjMgMzc3IC0xNjNRMzk0IC0xNjMgNDEyLjUgLTE1NC4wUTQzMSAtMTQ1IDQzMSAtMTI3UTQzMSAtMTE2IDQyMS4wIC0xMDUuMFE0MTEgLTk0IDM3OCAtOTRRMzYyIC05NCAzNDcuMCAtOTcuNVEzMzIgLTEwMSAzMTggLTEwNUwyOTkgLTM5TDM2OCAxMkg0NzVMMzk4IC03NEwzNzIgLTM5UTM4MyAtMzcgMzkzLjUgLTM2LjBRNDA0IC0zNSA0MTQgLTM0UTQ3MCAtMzIgNTA4LjUgLTU1LjBRNTQ3IC03OCA1NDcgLTEyNVE1NDcgLTE2MyA1MjQuNSAtMTg3LjVRNTAyIC0yMTIgNDY2LjUgLTIyNC4wUTQzMSAtMjM2IDM5MSAtMjM2UTM0NyAtMjM2IDMxOS4wIC0yMjIuNVEyOTEgLTIwOSAyNzQgLTE5MVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI1NS40NCwyNTgpIHNjYWxlKDAuMDc4NTIsLTAuMDc4NTIpIiBmaWxsPSIjMTMzMzNhIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzEyLjg4Nzg1ODUwOTY0NTUsMjU4IEwzMzkuMzg0NTcwNjk2MTU5NDcsMjAwLjIxMDAwNjEzNjI4MzYgTDM2NS44ODEyODI4ODI2NzM1LDI1OCBaIE0zMjUuMywyNTggTDMzNS45LDIzNC45IEwzNDIuOCwyMzQuOSBMMzUzLjQsMjU4IFoiIGZpbGw9IiMxMzMzM2EiLz48Y2xpcFBhdGggaWQ9ImNhd20yIj48cG9seWdvbiBwb2ludHM9IjMyOS44LDIzMC43IDMzOS40LDIwOC4yIDM0OC45LDIzMC43Ii8+PC9jbGlwUGF0aD48ZyBjbGlwLXBhdGg9InVybCgjY2F3bTIpIj48cmVjdCB4PSIzMTIuODg3ODU4NTA5NjQ1NSIgeT0iMjAwLjIxMDAwNjEzNjI4MzYiIHdpZHRoPSI1Mi45OTM0MjQzNzMwMjc5NCIgaGVpZ2h0PSI1Ny43ODk5OTM4NjM3MTY0MDQiIGZpbGw9IiM1OGI3ZTgiLz48cGF0aCBkPSJNMzQ1LjUsMjE4LjggTDM0OC44LDIxOS42IEwzNDUuNSwyMjAuNFoiIGZpbGw9IiNlOTYwMWMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMzQ1LjEsMjIxLjcgTDM0Ny4yLDIyNC4zIEwzNDQuMSwyMjMuMFoiIGZpbGw9IiNlOTYwMWMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMzQzLjEsMjIzLjggTDM0My4zLDIyNy4xIEwzNDEuNSwyMjQuM1oiIGZpbGw9IiNlOTYwMWMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMzQwLjIsMjI0LjMgTDMzOC41LDIyNy4xIEwzMzguNywyMjMuOFoiIGZpbGw9IiNlOTYwMWMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMzM3LjYsMjIzLjAgTDMzNC41LDIyNC4zIEwzMzYuNywyMjEuN1oiIGZpbGw9IiNlOTYwMWMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMzM2LjMsMjIwLjQgTDMzMy4wLDIxOS42IEwzMzYuMywyMTguOFoiIGZpbGw9IiNlOTYwMWMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMzM2LjcsMjE3LjYgTDMzNC41LDIxNS4wIEwzMzcuNiwyMTYuM1oiIGZpbGw9IiNlOTYwMWMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMzM4LjcsMjE1LjUgTDMzOC41LDIxMi4xIEwzNDAuMiwyMTUuMFoiIGZpbGw9IiNlOTYwMWMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMzQxLjUsMjE1LjAgTDM0My4zLDIxMi4xIEwzNDMuMSwyMTUuNVoiIGZpbGw9IiNlOTYwMWMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMzQ0LjEsMjE2LjMgTDM0Ny4yLDIxNS4wIEwzNDUuMSwyMTcuNloiIGZpbGw9IiNlOTYwMWMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48Y2lyY2xlIGN4PSIzNDAuODg0NTcwNjk2MTU5NDciIGN5PSIyMTkuNjI3NDQ0MDc0NDkyMyIgcj0iNC4xNzM3MjE3NzkwNDYxODUiIGZpbGw9IiNmNmQ2NDEiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxLjEiLz48cGF0aCBkPSJNMzM5LjAwNjM5NTg5NTU4ODcsMjE5LjYyNzQ0NDA3NDQ5MjMgYTEuODc4MTc0ODAwNTcwNzgzNSwxLjg3ODE3NDgwMDU3MDc4MzUgMCAxIDEgMi4wODY4NjA4ODk1MjMwOTI3LDEuNTg2MDE0Mjc2MDM3NTUwNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTk2MDFjIiBzdHJva2Utd2lkdGg9IjAuOSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTMyNy44MjIyNDMzODQyNTEwNywyMjEuNjg0MDAyNDU0NTEzNDYgQzMzMy4zODQ1NzA2OTYxNTk0NywyMTUuNjg0MDAyNDU0NTEzNDYgMzQ1LjM4NDU3MDY5NjE1OTQ3LDIyNS42ODQwMDI0NTQ1MTM0NiAzNTAuOTQ2ODk4MDA4MDY3OSwyMTguNjg0MDAyNDU0NTEzNDYgVjIzMi42ODQwMDI0NTQ1MTM0NiBIMzI3LjgyMjI0MzM4NDI1MTA3WiIgZmlsbD0iIzRkOTQyZiIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEuMSIvPjxwYXRoIGQ9Ik0zMzAuNCwyMjcuMiBRMzM0LjcsMjI3LjYgMzM3LjQsMjIzLjQgUTMzMi40LDIyMy40IDMzMC40LDIyNy4yWiIgZmlsbD0iIzg1YmI0OSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEuMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0zMzAuNCwyMjcuMiBMMzM2LjAsMjI0LjIiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0zNDEuNCwyMjcuNyBRMzQ1LjYsMjI4LjYgMzQ4LjgsMjI0LjcgUTM0My44LDIyNC4xIDM0MS40LDIyNy43WiIgZmlsbD0iIzg1YmI0OSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEuMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0zNDEuNCwyMjcuNyBMMzQ3LjMsMjI1LjMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0zMjcuODIyMjQzMzg0MjUxMDcsMjI4LjE4NDAwMjQ1NDUxMzQ2IHE0Ljc4MTE2MzY1NTk1NDE5NywtMyA5LjU2MjMyNzMxMTkwODM5NCwwIHQxMy41NjIzMjczMTE5MDgzOTQsMCBWMjMyLjY4NDAwMjQ1NDUxMzQ2IEgzMjcuODIyMjQzMzg0MjUxMDdaIiBmaWxsPSIjNDhiMWFjIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMC45Ii8+PC9nPjxwYXRoIGQ9Ik0zMTggNzM2UTM4NyA3MzYgNDQxLjAgNzE4LjVRNDk1IDcwMSA1MzEuNSA2NjguNVE1NjggNjM2IDU4Ny4wIDU5MC41UTYwNiA1NDUgNjA2IDQ4OFE2MDYgNDQzIDU5Mi41IDM5OC4wUTU3OSAzNTMgNTQ4LjUgMzE2LjBRNTE4IDI3OSA0NjguMCAyNTYuNVE0MTggMjM0IDM0NCAyMzRIMjQwVjBIOTVWNzM2WiBNMzQzIDM3NFEzNzYgMzc0IDM5OC4wIDM4NS4wUTQyMCAzOTYgNDMyLjUgNDEzLjBRNDQ1IDQzMCA0NTAuNSA0NDguNVE0NTYgNDY3IDQ1NiA0ODNRNDU2IDQ5NSA0NTIuNSA1MTMuNVE0NDkgNTMyIDQzOC4wIDU1MS4wUTQyNyA1NzAgNDA0LjUgNTgzLjBRMzgyIDU5NiAzNDQgNTk2SDI0MFYzNzRaIE00NzkgMjg0IDY2MSAwSDQ5MkwzMDYgMjgwWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzY1LjA3LDI1OCkgc2NhbGUoMC4wNzg1MiwtMC4wNzg1MikiIGZpbGw9IiMxMzMzM2EiLz48cGF0aCBkPSJNOTUgNzM2SDI0MFYwSDk1WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDE2LjE2LDI1OCkgc2NhbGUoMC4wNzg1MiwtMC4wNzg1MikiIGZpbGw9IiMxMzMzM2EiLz48L2c+PC9zdmc+" alt="Araçari" width="144" height="36">
   </a>
+  <span class="nav-branch" id="navBranch" aria-hidden="true">
+    <svg viewBox="0 0 120 40" fill="none">
+      <path class="twig" d="M8 16C10 4 8 -12 12 -30" stroke="#7a4a26" stroke-width="4" stroke-linecap="round"/>
+      <path d="M2 14C28 22 56 24 84 21C98 19 108 16 118 12" stroke="#7a4a26" stroke-width="5" stroke-linecap="round"/>
+      <path d="M86 21C92 27 94 32 92 37" stroke="#7a4a26" stroke-width="3" stroke-linecap="round"/>
+      <path d="M26 19C22 9 26 3 34 1C36 9 32 16 26 19Z" fill="#4d942f" stroke="#fff" stroke-width="1.4"/>
+      <path d="M100 18C108 10 116 10 119 15C113 20 106 21 100 18Z" fill="#85bb49" stroke="#fff" stroke-width="1.4"/>
+      <ellipse cx="92" cy="37" rx="3.6" ry="2.6" fill="#8a5a2b" stroke="#fff" stroke-width="1"/>
+    </svg>
+  </span>
   <nav class="nav-links" aria-label="Main">
     <a href="#shop" data-i18n="nav.shop">Shop</a>
     <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
@@ -734,7 +747,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   </div>
 </header>
 
-<div class="menu" id="menu" data-lenis-prevent hidden>
+<div class="menu" id="menu" hidden>
   <nav aria-label="Mobile">
     <a href="#shop" data-i18n="nav.shop">Shop</a>
     <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
@@ -979,7 +992,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 <!-- ============ OVERLAYS ============ -->
 <div class="scrim" id="scrim" hidden></div>
 
-<aside class="drawer" id="cart" data-lenis-prevent aria-labelledby="cartTitle" role="dialog" aria-modal="true" hidden>
+<aside class="drawer" id="cart" aria-labelledby="cartTitle" role="dialog" aria-modal="true" hidden>
   <div class="drawer-head">
     <h2 id="cartTitle" data-i18n="cart.title">Your cart</h2>
     <button type="button" class="icon-btn close" data-close aria-label="Close cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
@@ -998,12 +1011,12 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   </div>
 </aside>
 
-<div class="sheet" id="product" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="pdTitle" hidden>
+<div class="sheet" id="product" role="dialog" aria-modal="true" aria-labelledby="pdTitle" hidden>
   <button type="button" class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="sheet-body" id="productBody"></div>
 </div>
 
-<div class="checkout" id="checkout" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="coTitle" hidden>
+<div class="checkout" id="checkout" role="dialog" aria-modal="true" aria-labelledby="coTitle" hidden>
   <div class="co-inner">
     <div class="co-head">
       <h2 id="coTitle" data-i18n="co.title">Checkout</h2>
@@ -1019,7 +1032,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   </div>
 </div>
 
-<div class="sheet legal" id="legal" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="legalTitle" hidden>
+<div class="sheet legal" id="legal" role="dialog" aria-modal="true" aria-labelledby="legalTitle" hidden>
   <button type="button" class="icon-btn close" data-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="sheet-body" id="legalBody"></div>
 </div>
@@ -1040,7 +1053,6 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 /* ---- data.js ---- */
 /* =====================================================================
@@ -1439,7 +1451,6 @@ const Util = (() => {
     if (el.id !== 'checkout') { scrim.hidden = false; scrim.style.zIndex = 70 + stack.length * 2; }
     el.style.zIndex = 71 + stack.length * 2;
     el.hidden = false;
-    (typeof App !== "undefined" && App.lenis && App.lenis.stop());
     document.documentElement.style.overflow = 'hidden';
     const fromX = el.classList.contains('drawer') || el.classList.contains('sheet');
     if (window.gsap && !reduced.matches) {
@@ -1458,7 +1469,7 @@ const Util = (() => {
     const done = () => {
       el.hidden = true;
       if (!stack.some(s => s.el.id !== 'checkout')) scrim.hidden = true; else scrim.style.zIndex = 70 + stack.length * 2;
-      if (!stack.length) { (typeof App !== "undefined" && App.lenis && App.lenis.start()); document.documentElement.style.overflow = ''; }
+      if (!stack.length) { document.documentElement.style.overflow = ''; }
     };
     if (el._trigger) el._trigger.setAttribute('aria-expanded', 'false');
     if (window.gsap && !reduced.matches) {
@@ -1706,7 +1717,7 @@ const Bird = (() => {
   let sizeMul = 1, sizeT = 124;
   function setSize() { sizeT = (innerWidth < 700 ? 84 : innerWidth < 1100 ? 104 : 124) * sizeMul; if (S.size === 120) { S.size = sizeT; el.style.setProperty('--bird-w', sizeT + 'px'); } }
   // inside panels (cart, product sheet, checkout) the bird shrinks so it fits beside the title
-  function setMini(on) { sizeMul = on ? .62 : 1; setSize(); }
+  function setMini(on) { sizeMul = typeof on === 'number' ? on : on ? .62 : 1; setSize(); }
   function setAccent(c) {
     el.style.setProperty('--b-acc', c.band);
     el.style.setProperty('--b-acc-d', Util.mix(c.band, '#13333a', .3));
@@ -2121,10 +2132,11 @@ function createPack(host, flavour, opts = {}) {
   }, { passive: true });
   const end = () => { if (!st.dragging) return; st.dragging = false; setTimeout(() => delete host.dataset.dragged, 50); };
   addEventListener('pointerup', end); addEventListener('pointercancel', end);
+  let box = null;
+  host.addEventListener('pointerenter', () => { box = host.getBoundingClientRect(); });
   host.addEventListener('pointermove', e => {
-    if (Util.coarse.matches) return;
-    const r = host.getBoundingClientRect();
-    st.hoverX = (e.clientX - r.left) / r.width - .5; st.hoverY = (e.clientY - r.top) / r.height - .5;
+    if (Util.coarse.matches || !box) return;
+    st.hoverX = (e.clientX - box.left) / box.width - .5; st.hoverY = (e.clientY - box.top) / box.height - .5;
   });
   host.addEventListener('pointerleave', () => { st.hoverX = st.hoverY = 0; });
   host.addEventListener('keydown', e => {
@@ -2246,10 +2258,11 @@ const Hero = (() => {
     cycle();
     // tilt the hero pack toward the pointer anywhere in the hero
     const hero = document.getElementById('hero');
+    let heroBox = null;
+    hero.addEventListener('pointerenter', () => { heroBox = hero.getBoundingClientRect(); });
     hero.addEventListener('pointermove', e => {
-      if (Util.coarse.matches) return;
-      const r = hero.getBoundingClientRect();
-      pack.setTilt(((e.clientY - r.top) / r.height - .5) * -10);
+      if (Util.coarse.matches || !heroBox) return;
+      pack.setTilt(((e.clientY - heroBox.top) / heroBox.height - .5) * -10);
     });
     new IntersectionObserver(es => es.forEach(e => (inView = e.isIntersecting)), { threshold: .25 }).observe(hero);
   }
@@ -2438,7 +2451,7 @@ const Origin = (() => {
     buildOrchard(); buildMap(); render(0);
     if (!window.ScrollTrigger) { document.querySelectorAll('.season').forEach(s => s.classList.add('on')); return; }
     ScrollTrigger.create({
-      trigger: '.origin', start: 'top top', end: () => '+=' + innerHeight * 4.2, pin: '.origin-pin', scrub: Util.reduced.matches ? true : .7,
+      trigger: '.origin', start: 'top top', end: () => '+=' + innerHeight * 4.2, pin: '.origin-pin', scrub: true,
       onUpdate: self => render(self.progress * 5),
     });
   }
@@ -3273,7 +3286,6 @@ const Pairing = (() => {
 const App = (() => {
   const { $, $$, store, reduced, coarse } = Util;
   const hasGsap = !!window.gsap;
-  let lenis = null;
 
   /* ---------- where the bird sits in each section ---------- */
   // line: true = sit at the end of the heading's first line, on the baseline
@@ -3324,47 +3336,43 @@ const App = (() => {
     c.sort((a, b) => Math.abs(a.pt.y - innerHeight * .38) - Math.abs(b.pt.y - innerHeight * .38));
     return c[0].p;
   }
+  // the bird's home: the little branch growing out of the navbar
+  // the navbar is fixed, so its branch only moves when the window resizes: measure it once per resize
+  let navPoint = null;
+  addEventListener('resize', () => { navPoint = null; });
+  const NAV_PERCH = { el: null, get: () => { if (!navPoint) { const r = NAV_PERCH.el.getBoundingClientRect(); navPoint = { x: r.left + r.width * .6, y: r.top + r.height * .46 }; } return navPoint; }, nav: true };
+  function goHome() { if (Bird.currentPerch() === NAV_PERCH && Bird.mode !== 'idle') return; Bird.setMini(.55); Bird.perchOn(NAV_PERCH, { force: true }); }
   function perchManager() {
     if (['#checkout', '#product', '#cart', '#legal'].some(s => Util.isOpen($(s)))) return;
-    if (Origin.onRoute && !reduced.matches) { if (Bird.mode !== 'track' && !Bird.busy) Bird.track(Origin.routePoint); return; }
+    if (Origin.onRoute && !reduced.matches) { if (Bird.mode !== 'track' && !Bird.busy) { Bird.setMini(1); Bird.track(Origin.routePoint); } return; }
     if (Bird.mode === 'track') Bird.untrack();
     if (Bird.busy || Bird.mode === 'busy') return;
     const cur = Bird.currentPerch(), sec = activeSection();
-    if (cur && sec && Bird.mode !== 'idle') {
+    if (cur && !cur.nav && sec && Bird.mode !== 'idle') {
       const stillHere = candidates(sec).some(p => p.el === cur.el) && cur.el.isConnected && goodPoint(pointOf(cur));
       if (stillHere) return;
     }
-    const b = bestPerch(); if (b) Bird.perchOn(b);
+    const b = bestPerch();
+    if (b) { Bird.setMini(1); Bird.perchOn(b); }
+    else goHome();        // nowhere to sit in this part of the page: back to the navbar branch
   }
 
-  /* ---------- smooth scroll ---------- */
+  /* ---------- scrolling: native, no smoothing, so it stops when you stop ---------- */
   function initScroll() {
     if (hasGsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
-    if (window.Lenis && !reduced.matches && hasGsap) {
-      lenis = new Lenis({ lerp: .1, smoothWheel: true, wheelMultiplier: 1 });
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(t => lenis.raf(t * 1000));
-      gsap.ticker.lagSmoothing(0);
-      App.lenis = lenis;
-    }
     document.addEventListener('click', e => {
       const a = e.target.closest('a[href^="#"]'); if (!a) return;
       const id = a.getAttribute('href'); const t = id === '#top' ? document.body : $(id); if (!t) return;
       e.preventDefault();
       closeMenu();
-      const go = () => { if (lenis) lenis.scrollTo(t, { offset: id === '#top' ? 0 : -navH() - 10, duration: 1.6, easing: x => 1 - Math.pow(1 - x, 4) }); else t.scrollIntoView({ behavior: reduced.matches ? 'auto' : 'smooth' }); };
+      const go = () => {
+        const top = id === '#top' ? 0 : t.getBoundingClientRect().top + scrollY - navH() - 10;
+        scrollTo({ top, behavior: reduced.matches ? 'auto' : 'smooth' });
+      };
       if (a.closest('#cart')) { Util.close($('#cart')); setTimeout(go, 350); } else go();
       if (t.tabIndex < 0 && t !== document.body) { t.setAttribute('tabindex', '-1'); }
       setTimeout(() => t.focus && t.focus({ preventScroll: true }), 900);
     });
-    // nav hides on the way down, returns on the way up
-    let lastY = scrollY;
-    addEventListener('scroll', () => {
-      const y = scrollY, nav = $('#nav');
-      nav.classList.toggle('hide', y > 400 && y > lastY + 4 && $('#menu').hidden && performance.now() - Cart.lastAdd > 4000);
-      if (y < lastY - 4 || y < 400) nav.classList.remove('hide');
-      lastY = y;
-    }, { passive: true });
   }
 
   /* ---------- reveals ---------- */
@@ -3391,19 +3399,24 @@ const App = (() => {
   function initWeightPlay() {
     if (coarse.matches || reduced.matches) return;
     $$('.display, .h2').forEach(h => {
-      let raf = null, px = 0, py = 0;
+      // measure the letters once when the pointer enters (in page coordinates), then only write:
+      // reading positions between weight changes would force a full re-layout per letter
+      let raf = null, px = 0, py = 0, letters = [];
+      h.addEventListener('pointerenter', () => {
+        letters = [...h.querySelectorAll('.ch')].map(c => { const r = c.getBoundingClientRect(); return { c, x: r.left + r.width / 2 + scrollX, y: r.top + r.height / 2 + scrollY, w: 0 }; });
+      });
       h.addEventListener('pointermove', e => {
-        px = e.clientX; py = e.clientY;
+        px = e.clientX + scrollX; py = e.clientY + scrollY;
         if (raf) return;
         raf = requestAnimationFrame(() => {
           raf = null;
-          h.querySelectorAll('.ch').forEach(c => {
-            const r = c.getBoundingClientRect(), d = Math.hypot(r.left + r.width / 2 - px, r.top + r.height / 2 - py);
-            c.style.fontWeight = Math.round(300 + 400 * Util.clamp(d / 160, 0, 1));
-          });
+          for (const l of letters) {
+            const w = Math.round((300 + 400 * Util.clamp(Math.hypot(l.x - px, l.y - py) / 160, 0, 1)) / 50) * 50;
+            if (w !== l.w) { l.w = w; l.c.style.fontWeight = w; }
+          }
         });
       });
-      h.addEventListener('pointerleave', () => h.querySelectorAll('.ch').forEach(c => (c.style.fontWeight = '')));
+      h.addEventListener('pointerleave', () => { letters.forEach(l => { l.w = 0; l.c.style.fontWeight = ''; }); letters = []; });
       h.querySelectorAll('.ch').forEach(c => c.classList.add('hoverable'));
     });
   }
@@ -3445,12 +3458,12 @@ const App = (() => {
   }
 
   /* ---------- menu, sound, language ---------- */
-  function closeMenu() { const m = $('#menu'); if (!m.hidden) { m.hidden = true; $('#menuBtn').setAttribute('aria-expanded', 'false'); lenis?.start(); document.documentElement.style.overflow = ''; } }
+  function closeMenu() { const m = $('#menu'); if (!m.hidden) { m.hidden = true; $('#menuBtn').setAttribute('aria-expanded', 'false'); document.documentElement.style.overflow = ''; } }
   function initControls() {
     $('#menuBtn').addEventListener('click', () => {
       const m = $('#menu'), open = m.hidden;
       if (!open) return closeMenu();
-      m.hidden = false; $('#menuBtn').setAttribute('aria-expanded', 'true'); lenis?.stop(); document.documentElement.style.overflow = 'hidden';
+      m.hidden = false; $('#menuBtn').setAttribute('aria-expanded', 'true'); document.documentElement.style.overflow = 'hidden';
       if (hasGsap && !reduced.matches) gsap.from('#menu a', { y: 40, opacity: 0, duration: .7, stagger: .05, ease: 'expo.out' });
       m.querySelector('a').focus();
     });
@@ -3559,6 +3572,7 @@ const App = (() => {
     $$('.split').forEach(h => Util.split(h));
     const lang = store.get('lang', 'en');
     if (lang === 'nl') I18N.apply('nl');
+    NAV_PERCH.el = $('#navBranch svg');
     initScroll();
     Bird.build();
     Hero.init();
@@ -3589,8 +3603,8 @@ const App = (() => {
     Bird.setMini(true);
     setTimeout(() => Bird.perchOn({ el, get: () => { const r = el.getBoundingClientRect(); const t = el.firstChild && el.firstChild.nodeType === 3 ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); })() : r; return { x: Math.min(t.right + Bird.state.size * .45, innerWidth - Bird.state.size * .5), y: t.top >= 0 ? Math.max(t.bottom - 4, Bird.state.size * .92 + 8) : t.bottom - 4 }; } }, { force: true }), 380);
   }
-  function birdHome() { Bird.setMini(false); setTimeout(() => { const b = bestPerch(); if (b) Bird.perchOn(b, { force: true }); }, 300); }
-  return { init, bestPerch, birdTo, birdHome, lenis: null };
+  function birdHome() { setTimeout(() => { const b = bestPerch(); if (b) { Bird.setMini(1); Bird.perchOn(b, { force: true }); } else goHome(); }, 300); }
+  return { init, bestPerch, birdTo, birdHome };
 })();
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', App.init); else App.init();

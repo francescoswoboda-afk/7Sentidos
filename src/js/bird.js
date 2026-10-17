@@ -112,7 +112,7 @@ const Bird = (() => {
   let sizeMul = 1, sizeT = 124;
   function setSize() { sizeT = (innerWidth < 700 ? 84 : innerWidth < 1100 ? 104 : 124) * sizeMul; if (S.size === 120) { S.size = sizeT; el.style.setProperty('--bird-w', sizeT + 'px'); } }
   // inside panels (cart, product sheet, checkout) the bird shrinks so it fits beside the title
-  function setMini(on) { sizeMul = on ? .62 : 1; setSize(); }
+  function setMini(on) { sizeMul = typeof on === 'number' ? on : on ? .62 : 1; setSize(); }
   function setAccent(c) {
     el.style.setProperty('--b-acc', c.band);
     el.style.setProperty('--b-acc-d', Util.mix(c.band, '#13333a', .3));

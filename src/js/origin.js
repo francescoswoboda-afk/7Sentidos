@@ -179,7 +179,7 @@ const Origin = (() => {
     buildOrchard(); buildMap(); render(0);
     if (!window.ScrollTrigger) { document.querySelectorAll('.season').forEach(s => s.classList.add('on')); return; }
     ScrollTrigger.create({
-      trigger: '.origin', start: 'top top', end: () => '+=' + innerHeight * 4.2, pin: '.origin-pin', scrub: Util.reduced.matches ? true : .7,
+      trigger: '.origin', start: 'top top', end: () => '+=' + innerHeight * 4.2, pin: '.origin-pin', scrub: true,
       onUpdate: self => render(self.progress * 5),
     });
   }

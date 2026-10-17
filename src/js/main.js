@@ -3,7 +3,6 @@
 const App = (() => {
   const { $, $$, store, reduced, coarse } = Util;
   const hasGsap = !!window.gsap;
-  let lenis = null;
 
   /* ---------- where the bird sits in each section ---------- */
   // line: true = sit at the end of the heading's first line, on the baseline
@@ -54,47 +53,43 @@ const App = (() => {
     c.sort((a, b) => Math.abs(a.pt.y - innerHeight * .38) - Math.abs(b.pt.y - innerHeight * .38));
     return c[0].p;
   }
+  // the bird's home: the little branch growing out of the navbar
+  // the navbar is fixed, so its branch only moves when the window resizes: measure it once per resize
+  let navPoint = null;
+  addEventListener('resize', () => { navPoint = null; });
+  const NAV_PERCH = { el: null, get: () => { if (!navPoint) { const r = NAV_PERCH.el.getBoundingClientRect(); navPoint = { x: r.left + r.width * .6, y: r.top + r.height * .46 }; } return navPoint; }, nav: true };
+  function goHome() { if (Bird.currentPerch() === NAV_PERCH && Bird.mode !== 'idle') return; Bird.setMini(.55); Bird.perchOn(NAV_PERCH, { force: true }); }
   function perchManager() {
     if (['#checkout', '#product', '#cart', '#legal'].some(s => Util.isOpen($(s)))) return;
-    if (Origin.onRoute && !reduced.matches) { if (Bird.mode !== 'track' && !Bird.busy) Bird.track(Origin.routePoint); return; }
+    if (Origin.onRoute && !reduced.matches) { if (Bird.mode !== 'track' && !Bird.busy) { Bird.setMini(1); Bird.track(Origin.routePoint); } return; }
     if (Bird.mode === 'track') Bird.untrack();
     if (Bird.busy || Bird.mode === 'busy') return;
     const cur = Bird.currentPerch(), sec = activeSection();
-    if (cur && sec && Bird.mode !== 'idle') {
+    if (cur && !cur.nav && sec && Bird.mode !== 'idle') {
       const stillHere = candidates(sec).some(p => p.el === cur.el) && cur.el.isConnected && goodPoint(pointOf(cur));
       if (stillHere) return;
     }
-    const b = bestPerch(); if (b) Bird.perchOn(b);
+    const b = bestPerch();
+    if (b) { Bird.setMini(1); Bird.perchOn(b); }
+    else goHome();        // nowhere to sit in this part of the page: back to the navbar branch
   }
 
-  /* ---------- smooth scroll ---------- */
+  /* ---------- scrolling: native, no smoothing, so it stops when you stop ---------- */
   function initScroll() {
     if (hasGsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
-    if (window.Lenis && !reduced.matches && hasGsap) {
-      lenis = new Lenis({ lerp: .1, smoothWheel: true, wheelMultiplier: 1 });
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(t => lenis.raf(t * 1000));
-      gsap.ticker.lagSmoothing(0);
-      App.lenis = lenis;
-    }
     document.addEventListener('click', e => {
       const a = e.target.closest('a[href^="#"]'); if (!a) return;
       const id = a.getAttribute('href'); const t = id === '#top' ? document.body : $(id); if (!t) return;
       e.preventDefault();
       closeMenu();
-      const go = () => { if (lenis) lenis.scrollTo(t, { offset: id === '#top' ? 0 : -navH() - 10, duration: 1.6, easing: x => 1 - Math.pow(1 - x, 4) }); else t.scrollIntoView({ behavior: reduced.matches ? 'auto' : 'smooth' }); };
+      const go = () => {
+        const top = id === '#top' ? 0 : t.getBoundingClientRect().top + scrollY - navH() - 10;
+        scrollTo({ top, behavior: reduced.matches ? 'auto' : 'smooth' });
+      };
       if (a.closest('#cart')) { Util.close($('#cart')); setTimeout(go, 350); } else go();
       if (t.tabIndex < 0 && t !== document.body) { t.setAttribute('tabindex', '-1'); }
       setTimeout(() => t.focus && t.focus({ preventScroll: true }), 900);
     });
-    // nav hides on the way down, returns on the way up
-    let lastY = scrollY;
-    addEventListener('scroll', () => {
-      const y = scrollY, nav = $('#nav');
-      nav.classList.toggle('hide', y > 400 && y > lastY + 4 && $('#menu').hidden && performance.now() - Cart.lastAdd > 4000);
-      if (y < lastY - 4 || y < 400) nav.classList.remove('hide');
-      lastY = y;
-    }, { passive: true });
   }
 
   /* ---------- reveals ---------- */
@@ -121,19 +116,24 @@ const App = (() => {
   function initWeightPlay() {
     if (coarse.matches || reduced.matches) return;
     $$('.display, .h2').forEach(h => {
-      let raf = null, px = 0, py = 0;
+      // measure the letters once when the pointer enters (in page coordinates), then only write:
+      // reading positions between weight changes would force a full re-layout per letter
+      let raf = null, px = 0, py = 0, letters = [];
+      h.addEventListener('pointerenter', () => {
+        letters = [...h.querySelectorAll('.ch')].map(c => { const r = c.getBoundingClientRect(); return { c, x: r.left + r.width / 2 + scrollX, y: r.top + r.height / 2 + scrollY, w: 0 }; });
+      });
       h.addEventListener('pointermove', e => {
-        px = e.clientX; py = e.clientY;
+        px = e.clientX + scrollX; py = e.clientY + scrollY;
         if (raf) return;
         raf = requestAnimationFrame(() => {
           raf = null;
-          h.querySelectorAll('.ch').forEach(c => {
-            const r = c.getBoundingClientRect(), d = Math.hypot(r.left + r.width / 2 - px, r.top + r.height / 2 - py);
-            c.style.fontWeight = Math.round(300 + 400 * Util.clamp(d / 160, 0, 1));
-          });
+          for (const l of letters) {
+            const w = Math.round((300 + 400 * Util.clamp(Math.hypot(l.x - px, l.y - py) / 160, 0, 1)) / 50) * 50;
+            if (w !== l.w) { l.w = w; l.c.style.fontWeight = w; }
+          }
         });
       });
-      h.addEventListener('pointerleave', () => h.querySelectorAll('.ch').forEach(c => (c.style.fontWeight = '')));
+      h.addEventListener('pointerleave', () => { letters.forEach(l => { l.w = 0; l.c.style.fontWeight = ''; }); letters = []; });
       h.querySelectorAll('.ch').forEach(c => c.classList.add('hoverable'));
     });
   }
@@ -175,12 +175,12 @@ const App = (() => {
   }
 
   /* ---------- menu, sound, language ---------- */
-  function closeMenu() { const m = $('#menu'); if (!m.hidden) { m.hidden = true; $('#menuBtn').setAttribute('aria-expanded', 'false'); lenis?.start(); document.documentElement.style.overflow = ''; } }
+  function closeMenu() { const m = $('#menu'); if (!m.hidden) { m.hidden = true; $('#menuBtn').setAttribute('aria-expanded', 'false'); document.documentElement.style.overflow = ''; } }
   function initControls() {
     $('#menuBtn').addEventListener('click', () => {
       const m = $('#menu'), open = m.hidden;
       if (!open) return closeMenu();
-      m.hidden = false; $('#menuBtn').setAttribute('aria-expanded', 'true'); lenis?.stop(); document.documentElement.style.overflow = 'hidden';
+      m.hidden = false; $('#menuBtn').setAttribute('aria-expanded', 'true'); document.documentElement.style.overflow = 'hidden';
       if (hasGsap && !reduced.matches) gsap.from('#menu a', { y: 40, opacity: 0, duration: .7, stagger: .05, ease: 'expo.out' });
       m.querySelector('a').focus();
     });
@@ -289,6 +289,7 @@ const App = (() => {
     $$('.split').forEach(h => Util.split(h));
     const lang = store.get('lang', 'en');
     if (lang === 'nl') I18N.apply('nl');
+    NAV_PERCH.el = $('#navBranch svg');
     initScroll();
     Bird.build();
     Hero.init();
@@ -319,8 +320,8 @@ const App = (() => {
     Bird.setMini(true);
     setTimeout(() => Bird.perchOn({ el, get: () => { const r = el.getBoundingClientRect(); const t = el.firstChild && el.firstChild.nodeType === 3 ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); })() : r; return { x: Math.min(t.right + Bird.state.size * .45, innerWidth - Bird.state.size * .5), y: t.top >= 0 ? Math.max(t.bottom - 4, Bird.state.size * .92 + 8) : t.bottom - 4 }; } }, { force: true }), 380);
   }
-  function birdHome() { Bird.setMini(false); setTimeout(() => { const b = bestPerch(); if (b) Bird.perchOn(b, { force: true }); }, 300); }
-  return { init, bestPerch, birdTo, birdHome, lenis: null };
+  function birdHome() { setTimeout(() => { const b = bestPerch(); if (b) { Bird.setMini(1); Bird.perchOn(b, { force: true }); } else goHome(); }, 300); }
+  return { init, bestPerch, birdTo, birdHome };
 })();
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', App.init); else App.init();

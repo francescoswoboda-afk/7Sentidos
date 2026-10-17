@@ -65,10 +65,11 @@ function createPack(host, flavour, opts = {}) {
   }, { passive: true });
   const end = () => { if (!st.dragging) return; st.dragging = false; setTimeout(() => delete host.dataset.dragged, 50); };
   addEventListener('pointerup', end); addEventListener('pointercancel', end);
+  let box = null;
+  host.addEventListener('pointerenter', () => { box = host.getBoundingClientRect(); });
   host.addEventListener('pointermove', e => {
-    if (Util.coarse.matches) return;
-    const r = host.getBoundingClientRect();
-    st.hoverX = (e.clientX - r.left) / r.width - .5; st.hoverY = (e.clientY - r.top) / r.height - .5;
+    if (Util.coarse.matches || !box) return;
+    st.hoverX = (e.clientX - box.left) / box.width - .5; st.hoverY = (e.clientY - box.top) / box.height - .5;
   });
   host.addEventListener('pointerleave', () => { st.hoverX = st.hoverY = 0; });
   host.addEventListener('keydown', e => {

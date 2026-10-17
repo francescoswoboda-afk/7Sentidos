@@ -79,10 +79,11 @@ const Hero = (() => {
     cycle();
     // tilt the hero pack toward the pointer anywhere in the hero
     const hero = document.getElementById('hero');
+    let heroBox = null;
+    hero.addEventListener('pointerenter', () => { heroBox = hero.getBoundingClientRect(); });
     hero.addEventListener('pointermove', e => {
-      if (Util.coarse.matches) return;
-      const r = hero.getBoundingClientRect();
-      pack.setTilt(((e.clientY - r.top) / r.height - .5) * -10);
+      if (Util.coarse.matches || !heroBox) return;
+      pack.setTilt(((e.clientY - heroBox.top) / heroBox.height - .5) * -10);
     });
     new IntersectionObserver(es => es.forEach(e => (inView = e.isIntersecting)), { threshold: .25 }).observe(hero);
   }

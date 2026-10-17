@@ -57,7 +57,6 @@ const Util = (() => {
     if (el.id !== 'checkout') { scrim.hidden = false; scrim.style.zIndex = 70 + stack.length * 2; }
     el.style.zIndex = 71 + stack.length * 2;
     el.hidden = false;
-    (typeof App !== "undefined" && App.lenis && App.lenis.stop());
     document.documentElement.style.overflow = 'hidden';
     const fromX = el.classList.contains('drawer') || el.classList.contains('sheet');
     if (window.gsap && !reduced.matches) {
@@ -76,7 +75,7 @@ const Util = (() => {
     const done = () => {
       el.hidden = true;
       if (!stack.some(s => s.el.id !== 'checkout')) scrim.hidden = true; else scrim.style.zIndex = 70 + stack.length * 2;
-      if (!stack.length) { (typeof App !== "undefined" && App.lenis && App.lenis.start()); document.documentElement.style.overflow = ''; }
+      if (!stack.length) { document.documentElement.style.overflow = ''; }
     };
     if (el._trigger) el._trigger.setAttribute('aria-expanded', 'false');
     if (window.gsap && !reduced.matches) {

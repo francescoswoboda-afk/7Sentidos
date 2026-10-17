@@ -58,9 +58,6 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 24px); }
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-stopped { overflow: hidden; }
 body {
   margin: 0;
   background: var(--cream);
@@ -144,7 +141,10 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   border-radius: 999px; box-shadow: 0 1px 0 rgba(19,51,58,.06), 0 12px 30px -18px rgba(19,51,58,.4);
   transition: transform .5s var(--ease-out);
 }
-.nav.hide { transform: translateY(calc(-100% - 20px)); }
+/* a branch growing out of the navbar's lower edge: the bird's home */
+.nav-branch { position: absolute; left: 150px; bottom: -22px; width: 120px; height: 40px; pointer-events: none; }
+.nav-branch svg { width: 100%; height: 100%; overflow: visible; }
+.nav-branch .twig { display: none; }
 .nav-logo img { width: 132px; height: auto; }
 .nav-links { display: flex; gap: 4px; margin-inline: auto; }
 .nav-links a { font-family: var(--display); font-weight: 600; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; padding: 10px 12px 7px; border-radius: 999px; transition: background .25s; }
@@ -608,6 +608,9 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   :root { --nav-h: 58px; }
   .nav { padding-left: 16px; gap: 8px; }
   .nav-logo img { width: 112px; }
+  /* phones: no room beside the logo, so the branch hangs just below the bar on a little twig */
+  .nav-branch { left: 22px; bottom: -50px; width: 96px; height: 32px; }
+  .nav-branch .twig { display: inline; }
   .cart-label { display: none; }
   .cart-btn { padding: 0 6px 0 12px; }
   .hero { padding-top: calc(var(--nav-h) + 34px + env(safe-area-inset-top, 0px)); }

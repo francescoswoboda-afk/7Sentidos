@@ -9,13 +9,18 @@ const Farm = (() => {
   const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
   const el = (tag, attrs = {}, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent && parent.appendChild(n); return n; };
   const LABELS = {
-    en: { forest: 'Native forest reserve', water: 'Stream and spring', ponds: 'Three ponds', orchard: 'Pecan groves' },
-    nl: { forest: 'Inheems bosreservaat', water: 'Beek en bron', ponds: 'Drie vijvers', orchard: 'Pecangaarden' },
+    en: { forest: 'Native forest', water: 'Stream and spring', ponds: 'Three ponds', orchard: 'Pecan groves' },
+    nl: { forest: 'Inheems bos', water: 'Beek en bron', ponds: 'Drie vijvers', orchard: 'Pecangaarden' },
   };
   let svg, labels = {};
 
   const STREAM = 'M232 34C222 96 262 132 250 196S206 300 236 352S300 400 296 440';
   const TRACK = 'M600 150C540 156 492 176 462 198S420 250 448 290S520 330 560 360';
+  // forest in patches spread across the farm, adding up to about a fifth of the land (illustrative)
+  const FOREST = [{ x: 58, y: 78, rx: 62, ry: 52 }, { x: 40, y: 338, rx: 74, ry: 70 }, { x: 548, y: 58, rx: 74, ry: 56 },
+    { x: 340, y: 206, rx: 52, ry: 40 }, { x: 300, y: 378, rx: 50, ry: 34 }, { x: 588, y: 300, rx: 48, ry: 64 }];
+  // lines of trees linking the patches
+  const CORRIDORS = [[[104, 104], [160, 140], [214, 150]], [[388, 214], [436, 244], [470, 238]], [[334, 244], [322, 300], [306, 346]], [[112, 330], [170, 300], [210, 296]]];
   // the three ponds at El Porvenir (positions are illustrative)
   const PONDS = [{ x: 400, y: 92, rx: 34, ry: 22 }, { x: 512, y: 238, rx: 40, ry: 26 }, { x: 372, y: 318, rx: 28, ry: 19 }];
 
@@ -33,6 +38,8 @@ const Farm = (() => {
   let streamPts = [], trackPts = [];
   const nearStream = (x, y, d) => streamPts.some(p => Math.hypot(p.x - x, p.y - y) < d);
   const nearTrack = (x, y, d) => trackPts.some(p => Math.hypot(p.x - x, p.y - y) < d);
+  let corridorPts = [];
+  const nearForest = (x, y, pad) => FOREST.some(f => ((x - f.x) / (f.rx + pad)) ** 2 + ((y - f.y) / (f.ry + pad)) ** 2 < 1) || corridorPts.some(p => Math.hypot(p[0] - x, p[1] - y) < 10 + pad);
   const nearPond = (x, y, pad) => PONDS.some(p => ((x - p.x) / (p.rx + pad)) ** 2 + ((y - p.y) / (p.ry + pad)) ** 2 < 1);
   function tree(parent, x, y, r, fill, dark) {
     el('circle', { cx: x, cy: y + r * .25, r, fill: dark, opacity: .55 }, parent);           // soft shadow
@@ -58,15 +65,30 @@ const Farm = (() => {
     const track = el('path', { d: TRACK, fill: 'none', stroke: '#e8d9b0', 'stroke-width': 9, 'stroke-linecap': 'round' }, world);
     for (let s = 0, L = track.getTotalLength(); s <= L; s += 10) trackPts.push(track.getPointAtLength(s));
 
-    // forest: an irregular fifth of the land on the left
+    // forest: patches across the farm, linked by lines of trees
     const forest = el('g', { 'data-zone': 'forest' }, world);
-    el('path', { d: 'M0 0H112C138 40 104 86 128 132S98 214 126 262S104 330 132 372S116 410 124 420H0Z', fill: '#2f6b35' }, forest);
     const greens = [['#2f6b35', '#1f4a24'], ['#3d7f3a', '#285c2a'], ['#4d942f', '#2f6b25'], ['#27592c', '#173a1b'], ['#5aa23a', '#3d7f2a']];
-    for (let i = 0; i < 130; i++) {
-      const y = rnd() * 430, edge = 112 + Math.sin(y / 34) * 14;
-      const g = greens[i % greens.length];
-      tree(forest, rnd() * edge, y, 7 + rnd() * 10, g[0], g[1]);
-    }
+    FOREST.forEach(f => {
+      el('path', { d: blob(f.x, f.y, f.rx, f.ry, 10, .2), fill: '#2f6b35' }, forest);
+      const n = Math.round(f.rx * f.ry / 95);
+      for (let i = 0; i < n; i++) {
+        const a = rnd() * Math.PI * 2, r = Math.sqrt(rnd()) * .92, x = f.x + Math.cos(a) * f.rx * r, y = f.y + Math.sin(a) * f.ry * r;
+        if (nearTrack(x, y, 8)) continue;
+        const g = greens[i % greens.length];
+        tree(forest, x, y, 6 + rnd() * 9, g[0], g[1]);
+      }
+    });
+    CORRIDORS.forEach(line => {
+      for (let s = 0; s < line.length - 1; s++) {
+        const [a, b] = [line[s], line[s + 1]], steps = Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 11);
+        for (let k = 0; k <= steps; k++) {
+          const x = a[0] + (b[0] - a[0]) * k / steps + (rnd() - .5) * 5, y = a[1] + (b[1] - a[1]) * k / steps + (rnd() - .5) * 5;
+          corridorPts.push([x, y]);
+          const g = greens[(k + s) % greens.length];
+          tree(forest, x, y, 5.5 + rnd() * 4, g[0], g[1]);
+        }
+      }
+    });
 
     // stream, spring and a tree-lined bank
     const water = el('g', { 'data-zone': 'water' }, world);
@@ -100,44 +122,44 @@ const Farm = (() => {
     const pecan = [['#86bd62', '#5b8a3e'], ['#7ab55c', '#4f7f37'], ['#93c56b', '#62904a'], ['#6fa952', '#4a7a33']];
     for (let row = 0; row < 15; row++) {
       const y0 = 26 + row * 27;
-      for (let x = 150 + (row % 2) * 12; x < 588; x += 25 + rnd() * 6) {
+      for (let x = 16 + (row % 2) * 12; x < 584; x += 25 + rnd() * 6) {
         const y = y0 + Math.sin(x / 80 + row * .5) * 9 + (rnd() - .5) * 5;
-        if (rnd() < .14 || nearStream(x, y, 34) || nearPond(x, y, 14) || nearTrack(x, y, 12)) continue;
+        if (rnd() < .14 || nearStream(x, y, 34) || nearPond(x, y, 14) || nearTrack(x, y, 12) || nearForest(x, y, 8)) continue;
         const g = pecan[Math.floor(rnd() * pecan.length)];
         tree(orchard, x + (rnd() - .5) * 4, y, 5.2 + rnd() * 2.6, g[0], g[1]);
       }
     }
     // old native trees left standing among the groves
-    [[300, 150], [470, 60], [560, 330], [430, 400], [290, 240], [570, 140]].forEach(([x, y]) => {
-      if (!nearStream(x, y, 30) && !nearPond(x, y, 10) && !nearTrack(x, y, 16)) tree(orchard, x, y, 12 + rnd() * 4, '#3d7f3a', '#285c2a');
+    [[160, 230], [470, 120], [500, 380], [430, 400], [130, 20], [200, 400]].forEach(([x, y]) => {
+      if (!nearStream(x, y, 30) && !nearPond(x, y, 10) && !nearTrack(x, y, 16) && !nearForest(x, y, 6)) tree(orchard, x, y, 12 + rnd() * 4, '#3d7f3a', '#285c2a');
     });
 
     // a hedgerow along the right and bottom edges
     const hedge = el('g', {}, world);
-    for (let x = 140; x < 600; x += 9) tree(hedge, x, 414 + (rnd() - .5) * 4, 5 + rnd() * 3, greens[Math.floor(rnd() * 5)][0], '#285c2a');
+    for (let x = 6; x < 600; x += 9) tree(hedge, x, 414 + (rnd() - .5) * 4, 5 + rnd() * 3, greens[Math.floor(rnd() * 5)][0], '#285c2a');
     for (let y = 10; y < 410; y += 9) tree(hedge, 594 + (rnd() - .5) * 4, y, 5 + rnd() * 3, greens[Math.floor(rnd() * 5)][0], '#285c2a');
 
     // life: wildflowers in the grass, birds, bees
     const life = el('g', { 'data-zone': 'life' }, world);
     const flowers = ['#f6d641', '#ffffff', '#e98bb0', '#e9601c'];
     for (let i = 0; i < 110; i++) {
-      const x = 150 + rnd() * 440, y = 10 + rnd() * 400;
-      if (nearStream(x, y, 26) || nearPond(x, y, 6)) continue;
+      const x = 14 + rnd() * 572, y = 10 + rnd() * 400;
+      if (nearStream(x, y, 26) || nearPond(x, y, 6) || nearForest(x, y, 0)) continue;
       el('circle', { cx: x.toFixed(1), cy: y.toFixed(1), r: 1.4 + rnd() * 1.2, fill: flowers[i % flowers.length] }, life);
     }
-    [[70, 70], [96, 210], [52, 330], [160, 120], [186, 300], [420, 150]].forEach(([x, y], i) => {
-      el('path', { d: `M${x - 8} ${y}q4-5 8 0q4-5 8 0`, fill: 'none', stroke: i < 3 ? '#f6efe2' : '#13333a', 'stroke-width': 2.4, 'stroke-linecap': 'round', class: 'farm-bird', style: `animation-delay:${i * .4}s` }, life);
+    [[58, 66], [548, 50], [40, 330], [340, 196], [588, 290], [160, 120]].forEach(([x, y], i) => {
+      el('path', { d: `M${x - 8} ${y}q4-5 8 0q4-5 8 0`, fill: 'none', stroke: i < 5 ? '#f6efe2' : '#13333a', 'stroke-width': 2.4, 'stroke-linecap': 'round', class: 'farm-bird', style: `animation-delay:${i * .4}s` }, life);
     });
     for (let i = 0; i < 14; i++) {
-      const x = 320 + rnd() * 260, y = 30 + rnd() * 360;
-      if (nearPond(x, y, 4)) continue;
+      const x = 20 + rnd() * 560, y = 30 + rnd() * 360;
+      if (nearPond(x, y, 4) || nearForest(x, y, 0)) continue;
       const g = el('g', { class: 'farm-bee', style: `animation-delay:${(rnd() * 2).toFixed(2)}s` }, life);
       el('ellipse', { cx: x, cy: y, rx: 4, ry: 3, fill: '#f6d641', stroke: '#13333a', 'stroke-width': 1.2 }, g);
     }
 
     el('rect', { x: 4, y: 4, width: 592, height: 412, rx: 28, fill: 'none', stroke: '#13333a', 'stroke-width': 2 }, svg);
     const lab = (key, x, y, anchor = 'start') => { labels[key] = el('text', { x, y, 'text-anchor': anchor, class: 'farm-label', 'data-zone-label': key }, svg); };
-    lab('forest', 20, 400); lab('water', 266, 34); lab('ponds', 506, 298, 'middle'); lab('orchard', 572, 384, 'end');
+    lab('forest', 340, 254, 'middle'); lab('water', 266, 34); lab('ponds', 506, 298, 'middle'); lab('orchard', 572, 384, 'end');
     relabel();
   }
   function relabel() { const L = LABELS[I18N.lang] || LABELS.en; Object.entries(labels).forEach(([k, t]) => (t.textContent = L[k])); }

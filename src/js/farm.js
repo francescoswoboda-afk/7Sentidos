@@ -151,6 +151,10 @@ const Farm = (() => {
     list.addEventListener('focusin', e => { const b = e.target.closest('[data-zone]'); if (b) setActive(b.dataset.zone); });
     list.addEventListener('focusout', () => setActive(null));
     list.addEventListener('click', e => { const b = e.target.closest('[data-zone]'); if (b) setActive(b.dataset.zone); });
+    // the little animations (bees, birds, stream) only run while the map is on screen
+    const fig = document.querySelector('.farm-map');
+    fig.classList.add('paused');
+    new IntersectionObserver(es => es.forEach(e => fig.classList.toggle('paused', !e.isIntersecting))).observe(fig);
     const big = document.getElementById('farmBig');
     if (window.gsap && window.ScrollTrigger && !Util.reduced.matches) {
       const o = { v: 0 };

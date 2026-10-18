@@ -363,19 +363,38 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 .fact-n { font-family: var(--display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; color: var(--navy); }
 .bird-perch-rail { position: absolute; right: 8%; top: -6px; width: 120px; height: 1px; }
 
-/* ---------- family ---------- */
-.family { background: var(--paper); padding-block: clamp(80px, 11vw, 150px); }
-.family-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 88px); align-items: center; }
-.portraits { position: relative; height: clamp(380px, 44vw, 560px); }
-.portrait { position: absolute; margin: 0; width: 58%; }
-.portrait .frame { aspect-ratio: 4 / 5; border-radius: 14px; background: repeating-linear-gradient(135deg, rgba(19,51,58,.05) 0 10px, transparent 10px 20px), var(--cream); box-shadow: inset 0 0 0 1.5px var(--line), 0 30px 40px -30px rgba(19,51,58,.5); display: grid; place-items: center; text-align: center; font-family: var(--display); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; font-size: .78rem; color: var(--muted); }
-.portrait figcaption { margin-top: 10px; font-family: var(--hand); font-weight: 600; font-size: 1.3rem; }
-.p1 { left: 0; top: 0; transform: rotate(-3deg); }
-.p2 { right: 0; bottom: 0; transform: rotate(4deg); }
-.p2 .frame { background: repeating-linear-gradient(45deg, rgba(19,51,58,.05) 0 10px, transparent 10px 20px), #f1e3c8; }
-.tbd-block { margin-top: 26px; display: grid; gap: 8px; }
-.tbd-block p { margin: 0; padding: 14px 16px 12px; border-radius: 12px; border: 1.5px dashed var(--line); }
-.signoff { font-family: var(--hand); font-weight: 600; font-size: 1.6rem; margin: 22px 0 0; }
+/* ---------- farm ---------- */
+.farm { background: var(--paper); padding-block: clamp(80px, 11vw, 150px); }
+.farm-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(24px, 5vw, 80px); align-items: start; }
+.farm-stat { display: flex; align-items: center; gap: 18px; margin-top: 30px; padding: 18px 22px; border-radius: var(--radius); background: #2f6b35; color: var(--cream); }
+.farm-big { font-family: var(--display); font-weight: 700; font-size: clamp(3rem, 2.2rem + 3vw, 4.6rem); line-height: .9; font-variant-numeric: tabular-nums; padding-top: .08em; }
+.farm-stat-t { font-size: var(--fs-body); line-height: 1.4; max-width: 30ch; }
+.farm-points { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 8px; }
+.farm-points button { width: 100%; display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; text-align: left; padding: 14px 16px; border: 0; border-radius: 16px; background: transparent; color: var(--ink); font-size: var(--fs-body); line-height: 1.5; transition: background .25s; }
+.farm-points button:hover, .farm-points button:focus-visible { background: rgba(77, 148, 47, .12); }
+.farm-points strong { font-family: var(--display); font-weight: 700; letter-spacing: .02em; }
+.fz { width: 18px; height: 18px; border-radius: 50%; margin-top: .25em; flex: none; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6); }
+.fz-forest { background: #2f6b35; } .fz-water { background: #58b7e8; } .fz-life { background: #f6d641; } .fz-orchard { background: #7ab55c; } .fz-region { background: var(--sunred); }
+.farm-map { position: sticky; top: calc(var(--nav-h) + 40px); margin: 0; }
+.farm-map svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 24px 30px rgba(19,51,58,.18)); }
+.farm-map figcaption { margin-top: 12px; }
+.farm-map [data-zone] { transition: opacity .35s var(--ease-out); }
+.farm-map[data-active] [data-zone] { opacity: .28; }
+.farm-map[data-active="forest"] [data-zone="forest"], .farm-map[data-active="water"] [data-zone="water"],
+.farm-map[data-active="orchard"] [data-zone="orchard"], .farm-map[data-active="life"] [data-zone="life"] { opacity: 1; }
+.farm-map[data-active="life"] [data-zone="forest"], .farm-map[data-active="life"] [data-zone="orchard"] { opacity: .6; }
+.farm-label { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; fill: #13333a; paint-order: stroke; stroke: #e9dfc4; stroke-width: 5; stroke-linejoin: round; }
+.farm-label[data-zone-label="forest"] { fill: #f6efe2; stroke: #2f6b35; }
+@media (prefers-reduced-motion: no-preference) {
+  .farm-flow { animation: farm-flow 3s linear infinite; }
+  .farm-ripple { animation: farm-ripple 2.4s ease-out infinite; transform-origin: 232px 34px; }
+  .farm-bee { animation: farm-bee 1.6s ease-in-out infinite alternate; }
+  .farm-bird { animation: farm-bird 1.2s ease-in-out infinite alternate; }
+}
+@keyframes farm-flow { to { stroke-dashoffset: -36; } }
+@keyframes farm-ripple { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+@keyframes farm-bee { from { transform: translate(-3px, 2px); } to { transform: translate(3px, -2px); } }
+@keyframes farm-bird { from { transform: translateY(0); } to { transform: translateY(-3px); } }
 
 /* ---------- retail ---------- */
 .retail { background: var(--ink-2); color: var(--cream); padding-block: clamp(80px, 11vw, 150px); }
@@ -660,10 +679,10 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   .season-list { margin-top: 14px; }
   .season p { font-size: .98rem; }
   .origin-stage { order: -1; aspect-ratio: 4 / 3.1; }
-  .nut-grid, .pair-grid, .bird-grid, .family-grid, .retail-grid, .shop-head { grid-template-columns: minmax(0, 1fr); }
+  .nut-grid, .pair-grid, .bird-grid, .farm-grid, .retail-grid, .shop-head { grid-template-columns: minmax(0, 1fr); }
+  .farm-map { position: static; order: -1; }
   .nut-stage { aspect-ratio: 1 / 1; }
   .nut-stats { margin-top: 22px; }
-  .portraits { height: 108vw; max-height: 520px; }
   .form-fields { grid-template-columns: minmax(0, 1fr); }
   .co-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
   .co-nav .btn-line { flex: 0 0 auto; padding-inline: 18px; }
@@ -732,7 +751,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
     <a href="#shop" data-i18n="nav.shop">Shop</a>
     <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
     <a href="#origin" data-i18n="nav.origin">Origin</a>
-    <a href="#family" data-i18n="nav.family">Family</a>
+    <a href="#farm" data-i18n="nav.farm">The farm</a>
     <a href="#retail" data-i18n="nav.retail">For shops</a>
   </nav>
   <div class="nav-tools">
@@ -761,7 +780,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
     <a href="#nut" data-i18n="nav.nut">Crack one</a>
     <a href="#origin" data-i18n="nav.origin">Origin</a>
     <a href="#bird" data-i18n="nav.bird">The bird</a>
-    <a href="#family" data-i18n="nav.family">Family</a>
+    <a href="#farm" data-i18n="nav.farm">The farm</a>
     <a href="#retail" data-i18n="nav.retail">For shops</a>
   </nav>
 </div>
@@ -774,7 +793,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
     <div class="hero-copy">
       <p class="eyebrow" data-i18n="hero.eyebrow">Brazilian pecans · El Porvenir Farms</p>
       <h1 class="display split" id="heroTitle" data-i18n="hero.title">Wildly good pecans</h1>
-      <p class="lead" data-i18n="hero.lead">Grown in the far south of Brazil, where winters are cold enough for pecans. Roasted, coated in eight flavours and brought to the Netherlands by a father and son.</p>
+      <p class="lead" data-i18n="hero.lead">Grown in the far south of Brazil, where winters are cold enough for pecans. Roasted, coated in eight flavours and brought to the Netherlands.</p>
       <div class="hero-cta">
         <a class="btn btn-solid magnetic" href="#shop" data-i18n="hero.cta">Shop now</a>
         <a class="btn btn-line magnetic" href="#pairing" data-i18n="hero.cta2">Find your pairing</a>
@@ -898,24 +917,26 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   </div>
 </section>
 
-<!-- ============ FAMILY ============ -->
-<section class="family" id="family" aria-labelledby="familyTitle">
-  <div class="wrap family-grid">
-    <div class="portraits" aria-hidden="true">
-      <figure class="portrait p1" data-perch="family" data-perch-x="0.78" data-perch-y="0"><div class="frame"><span>[TBD]<br>photo · father</span></div><figcaption>[TBD] name</figcaption></figure>
-      <figure class="portrait p2"><div class="frame"><span>[TBD]<br>photo · son</span></div><figcaption>[TBD] name</figcaption></figure>
+<!-- ============ THE FARM ============ -->
+<section class="farm" id="farm" aria-labelledby="farmTitle">
+  <div class="wrap farm-grid">
+    <div class="farm-copy">
+      <p class="eyebrow" data-i18n="farm.eyebrow">The farm · El Porvenir</p>
+      <h2 class="h2 split" id="farmTitle" data-i18n="farm.title">A fifth of the farm is forest</h2>
+      <p class="lead" data-i18n="farm.lead">El Porvenir Farms sits in Santa Cruz do Sul, in the south of Brazil. Not all of it is orchard.</p>
+      <div class="farm-stat"><span class="farm-big" id="farmBig">20%</span><span class="farm-stat-t" data-i18n="farm.stat">of the land is native Atlantic Forest, kept as a reserve <span class="tbd">[VERIFY]</span></span></div>
+      <ul class="farm-points" id="farmPoints">
+        <li><button type="button" data-zone="forest"><i class="fz fz-forest" aria-hidden="true"></i><span><strong data-i18n="farm.p1.t">20% stays forest</strong> <span data-i18n="farm.p1.p">A fifth of the farm is native Atlantic Forest (Mata Atlântica), kept as a permanent reserve. It is home to wildlife like the araçari, the bird on our pack. <span class="tbd">[VERIFY area and legal status]</span></span></span></button></li>
+        <li><button type="button" data-zone="water"><i class="fz fz-water" aria-hidden="true"></i><span><strong data-i18n="farm.p2.t">Green banks along the streams</strong> <span data-i18n="farm.p2.p">Natural vegetation is left standing along the farm’s streams and springs. It holds the soil in place and keeps the water clean downstream. <span class="tbd">[VERIFY]</span></span></span></button></li>
+        <li><button type="button" data-zone="life"><i class="fz fz-life" aria-hidden="true"></i><span><strong data-i18n="farm.p3.t">Room for birds and bees</strong> <span data-i18n="farm.p3.p">The orchard rows sit right next to the forest, so birds, bees and other insects move between the two. <span class="tbd">[VERIFY what the farm does for this]</span></span></span></button></li>
+        <li><button type="button" data-zone="orchard"><i class="fz fz-orchard" aria-hidden="true"></i><span><strong data-i18n="farm.p4.t">Trees for generations</strong> <span data-i18n="farm.p4.p">Pecan trees can live and bear nuts for many decades. As they grow, they store carbon in their wood and roots. <span class="tbd">[VERIFY]</span></span></span></button></li>
+        <li><button type="button" data-zone=""><i class="fz fz-region" aria-hidden="true"></i><span><strong data-i18n="farm.p5.t">Grown in Rio Grande do Sul</strong> <span data-i18n="farm.p5.p">Every pack comes from a farm in the south of Brazil, so buying one supports farming in Santa Cruz do Sul.</span></span></button></li>
+      </ul>
     </div>
-    <div class="family-copy">
-      <p class="eyebrow" data-i18n="family.eyebrow">The family</p>
-      <h2 class="h2 split" id="familyTitle" data-i18n="family.title">Father and son</h2>
-      <p class="lead" data-i18n="family.lead">Araçari is a family business: a father and son bringing pecans from the south of Brazil to the Netherlands.</p>
-      <div class="tbd-block">
-        <p><span class="tbd">[TBD]</span> <span data-i18n="family.p1">How the family is connected to El Porvenir Farms and to Brazil.</span></p>
-        <p><span class="tbd">[TBD]</span> <span data-i18n="family.p2">Why pecans, and why the Netherlands.</span></p>
-        <p><span class="tbd">[TBD]</span> <span data-i18n="family.p3">Who does what: the father, the son.</span></p>
-      </div>
-      <p class="signoff">— <span>[TBD]</span> &amp; <span>[TBD]</span></p>
-    </div>
+    <figure class="farm-map">
+      <svg id="farmMap" viewBox="0 0 600 420" role="img" aria-label="Illustrated plan of the farm: native forest reserve on the left, a stream with green banks, pecan orchard rows, birds and bees"></svg>
+      <figcaption class="small muted" data-i18n="farm.caption">An illustration, not a survey. All figures to be checked with El Porvenir before launch.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -1231,11 +1252,11 @@ const DATA = {
    Dynamic text (cart, checkout, shop): both languages are in STR. */
 const NL = {
   'skip': 'Naar de winkel',
-  'nav.shop': 'Winkel', 'nav.pairing': 'Pairing', 'nav.origin': 'Herkomst', 'nav.family': 'Familie', 'nav.retail': 'Voor winkels',
+  'nav.shop': 'Winkel', 'nav.pairing': 'Pairing', 'nav.origin': 'Herkomst', 'nav.farm': 'De boerderij', 'nav.retail': 'Voor winkels',
   'nav.nut': 'Kraak er een', 'nav.bird': 'De vogel', 'nav.cart': 'Mand',
   'hero.eyebrow': 'Braziliaanse pecannoten · El Porvenir Farms',
   'hero.title': 'Wild lekkere pecans',
-  'hero.lead': 'Gegroeid in het verre zuiden van Brazilië, waar de winters koud genoeg zijn voor pecannoten. Geroosterd, in acht smaken gehuld en naar Nederland gebracht door een vader en zoon.',
+  'hero.lead': 'Gegroeid in het verre zuiden van Brazilië, waar de winters koud genoeg zijn voor pecannoten. Geroosterd, in acht smaken gehuld en naar Nederland gebracht.',
   'hero.cta': 'Naar de winkel', 'hero.cta2': 'Vind je pairing', 'hero.picker': 'Acht smaken',
   'origin.eyebrow': 'Herkomst · 29°43′ Z', 'origin.title': 'Vier echte seizoenen',
   'origin.s1.t': 'Lente · september tot november', 'origin.s1.p': 'Pecanbomen worden laat wakker. Lange groene katjes hangen aan de takken en de wind doet het bestuiven.',
@@ -1261,10 +1282,15 @@ const NL = {
   'bird.f3': 'Die grote snavel is licht: vanbinnen is het een honingraat van keratine, vooral lucht. <span class="tbd">[VERIFY]</span>',
   'bird.f4': 'Ze leven in kleine, luidruchtige familiegroepen die samen door de boomkruinen trekken. <span class="tbd">[VERIFY]</span>',
   'bird.f5': 'De naam komt uit het Tupi, een inheemse taal van Brazilië. <span class="tbd">[VERIFY betekenis]</span>',
-  'family.eyebrow': 'De familie', 'family.title': 'Vader en zoon',
-  'family.lead': 'Araçari is een familiebedrijf: een vader en zoon die pecannoten uit het zuiden van Brazilië naar Nederland brengen.',
-  'family.p1': 'Hoe de familie verbonden is met El Porvenir Farms en met Brazilië.',
-  'family.p2': 'Waarom pecans, en waarom Nederland.', 'family.p3': 'Wie doet wat: de vader, de zoon.',
+  'farm.eyebrow': 'De boerderij · El Porvenir', 'farm.title': 'Een vijfde van de boerderij is bos',
+  'farm.lead': 'El Porvenir Farms ligt in Santa Cruz do Sul, in het zuiden van Brazilië. Niet alles is boomgaard.',
+  'farm.stat': 'van het land is inheems Atlantisch regenwoud, bewaard als reservaat <span class="tbd">[VERIFY]</span>',
+  'farm.p1.t': '20% blijft bos', 'farm.p1.p': 'Een vijfde van de boerderij is inheems Atlantisch regenwoud (Mata Atlântica), bewaard als blijvend reservaat. Het is een thuis voor dieren zoals de araçari, de vogel op onze zak. <span class="tbd">[VERIFY oppervlakte en wettelijke status]</span>',
+  'farm.p2.t': 'Groene oevers langs de beken', 'farm.p2.p': 'Langs de beken en bronnen van de boerderij blijft de natuurlijke begroeiing staan. Die houdt de grond vast en het water stroomafwaarts schoon. <span class="tbd">[VERIFY]</span>',
+  'farm.p3.t': 'Ruimte voor vogels en bijen', 'farm.p3.p': 'De rijen van de boomgaard liggen vlak naast het bos, zodat vogels, bijen en andere insecten tussen de twee heen en weer gaan. <span class="tbd">[VERIFY wat de boerderij hiervoor doet]</span>',
+  'farm.p4.t': 'Bomen voor generaties', 'farm.p4.p': 'Pecanbomen kunnen tientallen jaren leven en noten dragen. Terwijl ze groeien, slaan ze koolstof op in hun hout en wortels. <span class="tbd">[VERIFY]</span>',
+  'farm.p5.t': 'Gegroeid in Rio Grande do Sul', 'farm.p5.p': 'Elke zak komt van een boerderij in het zuiden van Brazilië. Wie er een koopt, steunt de landbouw in Santa Cruz do Sul.',
+  'farm.caption': 'Een illustratie, geen kadasterkaart. Alle cijfers nog te controleren bij El Porvenir voor de lancering.',
   'retail.eyebrow': 'Voor winkels', 'retail.title': 'Voor wijnwinkels, kaaswinkels en natuurwinkels',
   'retail.lead': 'Araçari hoort naast een goede fles of een kaastoonbank. Vraag proefzakjes of de groothandelsprijzen aan.',
   'retail.pt1.t': 'Past bij wat je al verkoopt.', 'retail.pt1.p': 'Acht smaken, gekoppeld aan wijnen en kazen.',
@@ -3296,6 +3322,108 @@ const Pairing = (() => {
   return { init, rerender: () => { options(); if (choice) { const o = DATA.pairings[kind].find(x => x.id === choice); art(o); result(o); } } };
 })();
 
+/* ---- farm.js ---- */
+/* The farm: an illustrated plan of El Porvenir drawn in SVG.
+   Zones: forest (the reserve), water (stream, spring and the green banks),
+   orchard (pecan rows), life (birds and bees). Hovering or tapping a point
+   in the list highlights its zone on the map. */
+const Farm = (() => {
+  const NS = 'http://www.w3.org/2000/svg';
+  let seed = 11;
+  const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  const el = (tag, attrs = {}, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent && parent.appendChild(n); return n; };
+  const LABELS = {
+    en: { forest: 'Mata Atlântica reserve', water: 'Stream and spring', orchard: 'Pecan orchard' },
+    nl: { forest: 'Mata Atlântica-reservaat', water: 'Beek en bron', orchard: 'Pecanboomgaard' },
+  };
+  let svg, labels = {};
+
+  // the stream: a path from the spring at the top to the bottom edge
+  const STREAM = 'M232 34C222 96 262 132 250 196S206 300 236 352S300 400 296 440';
+  function nearStream(pathEl, x, y, d) {
+    const len = pathEl.getTotalLength();
+    for (let s = 0; s <= len; s += 12) { const p = pathEl.getPointAtLength(s); if (Math.hypot(p.x - x, p.y - y) < d) return true; }
+    return false;
+  }
+
+  function build() {
+    svg = document.getElementById('farmMap');
+    el('rect', { x: 4, y: 4, width: 592, height: 412, rx: 28, fill: '#e9dfc4', stroke: '#13333a', 'stroke-width': 2 }, svg);
+    const clip = el('clipPath', { id: 'farmClip' }, el('defs', {}, svg));
+    el('rect', { x: 4, y: 4, width: 592, height: 412, rx: 28 }, clip);
+    const world = el('g', { 'clip-path': 'url(#farmClip)' }, svg);
+
+    // forest: a fifth of the land, on the left
+    const forest = el('g', { 'data-zone': 'forest' }, world);
+    el('path', { d: 'M0 0H118C132 60 108 120 126 180S110 300 130 360S118 410 122 420H0Z', fill: '#2f6b35' }, forest);
+    const greens = ['#2f6b35', '#3d7f3a', '#4d942f', '#27592c', '#5aa23a'];
+    for (let i = 0; i < 120; i++) {
+      const y = rnd() * 430, edge = 116 + Math.sin(y / 40) * 10;
+      el('circle', { cx: rnd() * edge, cy: y, r: 7 + rnd() * 9, fill: greens[i % greens.length], stroke: 'rgba(255,255,255,.25)', 'stroke-width': 1 }, forest);
+    }
+
+    // stream with its green banks, and the spring
+    const water = el('g', { 'data-zone': 'water' }, world);
+    el('path', { d: STREAM, fill: 'none', stroke: '#9cc58a', 'stroke-width': 44, 'stroke-linecap': 'round' }, water);
+    for (let i = 0; i < 26; i++) {
+      const t = i / 25, probe = el('path', { d: STREAM });
+      water.appendChild(probe); const len = probe.getTotalLength(), p = probe.getPointAtLength(len * t); probe.remove();
+      el('circle', { cx: p.x + (i % 2 ? 16 : -16) + (rnd() - .5) * 6, cy: p.y, r: 5 + rnd() * 4, fill: i % 3 ? '#6aa84f' : '#4d942f' }, water);
+    }
+    const streamPath = el('path', { d: STREAM, fill: 'none', stroke: '#58b7e8', 'stroke-width': 7, 'stroke-linecap': 'round' }, water);
+    el('path', { d: STREAM, fill: 'none', stroke: 'rgba(255,255,255,.7)', 'stroke-width': 2, 'stroke-dasharray': '4 14', class: 'farm-flow' }, water);
+    el('circle', { cx: 232, cy: 34, r: 9, fill: '#58b7e8', stroke: '#fff', 'stroke-width': 2 }, water);
+    el('circle', { cx: 232, cy: 34, r: 16, fill: 'none', stroke: '#58b7e8', 'stroke-width': 1.5, class: 'farm-ripple' }, water);
+
+    // orchard rows, kept clear of the stream banks
+    const orchard = el('g', { 'data-zone': 'orchard' }, world);
+    for (let y = 28; y < 410; y += 26) {
+      for (let x = 150 + (y / 26 % 2) * 11; x < 584; x += 24) {
+        if (nearStream(streamPath, x, y, 34)) continue;
+        el('circle', { cx: x, cy: y, r: 6.5, fill: '#7ab55c', stroke: '#4d7f37', 'stroke-width': 1.4 }, orchard);
+      }
+    }
+
+    // life: birds over the forest edge, bees between the rows
+    const life = el('g', { 'data-zone': 'life' }, world);
+    [[70, 70], [96, 210], [52, 330], [150, 120], [176, 300]].forEach(([x, y], i) => {
+      el('path', { d: `M${x - 8} ${y}q4-5 8 0q4-5 8 0`, fill: 'none', stroke: i < 3 ? '#f6efe2' : '#13333a', 'stroke-width': 2.4, 'stroke-linecap': 'round', class: 'farm-bird', style: `animation-delay:${i * .4}s` }, life);
+    });
+    for (let i = 0; i < 14; i++) {
+      const x = 330 + rnd() * 250, y = 30 + rnd() * 360;
+      const g = el('g', { class: 'farm-bee', style: `animation-delay:${(rnd() * 2).toFixed(2)}s` }, life);
+      el('ellipse', { cx: x, cy: y, rx: 4, ry: 3, fill: '#f6d641', stroke: '#13333a', 'stroke-width': 1.2 }, g);
+    }
+
+    // labels
+    const lab = (key, x, y, anchor = 'start') => {
+      const t = el('text', { x, y, 'text-anchor': anchor, class: 'farm-label', 'data-zone-label': key }, svg);
+      labels[key] = t;
+    };
+    lab('forest', 20, 400); lab('water', 266, 34); lab('orchard', 580, 400, 'end');
+    relabel();
+  }
+  function relabel() { const L = LABELS[I18N.lang] || LABELS.en; Object.entries(labels).forEach(([k, t]) => (t.textContent = L[k])); }
+
+  function setActive(zone) { const map = document.querySelector('.farm-map'); if (zone) map.dataset.active = zone; else delete map.dataset.active; }
+  function init() {
+    build();
+    const list = document.getElementById('farmPoints');
+    list.addEventListener('pointerover', e => { const b = e.target.closest('[data-zone]'); if (b) setActive(b.dataset.zone); });
+    list.addEventListener('pointerleave', () => setActive(null));
+    list.addEventListener('focusin', e => { const b = e.target.closest('[data-zone]'); if (b) setActive(b.dataset.zone); });
+    list.addEventListener('focusout', () => setActive(null));
+    list.addEventListener('click', e => { const b = e.target.closest('[data-zone]'); if (b) setActive(b.dataset.zone); });
+    // count the 20% up when it comes into view
+    const big = document.getElementById('farmBig');
+    if (window.gsap && window.ScrollTrigger && !Util.reduced.matches) {
+      const o = { v: 0 };
+      gsap.to(o, { v: 20, duration: 1.6, ease: 'power3.out', scrollTrigger: { trigger: big, start: 'top 85%', once: true }, onUpdate: () => (big.textContent = Math.round(o.v) + '%') });
+    }
+  }
+  return { init, relabel };
+})();
+
 /* ---- main.js ---- */
 /* Wiring: smooth scroll, the bird's perches, reveals, cursor, magnetic buttons,
    language, sound, cookies, legal pages, forms and the easter eggs. */
@@ -3313,7 +3441,7 @@ const App = (() => {
     { sec: '#pairing', sel: '#pairTitle', line: true },
     { sec: '#pairing', sel: '#pairStage', fx: .82, fy: 0 },
     { sec: '#bird', sel: '.fact', fx: .955, fy: 0, dy: 2 },
-    { sec: '#family', sel: '.portrait .frame', fx: .74, fy: 0 },
+    { sec: '#farm', sel: '.farm-map', fx: .8, fy: 0 },
     { sec: '#retail', sel: '#retailForm', fx: .84, fy: 0 },
     { sec: '#letter', sel: '#letterTitle', line: true },
     { sec: '#letter', sel: '#letterForm', fx: .9, fy: 0 },
@@ -3406,7 +3534,7 @@ const App = (() => {
       start: 'top 90%', once: true,
       onEnter: els => gsap.from(els, { y: 40, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, ...vars, overwrite: true }),
     });
-    batch('.card'); batch('.bundle'); batch('.fact'); batch('.retail-points li'); batch('.ship-facts li', { y: 14 }); batch('.portrait', { y: 60 }); batch('.tbd-block p', { y: 20 });
+    batch('.card'); batch('.bundle'); batch('.fact'); batch('.retail-points li'); batch('.ship-facts li', { y: 14 }); batch('#farmPoints li', { y: 20 });
     // the hero headline gets lighter as it leaves
   }
 
@@ -3503,7 +3631,7 @@ const App = (() => {
   function setLang(lang) {
     if (lang === I18N.lang) return;
     I18N.apply(lang); store.set('lang', lang);
-    Shop.render(); Hero.relabel(); Pairing.rerender(); Checkout.rerender();
+    Shop.render(); Hero.relabel(); Pairing.rerender(); Checkout.rerender(); Farm.relabel();
     if (!coarse.matches && !reduced.matches) initWeightPlay();
   }
 
@@ -3605,6 +3733,7 @@ const App = (() => {
     Shop.init();
     Checkout.init();
     Pairing.init();
+    Farm.init();
     initReveals();
     initWeightPlay();
     initCursor();

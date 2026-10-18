@@ -21,11 +21,11 @@ Una nuez pecana sola es una materia prima. Así que cada sección tenía que res
 | Tienda | Cada sabor es un "mundo de color" con su pack girable. La parte trasera del pack muestra información real (o [TBD]). | Añadir al carrito con el pájaro llevando el paquete; packs que suben el ticket medio; barra de envío gratis; sugerencia de producto. |
 | Maridaje | Posiciona la pecana como acompañante de vino y queso: el ritual de un sumiller, no un test. | Cada sugerencia termina en "Add to cart". |
 | El araçari | El pájaro real detrás de la marca. Da personalidad y algo que contar en la mesa. | Mantiene el vínculo emocional con el personaje que aparece en el pack. |
-| Familia | Padre e hijo: lo que hace que esto no sea una marca anónima. Todo [TBD], sin inventar nombres ni anécdotas. | Confianza. |
+| La finca | El 20% de la finca es bosque atlántico nativo, hogar del araçari: une la marca con un hecho concreto. Mapa ilustrado interactivo. Todo con [VERIFY]. | Da una razón para pagar más por la misma nuez. |
 | Para tiendas | Un apartado limpio para vinotecas, queserías y tiendas ecológicas. | Formulario de muestras/precios mayoristas. |
 | Newsletter | El pájaro se despide. | Captura de email para el lanzamiento. |
 
-**Orden actual (cambiado a petición del cliente):** hero, tienda y cajas, maridaje, la nuez, origen, el araçari, familia, para tiendas, newsletter. Los productos van primero y la historia después: quien llega quiere ver qué se vende antes de leer de dónde viene.
+**Orden actual (cambiado a petición del cliente):** hero, tienda y cajas, maridaje, la nuez, origen, el araçari, la finca, para tiendas, newsletter. Los productos van primero y la historia después: quien llega quiere ver qué se vende antes de leer de dónde viene.
 
 **Orden original y por qué:** puse la tienda antes del maridaje (el brief los tenía en orden 4 y 5, igual que yo), pero añadí un acceso directo al maridaje desde el hero ("Find your pairing"), porque para quien llega desde una vinoteca o quesería esa es la entrada más natural. También puse "La nuez" antes de la tienda: abrir una pecana justo antes de ver los packs funciona como "abrir el apetito".
 
@@ -123,6 +123,17 @@ El SVG del pájaro del pack es una lista plana de trazados, sin partes, y no se 
 
 ---
 
+## 6b. La sección de la finca (sustituye a "padre e hijo")
+
+El cliente pidió quitar la sección de la familia y propuso seis argumentos de sostenibilidad. Usé cuatro, reformulé uno y descarté otro:
+
+- **20% de bosque nativo (Mata Atlântica):** es el centro de la sección y conecta con el pájaro del pack. [VERIFY] superficie y estatus legal (en Brasil la reserva legal del 20% es la norma para fincas en esta región, pero hay que confirmarlo para El Porvenir).
+- **Protección de arroyos y manantiales:** [VERIFY].
+- **Aves, abejas e insectos entre filas:** lo describo como un hecho ("las filas están junto al bosque"), sin la etiqueta "biodiversity-friendly". [VERIFY] qué hace la finca.
+- **Sumidero de carbono:** reformulado. Digo solo lo verificable (los pecanos viven décadas y almacenan carbono en la madera) y quito "combate el cambio climático": desde el 27 de septiembre de 2026 la UE prohíbe las afirmaciones ambientales genéricas en productos si no se pueden demostrar (Directiva (UE) 2024/825).
+- **Apoyo a la economía regional:** se mantiene, es simplemente el origen.
+- **Envase ecológico: descartado.** El envase es una bolsa de aluminio; decir "kraft" o "biodegradable" sería falso. Si cambia el envase, se añade.
+
 ## 7. Descartado
 
 - **three.js para los packs** (ver arriba).
@@ -136,8 +147,8 @@ El SVG del pájaro del pack es una lista plana de trazados, sin partes, y no se 
 
 ## 8. Pendiente para la familia
 
-- **[TBD]:** precios, envío y transportista; ingredientes, trazas, conservación, consumo preferente y tabla nutricional; notas de cata; contenido y precio de los packs; descuento de suscripción; condiciones mayoristas; nombres, fotos e historia de la familia; textos legales (términos, privacidad, envíos, contacto, KvK, BTW); conectar el formulario de tiendas, la newsletter y el pago.
-- **[VERIFY]:** los meses exactos de cosecha con El Porvenir; los cinco datos del araçari real (incluido el significado del nombre en tupí); el tipo de IVA; cómo aplica el derecho de desistimiento de 14 días a alimentos.
+- **[TBD]:** precios, envío y transportista; ingredientes, trazas, conservación, consumo preferente y tabla nutricional; notas de cata; contenido y precio de los packs; descuento de suscripción; condiciones mayoristas; textos legales (términos, privacidad, envíos, contacto, KvK, BTW); conectar el formulario de tiendas, la newsletter y el pago.
+- **[VERIFY]:** los meses exactos de cosecha con El Porvenir; los cinco datos del araçari real (incluido el significado del nombre en tupí); el tipo de IVA; cómo aplica el derecho de desistimiento de 14 días a alimentos; todos los datos de la finca (20% de bosque, arroyos, fauna, longevidad de los pecanos).
 - **Material que falta del kit:** las imágenes sueltas de *Cinnamon sugar*. Las recorté de `packs-overview.jpg` y tienen la mitad de resolución que las demás, así que en tamaños grandes se ven algo blandas. Tampoco estaban las fuentes TTF ni la licencia OFL (la web usa Google Fonts, así que no hacen falta).
 - **La marca:** el nombre está en `DATA.brand`, pero el logotipo SVG y los textos lo nombran también; si gana otro nombre en la encuesta habrá que cambiar el logo.
 

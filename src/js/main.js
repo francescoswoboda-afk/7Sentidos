@@ -14,7 +14,7 @@ const App = (() => {
     { sec: '#pairing', sel: '#pairTitle', line: true },
     { sec: '#pairing', sel: '#pairStage', fx: .82, fy: 0 },
     { sec: '#bird', sel: '.fact', fx: .955, fy: 0, dy: 2 },
-    { sec: '#family', sel: '.portrait .frame', fx: .74, fy: 0 },
+    { sec: '#farm', sel: '.farm-map', fx: .8, fy: 0 },
     { sec: '#retail', sel: '#retailForm', fx: .84, fy: 0 },
     { sec: '#letter', sel: '#letterTitle', line: true },
     { sec: '#letter', sel: '#letterForm', fx: .9, fy: 0 },
@@ -107,7 +107,7 @@ const App = (() => {
       start: 'top 90%', once: true,
       onEnter: els => gsap.from(els, { y: 40, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, ...vars, overwrite: true }),
     });
-    batch('.card'); batch('.bundle'); batch('.fact'); batch('.retail-points li'); batch('.ship-facts li', { y: 14 }); batch('.portrait', { y: 60 }); batch('.tbd-block p', { y: 20 });
+    batch('.card'); batch('.bundle'); batch('.fact'); batch('.retail-points li'); batch('.ship-facts li', { y: 14 }); batch('#farmPoints li', { y: 20 });
     // the hero headline gets lighter as it leaves
   }
 
@@ -204,7 +204,7 @@ const App = (() => {
   function setLang(lang) {
     if (lang === I18N.lang) return;
     I18N.apply(lang); store.set('lang', lang);
-    Shop.render(); Hero.relabel(); Pairing.rerender(); Checkout.rerender();
+    Shop.render(); Hero.relabel(); Pairing.rerender(); Checkout.rerender(); Farm.relabel();
     if (!coarse.matches && !reduced.matches) initWeightPlay();
   }
 
@@ -306,6 +306,7 @@ const App = (() => {
     Shop.init();
     Checkout.init();
     Pairing.init();
+    Farm.init();
     initReveals();
     initWeightPlay();
     initCursor();

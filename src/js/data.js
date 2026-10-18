@@ -18,7 +18,7 @@ const DATA = {
   // El Porvenir is the family's own farm, but not every pecan comes from it: partner farms
   // with the same practices supply the rest. Never present El Porvenir as the producer of all products.
   // Do not use "organic", "bio" or "eco" anywhere until the EU organic certificate is in place.
-  farm: 'El Porvenir, Santa Cruz do Sul, Brazil',
+  farm: 'El Porvenir, Monte Alverne, Santa Cruz do Sul, Brazil',   // www.elporvenir.farm
   partnerFarms: '[TBD]',          // names and regions of the partner farms
   origin: 'Brazil',
   packSizeG: 100,

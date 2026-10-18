@@ -375,8 +375,6 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 .farm-points strong { font-family: var(--display); font-weight: 700; letter-spacing: .02em; }
 .fz { width: 18px; height: 18px; border-radius: 50%; margin-top: .25em; flex: none; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6); }
 .fz-forest { background: #2f6b35; } .fz-water { background: #58b7e8; } .fz-life { background: #f6d641; } .fz-orchard { background: #7ab55c; } .fz-region { background: var(--sunred); } .fz-nospray { background: #fff; box-shadow: inset 0 0 0 2px #7ab55c; }
-.farm-link { margin: 18px 0 0 16px; font-family: var(--display); font-weight: 700; font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
-.farm-link a { color: #2f6b35; text-underline-offset: 4px; }
 .farm-map { position: sticky; top: calc(var(--nav-h) + 40px); margin: 0; }
 .farm-map svg { width: 100%; height: auto; display: block; border-radius: 4.7% / 6.7%; box-shadow: 0 24px 40px -18px rgba(19,51,58,.35); }
 .farm-map.paused * { animation-play-state: paused !important; }
@@ -926,17 +924,16 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
     <div class="farm-copy">
       <p class="eyebrow" data-i18n="farm.eyebrow">Our farms</p>
       <h2 class="h2 split" id="farmTitle" data-i18n="farm.title">A fifth of every farm is forest</h2>
-      <p class="lead" data-i18n="farm.lead">El Porvenir is our own farm: 72 hectares in Monte Alverne, near Santa Cruz do Sul, in the south of Brazil, planted on land that needed no deforestation. We also work with partner farms that follow the same rules. None of them is all orchard.</p>
+      <p class="lead" data-i18n="farm.lead">El Porvenir is our own farm: 72 hectares in Monte Alverne, near Santa Cruz do Sul, in the south of Brazil, planted on land that needed no deforestation. We also work with partner farms that follow the same rules. None of them is all orchard. <span class="tbd">[VERIFY size, location, no deforestation]</span></p>
       <div class="farm-stat"><span class="farm-big" id="farmBig">20%</span><span class="farm-stat-t" data-i18n="farm.stat">of the land on every farm we work with is native forest, kept as a reserve <span class="tbd">[VERIFY]</span></span></div>
       <ul class="farm-points" id="farmPoints">
         <li><button type="button" data-zone="forest"><i class="fz fz-forest" aria-hidden="true"></i><span><strong data-i18n="farm.p1.t">20% stays forest</strong> <span data-i18n="farm.p1.p">On El Porvenir and on each partner farm, a fifth of the land is native forest, kept as a permanent reserve. At El Porvenir that is Atlantic Forest (Mata Atlântica), in patches spread across the farm rather than one block, home to wildlife like the araçari, the bird on our pack. <span class="tbd">[VERIFY for each farm]</span></span></span></button></li>
         <li><button type="button" data-zone="water"><i class="fz fz-water" aria-hidden="true"></i><span><strong data-i18n="farm.p2.t">Green banks along the streams</strong> <span data-i18n="farm.p2.p">On every farm, natural vegetation is left standing along streams and springs. It holds the soil in place and keeps the water clean downstream. El Porvenir also has three ponds. <span class="tbd">[VERIFY; TBD what the ponds are used for]</span></span></span></button></li>
         <li><button type="button" data-zone="orchard"><i class="fz fz-nospray" aria-hidden="true"></i><span><strong data-i18n="farm.p6.t">Grown without pesticides</strong> <span data-i18n="farm.p6.p">None of our farms sprays pesticides on the orchards. <span class="tbd">[VERIFY, with records for each farm]</span></span></span></button></li>
-        <li><button type="button" data-zone="life"><i class="fz fz-life" aria-hidden="true"></i><span><strong data-i18n="farm.p3.t">Room for birds and bees</strong> <span data-i18n="farm.p3.p">At El Porvenir, flowering plants grow between the rows to feed the bees and help pollination, and the rows are surrounded by native vegetation. With no spraying, birds and insects move freely between groves and forest. <span class="tbd">[VERIFY for partner farms]</span></span></span></button></li>
+        <li><button type="button" data-zone="life"><i class="fz fz-life" aria-hidden="true"></i><span><strong data-i18n="farm.p3.t">Room for birds and bees</strong> <span data-i18n="farm.p3.p">At El Porvenir, flowering plants grow between the rows to feed the bees and help pollination, and the rows are surrounded by native vegetation. With no spraying, birds and insects move freely between groves and forest. <span class="tbd">[VERIFY]</span></span></span></button></li>
         <li><button type="button" data-zone="orchard"><i class="fz fz-orchard" aria-hidden="true"></i><span><strong data-i18n="farm.p4.t">Trees for generations</strong> <span data-i18n="farm.p4.p">Pecan trees can live and bear nuts for many decades, storing carbon in their wood and roots as they grow. El Porvenir grows four varieties, chosen for how well they resist disease and pests. <span class="tbd">[VERIFY]</span></span></span></button></li>
         <li><button type="button" data-zone=""><i class="fz fz-region" aria-hidden="true"></i><span><strong data-i18n="farm.p5.t">Our farm and our partners</strong> <span data-i18n="farm.p5.p">El Porvenir is ours and grows part of what we sell. The rest comes from partner farms that keep to everything above. <span class="tbd">[TBD names and regions of the partner farms]</span></span></span></button></li>
       </ul>
-      <p class="farm-link"><a href="https://www.elporvenir.farm/" target="_blank" rel="noopener"><span data-i18n="farm.link">Visit El Porvenir’s website</span> <span aria-hidden="true">↗</span></a></p>
     </div>
     <figure class="farm-map">
       <svg id="farmMap" viewBox="0 0 600 420" role="img" aria-label="Illustrated plan of El Porvenir, our farm: patches of native forest spread across the farm and linked by lines of trees, a tree-lined stream, three ponds, loose groves of pecan trees with old native trees among them, wildflowers, birds and bees"></svg>
@@ -1109,7 +1106,7 @@ const DATA = {
   // El Porvenir is the family's own farm, but not every pecan comes from it: partner farms
   // with the same practices supply the rest. Never present El Porvenir as the producer of all products.
   // Do not use "organic", "bio" or "eco" anywhere until the EU organic certificate is in place.
-  farm: 'El Porvenir, Monte Alverne, Santa Cruz do Sul, Brazil',   // www.elporvenir.farm
+  farm: 'El Porvenir, Monte Alverne, Santa Cruz do Sul, Brazil',   // [VERIFY]
   partnerFarms: '[TBD]',          // names and regions of the partner farms
   origin: 'Brazil',
   packSizeG: 100,
@@ -1292,15 +1289,14 @@ const NL = {
   'bird.f4': 'Ze leven in kleine, luidruchtige familiegroepen die samen door de boomkruinen trekken. <span class="tbd">[VERIFY]</span>',
   'bird.f5': 'De naam komt uit het Tupi, een inheemse taal van Brazilië. <span class="tbd">[VERIFY betekenis]</span>',
   'farm.eyebrow': 'Onze boerderijen', 'farm.title': 'Een vijfde van elke boerderij is bos',
-  'farm.lead': 'El Porvenir is onze eigen boerderij: 72 hectare in Monte Alverne, bij Santa Cruz do Sul in het zuiden van Brazilië, aangeplant op grond waarvoor geen bos gekapt hoefde te worden. We werken ook met partnerboerderijen die dezelfde regels volgen. Geen van allemaal is alleen boomgaard.',
+  'farm.lead': 'El Porvenir is onze eigen boerderij: 72 hectare in Monte Alverne, bij Santa Cruz do Sul in het zuiden van Brazilië, aangeplant op grond waarvoor geen bos gekapt hoefde te worden. We werken ook met partnerboerderijen die dezelfde regels volgen. Geen van allemaal is alleen boomgaard. <span class="tbd">[VERIFY oppervlakte, ligging, geen ontbossing]</span>',
   'farm.stat': 'van het land op elke boerderij waarmee we werken is inheems bos, bewaard als reservaat <span class="tbd">[VERIFY]</span>',
   'farm.p1.t': '20% blijft bos', 'farm.p1.p': 'Op El Porvenir en op elke partnerboerderij is een vijfde van het land inheems bos, bewaard als blijvend reservaat. Op El Porvenir is dat Atlantisch regenwoud (Mata Atlântica), verspreid in stukken over de hele boerderij in plaats van één blok, een thuis voor dieren zoals de araçari, de vogel op onze zak. <span class="tbd">[VERIFY per boerderij]</span>',
   'farm.p2.t': 'Groene oevers langs de beken', 'farm.p2.p': 'Op elke boerderij blijft de natuurlijke begroeiing langs beken en bronnen staan. Die houdt de grond vast en het water stroomafwaarts schoon. El Porvenir heeft ook drie vijvers. <span class="tbd">[VERIFY; TBD waarvoor de vijvers dienen]</span>',
-  'farm.p3.t': 'Ruimte voor vogels en bijen', 'farm.p3.p': 'Op El Porvenir groeien bloeiende planten tussen de rijen om de bijen te voeden en de bestuiving te helpen, en de rijen zijn omringd door inheemse begroeiing. Zonder spuiten gaan vogels en insecten vrij tussen boomgaard en bos heen en weer. <span class="tbd">[VERIFY voor partnerboerderijen]</span>',
+  'farm.p3.t': 'Ruimte voor vogels en bijen', 'farm.p3.p': 'Op El Porvenir groeien bloeiende planten tussen de rijen om de bijen te voeden en de bestuiving te helpen, en de rijen zijn omringd door inheemse begroeiing. Zonder spuiten gaan vogels en insecten vrij tussen boomgaard en bos heen en weer. <span class="tbd">[VERIFY]</span>',
   'farm.p6.t': 'Geteeld zonder bestrijdingsmiddelen', 'farm.p6.p': 'Geen van onze boerderijen spuit bestrijdingsmiddelen op de boomgaarden. <span class="tbd">[VERIFY, met registratie per boerderij]</span>',
   'farm.p4.t': 'Bomen voor generaties', 'farm.p4.p': 'Pecanbomen kunnen tientallen jaren leven en noten dragen, en slaan intussen koolstof op in hun hout en wortels. El Porvenir teelt vier rassen, gekozen omdat ze goed bestand zijn tegen ziekten en plagen. <span class="tbd">[VERIFY]</span>',
   'farm.p5.t': 'Onze boerderij en onze partners', 'farm.p5.p': 'El Porvenir is van ons en levert een deel van wat we verkopen. De rest komt van partnerboerderijen die zich aan alles hierboven houden. <span class="tbd">[TBD namen en regio’s van de partnerboerderijen]</span>',
-  'farm.link': 'Bezoek de website van El Porvenir',
   'farm.caption': 'Een illustratie van El Porvenir, onze boerderij, niet op schaal. Alle cijfers nog te controleren voor de lancering.',
   'retail.eyebrow': 'Voor winkels', 'retail.title': 'Voor wijnwinkels, kaaswinkels en natuurwinkels',
   'retail.lead': 'Araçari hoort naast een goede fles of een kaastoonbank. Vraag proefzakjes of de groothandelsprijzen aan.',

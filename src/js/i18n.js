@@ -42,6 +42,7 @@ const NL = {
   'farm.p6.t': 'Geteeld zonder bestrijdingsmiddelen', 'farm.p6.p': 'Geen van onze boerderijen spuit bestrijdingsmiddelen op de boomgaarden. <span class="tbd">[VERIFY, met registratie per boerderij]</span>',
   'farm.p4.t': 'Bomen voor generaties', 'farm.p4.p': 'Pecanbomen kunnen tientallen jaren leven en noten dragen, en slaan intussen koolstof op in hun hout en wortels. El Porvenir teelt vier rassen, gekozen omdat ze goed bestand zijn tegen ziekten en plagen. <span class="tbd">[VERIFY]</span>',
   'farm.p5.t': 'Onze boerderij en onze partners', 'farm.p5.p': 'El Porvenir is van ons en levert een deel van wat we verkopen. De rest komt van partnerboerderijen die zich aan alles hierboven houden. <span class="tbd">[TBD namen en regio’s van de partnerboerderijen]</span>',
+  'farm.link': 'Bezoek de website van El Porvenir',
   'farm.caption': 'Een illustratie van El Porvenir, onze boerderij, niet op schaal. Alle cijfers nog te controleren voor de lancering.',
   'retail.eyebrow': 'Voor winkels', 'retail.title': 'Voor wijnwinkels, kaaswinkels en natuurwinkels',
   'retail.lead': 'Araçari hoort naast een goede fles of een kaastoonbank. Vraag proefzakjes of de groothandelsprijzen aan.',

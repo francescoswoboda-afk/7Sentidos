@@ -204,7 +204,7 @@ const Shop = (() => {
       <div class="pd-hero" style="--c-body:${f.colors.body};--c-band:${f.colors.band};--c-ink:${Util.inkFor(f.colors.body)}">
         <div class="pd-pack" data-cursor="drag"></div>
         <div>
-          <p class="eyebrow">${s.size(DATA.packSizeG)} · ${DATA.producer}</p>
+          <p class="eyebrow">${s.size(DATA.packSizeG)} · ${I18N.lang === 'nl' ? 'Braziliaanse pecannoten' : 'Brazilian pecans'}</p>
           <h2 id="pdTitle">${fname(f)}</h2>
           <p class="note">${f.notes.join(', ')}</p>
         </div>

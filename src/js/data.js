@@ -15,8 +15,11 @@
 const DATA = {
   brand: 'Araçari',              // name is still being surveyed; change it here
   tagline: 'Wildly good pecans',
-  producer: 'El Porvenir Farms',
-  origin: 'Santa Cruz do Sul, Rio Grande do Sul, Brazil',
+  // El Porvenir is the family's own farm, but not every pecan comes from it.
+  // Never present it as the producer of all products.
+  farm: 'El Porvenir, Santa Cruz do Sul, Brazil',
+  otherGrowers: '[TBD]',          // who else supplies pecans, and where
+  origin: 'Brazil',
   packSizeG: 100,
   currency: 'EUR',
   pricesConfirmed: false,        // false = show a [TBD] tag on every price

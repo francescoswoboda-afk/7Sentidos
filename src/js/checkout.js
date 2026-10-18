@@ -150,7 +150,7 @@ const Checkout = (() => {
       <div class="receipt">
         <div class="receipt-route" aria-hidden="true">
           <svg viewBox="0 0 400 70" preserveAspectRatio="none"><path id="rrPath" d="M8 58C120 -10 280 -10 392 40" fill="none" stroke="#f6d641" stroke-width="2.5" stroke-dasharray="3 7" stroke-linecap="round"/><circle cx="8" cy="58" r="5" fill="#e88028"/><circle cx="392" cy="40" r="5" fill="#e88028"/></svg>
-          <div class="rr-labels"><span>Santa Cruz do Sul</span><span>${escapeHTML(data.city)}</span></div>
+          <div class="rr-labels"><span>Brazil</span><span>${escapeHTML(data.city)}</span></div>
         </div>
         <div class="receipt-body">
           <ul>${items}</ul>

@@ -30,7 +30,7 @@ function createPack(host, flavour, opts = {}) {
       <div class="bp-name">${fname(f)}</div>
       <div>${s.ingredients}: ${info.ingredients}<br>${s.allergens}: ${info.allergen[I18N.lang]}</div>
       <div class="bp-table">${info.nutrition.slice(0, 4).map(([k, v]) => `<span>${s.nut[k]}</span><span>${v.replace(/ \/ .*/, '')}</span>`).join('')}</div>
-      <div class="bp-foot"><span>${DATA.packSizeG} g<br>${DATA.producer}</span><span class="bp-bars"></span></div>`;
+      <div class="bp-foot"><span>${DATA.packSizeG} g<br>Brazilian pecans</span><span class="bp-bars"></span></div>`;
   }
   paint(flavour);
 

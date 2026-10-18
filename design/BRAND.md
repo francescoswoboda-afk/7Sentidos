@@ -9,7 +9,7 @@ Read this before designing or building any page. Everything here comes from the 
 - Pack shots are **digital mockups** (the nuts are photo composites), not photos of real products.
 
 ## The story
-> **Correction (Oct 2026):** El Porvenir is the family's own farm, but not all pecans come from it. Some are bought from other growers. Do not present El Porvenir as the source of every pack.
+> **Correction (Oct 2026):** El Porvenir is the family's own farm, but not all pecans come from it. The rest come from partner farms with the same practices (20% native forest, protected streams, no pesticides). Do not present El Porvenir as the source of every pack, and do not say "organic"/"bio" until certified.
 
 - Flavoured Brazilian pecans from **El Porvenir Farms**, Santa Cruz do Sul, Rio Grande do Sul, in the south of Brazil.
 - Pecans grow in the south of Brazil because they need four seasons and a cold winter. That's also why the mascot is a **toucan**: the araçari is a small, colourful toucan that lives in Brazil.

@@ -134,6 +134,8 @@ El cliente pidió quitar la sección de la familia y propuso seis argumentos de 
 - **Apoyo a la economía regional:** se mantiene, es simplemente el origen.
 - **Envase ecológico: descartado.** El envase es una bolsa de aluminio; decir "kraft" o "biodegradable" sería falso. Si cambia el envase, se añade.
 
+**Actualización: fincas asociadas.** El Porvenir es la finca de la familia, pero no todas las nueces vienen de ella: el resto procede de fincas asociadas con las mismas prácticas (20% de bosque nativo, arroyos protegidos, sin pesticidas). La sección se llama ahora "Nuestras fincas" y todo lo que dice vale para todas, con [VERIFY]. El cliente dijo que las fincas son "bio": no uso las palabras "organic", "bio" ni "eco", porque en la UE solo se pueden usar con certificado ecológico (Reglamento (UE) 2018/848). Tampoco "sostenible" como etiqueta genérica. Escribo "bosque nativo" en lugar de "bosque primario" hasta confirmar que nunca se taló.
+
 ## 7. Descartado
 
 - **three.js para los packs** (ver arriba).

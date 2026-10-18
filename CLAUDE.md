@@ -7,8 +7,8 @@ Website and shop for Araçari, a father-and-son business importing flavoured Bra
 The brand kit is in `design/`. Read `design/BRAND.md` before changing anything visual or any copy. `design/flavours.json` holds the pack colours; the pack images, wordmark and toucan illustrations are in `design/packs`, `design/logo` and `design/illustrations`.
 
 - Text in `[TBD]` or `[VERIFY]` is a placeholder the owners still have to supply or check. Keep it visible, and do not invent facts to fill it.
-- El Porvenir is the family's own farm, but NOT every pecan comes from it; they also buy from other growers ([TBD] who). Never write copy that implies all nuts come from El Porvenir (no "pecans from El Porvenir Farms", no El Porvenir as producer). Farm facts describe that farm only.
-- No fake reviews, awards, certifications, stock counts or health claims. Environmental claims must be specific and provable (EU Directive 2024/825); no generic "eco-friendly" wording.
+- El Porvenir is the family's own farm, but NOT every pecan comes from it; they also work with partner farms ([TBD] which) that follow the same practices: 20% native forest kept as a reserve, protected streams, no pesticides (all [VERIFY]). Never write copy that implies all nuts come from El Porvenir (no "pecans from El Porvenir Farms", no El Porvenir as producer). Farm facts describe that farm only.
+- No fake reviews, awards, certifications, stock counts or health claims. Environmental claims must be specific and provable (EU Directive 2024/825); no generic "eco-friendly" or "sustainable" wording. Never use "organic", "bio" or "eco" for the products until an EU organic certificate is in place (Reg. (EU) 2018/848).
 - Prices use a comma: `€5,95`. Prices are placeholders while `DATA.pricesConfirmed` is `false`.
 - Copy is in English with a Dutch toggle; Dutch strings live in `src/js/i18n.js`.
 

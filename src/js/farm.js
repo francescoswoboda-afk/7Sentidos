@@ -8,8 +8,8 @@ const Farm = (() => {
   const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
   const el = (tag, attrs = {}, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent && parent.appendChild(n); return n; };
   const LABELS = {
-    en: { forest: 'Mata Atlântica reserve', water: 'Stream and spring', orchard: 'Pecan orchard' },
-    nl: { forest: 'Mata Atlântica-reservaat', water: 'Beek en bron', orchard: 'Pecanboomgaard' },
+    en: { forest: 'Native forest reserve', water: 'Stream and spring', orchard: 'Pecan orchard' },
+    nl: { forest: 'Inheems bosreservaat', water: 'Beek en bron', orchard: 'Pecanboomgaard' },
   };
   let svg, labels = {};
 

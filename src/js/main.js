@@ -9,7 +9,7 @@ const App = (() => {
   const PERCHES = [
     { sec: '#hero', sel: '#heroPack', fx: .64, fy: .035 },
     { sec: '#origin', sel: '.origin-stage', fx: .84, fy: 0, fixed: true },   // pinned while you scroll
-    { sec: '#nut', sel: '.nut-stage', fx: .8, fy: 0 },
+    { sec: '#nut', sel: '.quiz-stage', fx: .8, fy: 0 },
     { sec: '#shop', sel: '#shopTitle, .bundles-head .h2', line: true },
     { sec: '#pairing', sel: '#pairTitle', line: true },
     { sec: '#pairing', sel: '#pairStage', fx: .82, fy: 0 },
@@ -167,13 +167,12 @@ const App = (() => {
       lastTarget = t;
       if (!t.closest) return;
       const typing = !!t.closest(TYPING);
-      const lab = t.closest('#nutCanvas') ? (NL() ? 'kraak' : 'crack') : t.closest('[data-cursor="drag"]') ? (NL() ? 'draai' : 'turn') : '';
+      const lab = t.closest('[data-cursor="drag"]') ? (NL() ? 'draai' : 'turn') : '';
       const interactive = t.closest('a, button, label, summary, [data-cursor], .bird, .pack-slot, canvas, [role=tab], [role=radio]');
       cur.classList.toggle('off', typing);                               // text fields keep the normal I-beam only
       cur.classList.toggle('hover', !!interactive && !lab);
       cur.classList.toggle('label', !!lab);
       label.textContent = lab;
-      cur.classList.toggle('on-nut', !!t.closest('#nutCanvas'));
       cur.classList.toggle('on-dark', !!t.closest('.pairing, .retail, .footer, .strip, .bundle'));
     }, { passive: true });
     addEventListener('pointerdown', e => { if (e.pointerType !== 'touch') cur.classList.add('down'); });
@@ -315,7 +314,6 @@ const App = (() => {
     Bird.build();
     Hero.init();
     Origin.init();
-    Nut.init();
     Shop.init();
     Checkout.init();
     Pairing.init();

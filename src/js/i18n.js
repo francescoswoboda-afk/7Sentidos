@@ -16,7 +16,7 @@ const NL = {
   'origin.s4.t': 'Winter · juni tot augustus', 'origin.s4.p': 'Kale takken en echte kou. Pecans hebben die kou nodig om te rusten. Daarom groeien ze hier, in het zuiden van Brazilië, en niet in de tropen.',
   'origin.s5.t': '10.687 km van onze boerderij', 'origin.s5.p': 'El Porvenir, onze eigen boerderij in Monte Alverne bij Santa Cruz do Sul, ligt 10.687 km van Nederland. Daar groeit een deel van wat we verkopen; de rest komt van partnerboerderijen die op dezelfde manier werken. <span class="tbd">[TBD welke boerderijen en waar]</span>',
   'nut.eyebrow': 'Vind je smaak', 'nut.title': 'Welke pecan ben jij?',
-  'nut.lead': 'Vier korte vragen. Kraak daarna je pecan open en zie welke smaak erin zit.',
+  'nut.lead': 'Vier korte vragen, en wij kiezen de pecan voor je. Kijk hoe de zakjes veranderen terwijl je antwoordt.',
   'nut.count': 'Gekraakt', 'nut.best': 'Beste reeks', 'nut.hint': 'Houd ingedrukt om te kraken · of tik drie keer',
   'shop.eyebrow': 'De winkel · zakjes van 100 g', 'shop.title': 'Kies een kleur',
   'shop.lead': 'Elke smaak heeft zijn eigen zak en zijn eigen stemming. Draai een zak om en lees de achterkant.',

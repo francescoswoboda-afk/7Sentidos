@@ -147,13 +147,12 @@
     <div class="nut-copy">
       <p class="eyebrow" data-i18n="nut.eyebrow">Find your flavour</p>
       <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Which pecan are you?</h2>
-      <p class="lead" data-i18n="nut.lead">Four quick questions. Then crack your pecan open to see which flavour is inside.</p>
+      <p class="lead" data-i18n="nut.lead">Four quick questions, and we pick the pecan for you. Watch the packs change as you answer.</p>
       <div class="quiz-card" id="quizCard" aria-live="polite"></div>
     </div>
-    <div class="nut-stage" data-perch="nut" data-perch-x="0.82" data-perch-y="0.02">
-      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it and see your flavour." role="img" tabindex="0"></canvas>
-      <p class="nut-hint" id="nutHint" data-i18n="nut.hint">Press and hold to crack · or tap three times</p>
-      <div class="quiz-reveal" id="quizReveal" aria-live="polite" hidden></div>
+    <div class="quiz-stage" id="quizStage" aria-live="polite">
+      <div class="quiz-grid" id="quizGrid" aria-hidden="true"></div>
+      <div class="quiz-result" id="quizResult"></div>
     </div>
   </div>
 </section>

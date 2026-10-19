@@ -282,20 +282,35 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 .quiz-opt[aria-pressed="true"] { background: var(--ink); color: var(--cream); border-color: var(--ink); }
 .quiz-link { margin-top: 14px; border: 0; background: transparent; padding: 8px 0; min-height: 40px; font-family: var(--display); font-weight: 700; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
 .quiz-you { margin: 0 0 6px; font-size: var(--fs-lead); line-height: 1.45; }
-.quiz-also { margin: 6px 0 0; color: var(--muted); }
 .quiz-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
 .quiz-row .quiz-link { margin-top: 0; }
-.quiz-reveal { position: absolute; inset: 0; border-radius: inherit; display: grid; place-content: center; justify-items: center; gap: 10px; padding: 24px; text-align: center; background: color-mix(in srgb, var(--f-body) 88%, transparent); color: var(--f-ink); }
-.quiz-reveal .pr-eyebrow { font-family: var(--display); font-weight: 600; font-size: var(--fs-eyebrow); letter-spacing: .24em; text-transform: uppercase; margin: 0; }
-.quiz-reveal .pack-mini { width: clamp(90px, 12vw, 130px); filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
-.quiz-reveal h3 { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem); text-transform: uppercase; }
-.quiz-reveal .why { margin: 0; max-width: 34ch; font-size: var(--fs-lead); line-height: 1.45; }
-.quiz-reveal .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; }
-.quiz-reveal .btn { --b-bg: var(--f-ink); --b-fg: var(--f-body); }
-.nut-stage { position: relative; aspect-ratio: 5 / 4; border-radius: calc(var(--radius) + 8px); background: radial-gradient(120% 90% at 50% 100%, #e7d6b4, #f3e7cf 60%, var(--paper)); box-shadow: inset 0 0 0 1px var(--line); }
-.nut-stage canvas { width: 100%; height: 100%; border-radius: inherit; touch-action: none; cursor: none; }
-.nut-stage canvas:focus-visible { outline-offset: -6px; }
-.nut-hint { position: absolute; left: 0; right: 0; bottom: 18px; margin: 0; text-align: center; font-family: var(--display); font-weight: 600; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; pointer-events: none; color: var(--ink-2); }
+.quiz-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 14px 6px 10px; border-radius: 999px; border: 1.5px solid var(--line); background: #fff; color: var(--ink); font-size: .92rem; }
+.quiz-chip::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--qc); }
+.quiz-chip:hover { border-color: var(--ink); }
+/* the stage: eight packs that react to every answer, then the result */
+.quiz-stage { position: relative; border-radius: calc(var(--radius) + 8px); background: radial-gradient(120% 90% at 50% 100%, #e7d6b4, #f3e7cf 60%, var(--paper)); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; min-height: 520px; display: grid; }
+.quiz-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px 10px; align-content: center; padding: 28px 22px; }
+.qg-item { --k: 1; position: relative; display: grid; justify-items: center; gap: 8px; transform: translateY(calc((1 - var(--k)) * 14px)) scale(calc(.7 + .3 * var(--k))); opacity: calc(.25 + .75 * var(--k)); filter: saturate(calc(.3 + .7 * var(--k))); transition: transform .7s var(--ease-out), opacity .7s var(--ease-out), filter .7s; }
+.qg-item img { width: 100%; max-width: 108px; filter: drop-shadow(0 12px 12px rgba(19,51,58,.22)); user-select: none; }
+.qg-item span { font-family: var(--display); font-weight: 700; font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; text-align: center; line-height: 1.25; }
+.qg-item::before { content: ""; position: absolute; left: 50%; top: 42%; width: 120%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--qg-body) 45%, transparent), transparent); opacity: 0; transition: opacity .6s; z-index: -1; }
+.qg-item.lead::before { opacity: 1; }
+.qg-item.lead img { animation: qg-bob 1.4s ease-in-out infinite alternate; }
+@keyframes qg-bob { to { transform: translateY(-8px) rotate(2deg); } }
+.quiz-result { display: none; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: 12px 28px; padding: 30px clamp(20px, 3vw, 40px); background: var(--r-body); color: var(--r-ink); position: relative; isolation: isolate; }
+.quiz-result::before { content: ""; position: absolute; inset: 62% 0 0; background: var(--r-band); opacity: .7; -webkit-mask: var(--swirl) 0 0 / 200px 200px repeat; mask: var(--swirl) 0 0 / 200px 200px repeat; z-index: -1; }
+.quiz-stage.done .quiz-grid { display: none; }
+.quiz-stage.done .quiz-result { display: grid; }
+.qr-pack { width: min(100%, 230px); justify-self: center; }
+.qr-eyebrow { margin: 0; font-family: var(--display); font-weight: 600; font-size: var(--fs-eyebrow); letter-spacing: .24em; text-transform: uppercase; }
+.qr-copy h3 { font-size: clamp(1.8rem, 1.3rem + 2vw, 3rem); text-transform: uppercase; line-height: .95; margin: 8px 0 4px; }
+.qr-notes { margin: 0; font-family: var(--hand); font-weight: 600; font-size: 1.3rem; }
+.qr-why { margin: 12px 0 0; font-size: var(--fs-lead); line-height: 1.45; max-width: 34ch; }
+.qr-buy { display: flex; align-items: baseline; gap: 12px; margin-top: 18px; }
+.qr-buy .size { font-size: var(--fs-small); opacity: .8; }
+.qr-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.qr-actions .btn { --b-bg: var(--r-ink); --b-fg: var(--r-body); }
+@media (prefers-reduced-motion: reduce) { .qg-item.lead img { animation: none; } }
 
 /* ---------- shop ---------- */
 .shop { background: color-mix(in srgb, var(--f-body) 9%, var(--paper)); padding-block: clamp(80px, 11vw, 150px); transition: background-color .8s; }
@@ -648,8 +663,6 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 .cursor.hover .cursor-ring { width: 64px; height: 64px; background: color-mix(in srgb, var(--f-body) 30%, transparent); border-color: var(--f-body); }
 .cursor.label .cursor-ring { width: 76px; height: 76px; background: var(--sun); border-color: var(--sun); }
 .cursor.label .cursor-ring em { opacity: 1; }
-.cursor.label.on-nut .cursor-ring { background: transparent; border: 2px dashed var(--sunred); width: 92px; height: 92px; }
-.cursor.label.on-nut .cursor-ring em { transform: translateY(58px); color: var(--sunred); }
 .cursor.on-dark .cursor-dot { background: var(--cream); }
 .cursor.on-dark .cursor-ring { border-color: var(--cream); }
 /* the system cursor is hidden everywhere the custom one is shown, so there are never two */
@@ -703,7 +716,12 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   .origin-stage { order: -1; aspect-ratio: 4 / 3.1; }
   .nut-grid, .pair-grid, .bird-grid, .farm-grid, .retail-grid, .shop-head { grid-template-columns: minmax(0, 1fr); }
   .farm-map { position: static; order: -1; }
-  .nut-stage { aspect-ratio: 1 / 1; }
+  .quiz-stage { min-height: 0; }
+  .quiz-grid { gap: 12px 6px; padding: 18px 12px; }
+  .qg-item span { font-size: .52rem; letter-spacing: .06em; }
+  .quiz-result { grid-template-columns: minmax(0, 1fr); text-align: center; justify-items: center; padding: 26px 18px; }
+  .qr-pack { width: 150px; }
+  .qr-buy, .qr-actions { justify-content: center; }
   .form-fields { grid-template-columns: minmax(0, 1fr); }
   .co-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
   .co-nav .btn-line { flex: 0 0 auto; padding-inline: 18px; }
@@ -883,13 +901,12 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
     <div class="nut-copy">
       <p class="eyebrow" data-i18n="nut.eyebrow">Find your flavour</p>
       <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Which pecan are you?</h2>
-      <p class="lead" data-i18n="nut.lead">Four quick questions. Then crack your pecan open to see which flavour is inside.</p>
+      <p class="lead" data-i18n="nut.lead">Four quick questions, and we pick the pecan for you. Watch the packs change as you answer.</p>
       <div class="quiz-card" id="quizCard" aria-live="polite"></div>
     </div>
-    <div class="nut-stage" data-perch="nut" data-perch-x="0.82" data-perch-y="0.02">
-      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it and see your flavour." role="img" tabindex="0"></canvas>
-      <p class="nut-hint" id="nutHint" data-i18n="nut.hint">Press and hold to crack · or tap three times</p>
-      <div class="quiz-reveal" id="quizReveal" aria-live="polite" hidden></div>
+    <div class="quiz-stage" id="quizStage" aria-live="polite">
+      <div class="quiz-grid" id="quizGrid" aria-hidden="true"></div>
+      <div class="quiz-result" id="quizResult"></div>
     </div>
   </div>
 </section>
@@ -1333,7 +1350,7 @@ const NL = {
   'origin.s4.t': 'Winter · juni tot augustus', 'origin.s4.p': 'Kale takken en echte kou. Pecans hebben die kou nodig om te rusten. Daarom groeien ze hier, in het zuiden van Brazilië, en niet in de tropen.',
   'origin.s5.t': '10.687 km van onze boerderij', 'origin.s5.p': 'El Porvenir, onze eigen boerderij in Monte Alverne bij Santa Cruz do Sul, ligt 10.687 km van Nederland. Daar groeit een deel van wat we verkopen; de rest komt van partnerboerderijen die op dezelfde manier werken. <span class="tbd">[TBD welke boerderijen en waar]</span>',
   'nut.eyebrow': 'Vind je smaak', 'nut.title': 'Welke pecan ben jij?',
-  'nut.lead': 'Vier korte vragen. Kraak daarna je pecan open en zie welke smaak erin zit.',
+  'nut.lead': 'Vier korte vragen, en wij kiezen de pecan voor je. Kijk hoe de zakjes veranderen terwijl je antwoordt.',
   'nut.count': 'Gekraakt', 'nut.best': 'Beste reeks', 'nut.hint': 'Houd ingedrukt om te kraken · of tik drie keer',
   'shop.eyebrow': 'De winkel · zakjes van 100 g', 'shop.title': 'Kies een kleur',
   'shop.lead': 'Elke smaak heeft zijn eigen zak en zijn eigen stemming. Draai een zak om en lees de achterkant.',
@@ -2570,256 +2587,6 @@ const Origin = (() => {
   return { init, routePoint, get onRoute() { return active; }, get progress() { return progress; } };
 })();
 
-/* ---- nut.js ---- */
-/* The nut: crack a pecan. Hold to build pressure (or tap three times).
-   Shell shards fly with gravity and bounce; the kernel pops out. */
-const Nut = (() => {
-  const { clamp, rand } = Util;
-  let cv, ctx, W = 0, H = 0, dpr = 1, inView = false, raf = null;
-  let nut = null, shards = [], dust = [], kernel = null, holding = false, pressure = 0, shake = 0, count = 0, streak = 0, best = 0, lastCrack = 0, flash = 0;
-  let pointer = { x: -1, y: -1 }, specialNext = false;
-
-  function newNut() {
-    const s = Math.min(W, H) * (W < 500 ? .3 : .26);
-    nut = {
-      x: W + s * 1.4, y: H * .5, tx: W * .5, w: s * rand(1, 1.1), h: s * rand(.46, .52), rot: rand(-.2, .2), spin: 0,
-      golden: specialNext || Math.random() < .08, stripes: Array.from({ length: 11 }, () => ({ y: rand(-.75, .75), w: rand(.05, .14), l: rand(.25, .75), o: rand(-.15, .15) })),
-      cracks: makeCracks(), crackP: 0, enter: 0,
-    };
-    nut.tex = texture(nut);
-  }
-  function makeCracks() {
-    return Array.from({ length: 5 }, (_, i) => {
-      const a = (i / 5) * Math.PI * 2 + rand(-.3, .3), pts = [[0, 0]]; let x = 0, y = 0;
-      for (let j = 0; j < 6; j++) { x += Math.cos(a + rand(-.6, .6)) * .2; y += Math.sin(a + rand(-.6, .6)) * .2; pts.push([x, y]); }
-      return pts;
-    });
-  }
-  function shellPath(c, w, h) {
-    c.beginPath();
-    c.moveTo(-w, 0);
-    c.bezierCurveTo(-w, -h * .75, -w * .55, -h, 0, -h);
-    c.bezierCurveTo(w * .55, -h, w * .9, -h * .45, w * 1.1, 0);
-    c.bezierCurveTo(w * .9, h * .45, w * .55, h, 0, h);
-    c.bezierCurveTo(-w * .55, h, -w, h * .75, -w, 0);
-    c.closePath();
-  }
-  // paint the shell once into an offscreen canvas: shards reuse it
-  function texture(n) {
-    const pad = 8, tw = Math.ceil(n.w * 2.3 + pad * 2), th = Math.ceil(n.h * 2.4 + pad * 2);
-    const o = document.createElement('canvas'); o.width = tw * dpr; o.height = th * dpr;
-    const c = o.getContext('2d'); c.scale(dpr, dpr); c.translate(tw / 2, th / 2);
-    shellPath(c, n.w, n.h); c.save(); c.clip();
-    const g = c.createLinearGradient(0, -n.h, 0, n.h);
-    if (n.golden) { g.addColorStop(0, '#f8dc6a'); g.addColorStop(.5, '#d9a531'); g.addColorStop(1, '#a8741a'); }
-    else { g.addColorStop(0, '#b8743d'); g.addColorStop(.45, '#94552a'); g.addColorStop(1, '#5e3218'); }
-    c.fillStyle = g; c.fillRect(-n.w * 1.2, -n.h * 1.2, n.w * 2.4, n.h * 2.4);
-    // the dark streaks pecan shells have
-    // pecan shells have dark streaks running lengthwise from the tip
-    n.stripes.forEach(s => {
-      c.fillStyle = n.golden ? 'rgba(120,70,10,.35)' : 'rgba(28,12,4,.62)';
-      const y = s.y * n.h, x1 = n.w * 1.15, x0 = x1 - s.l * n.w * 2, hw = s.w * n.h;
-      c.beginPath();
-      c.moveTo(x1, y * .3);
-      c.bezierCurveTo(x1 - n.w * .5, y + hw, x0 + n.w * .4, y + s.o * n.h + hw * .6, x0, y + s.o * n.h);
-      c.bezierCurveTo(x0 + n.w * .4, y + s.o * n.h - hw * .6, x1 - n.w * .5, y - hw, x1, y * .3);
-      c.fill();
-    });
-    const hl = c.createRadialGradient(-n.w * .3, -n.h * .5, 2, -n.w * .3, -n.h * .5, n.w * .9);
-    hl.addColorStop(0, 'rgba(255,240,210,.45)'); hl.addColorStop(1, 'rgba(255,240,210,0)');
-    c.fillStyle = hl; c.fillRect(-n.w * 1.2, -n.h * 1.2, n.w * 2.4, n.h * 2.4);
-    c.restore();
-    c.lineWidth = 1.5; c.strokeStyle = n.golden ? '#8a5a10' : '#3e2410'; shellPath(c, n.w, n.h); c.stroke();
-    return { canvas: o, w: tw, h: th };
-  }
-
-  function crack() {
-    const n = nut; if (!n || n.enter < .98) return;
-    // break the outline into wedge shards around a jittered centre
-    const k = 13, cx = rand(-.15, .15) * n.w, cy = rand(-.15, .15) * n.h;
-    const outline = [];
-    for (let i = 0; i < k; i++) {
-      const a = (i / k) * Math.PI * 2 + rand(-.12, .12);
-      outline.push([Math.cos(a) * n.w * 1.15, Math.sin(a) * n.h * 1.15]);
-    }
-    for (let i = 0; i < k; i++) {
-      const p1 = outline[i], p2 = outline[(i + 1) % k];
-      const mid = [(p1[0] + p2[0]) / 2 * 1.05, (p1[1] + p2[1]) / 2 * 1.05];
-      const j1 = [cx + (p1[0] - cx) * .45 + rand(-6, 6), cy + (p1[1] - cy) * .45 + rand(-5, 5)];
-      const j2 = [cx + (p2[0] - cx) * .45 + rand(-6, 6), cy + (p2[1] - cy) * .45 + rand(-5, 5)];
-      const poly = Math.random() < .5 ? [j1, p1, mid, p2, j2] : [[cx, cy], j1, p1, mid, p2, j2];
-      const ang = Math.atan2(mid[1], mid[0]);
-      shards.push({ poly, x: n.x, y: n.y, rot: n.rot, vx: Math.cos(ang) * rand(220, 520), vy: Math.sin(ang) * rand(160, 380) - rand(260, 520), vr: rand(-9, 9), life: 3, tex: n.tex, golden: n.golden });
-    }
-    for (let i = 0; i < 26; i++) dust.push({ x: n.x + rand(-n.w, n.w) * .5, y: n.y + rand(-n.h, n.h) * .5, vx: rand(-260, 260), vy: rand(-420, -60), life: rand(.5, 1.2), r: rand(1, 3.2), c: n.golden ? '#f6d641' : (Math.random() > .5 ? '#c9965a' : '#6b4220') });
-    kernel = { x: n.x, y: n.y, w: n.w * .86, h: n.h * .74, rot: n.rot, pop: 0, t: 0, golden: n.golden, out: 0 };
-    shake = 1; flash = 1; pressure = 0; holding = false;
-    Sound.crack(1); try { navigator.vibrate && navigator.vibrate(22); } catch (e) {}
-    const now = performance.now();
-    streak = now - lastCrack < 4500 ? streak + 1 : 1; lastCrack = now;
-    count++; best = Math.max(best, streak);
-    Util.store.set('nut', { count, best });
-    const cnt = document.getElementById('nutCount'), bst = document.getElementById('nutBest');
-    if (cnt) cnt.textContent = count; if (bst) bst.textContent = best;
-    if (!specialNext) document.getElementById('nutHint').textContent = I18N.s().nutAgain(count) + (streak > 2 ? ` × ${streak}` : '');
-    listeners.forEach(fn => fn());
-    specialNext = false;
-    if (count % 4 === 0 && Bird.currentPerch()?.el?.classList.contains('nut-stage')) Bird.crack();
-    nut = null;
-    setTimeout(() => { if (kernel) kernel.out = 1; }, 1100);
-    setTimeout(newNut, 1300);
-  }
-
-  function drawKernel(k, dt) {
-    k.t += dt; k.pop = Math.min(1, k.pop + dt * 3);
-    const lift = Math.sin(Math.min(1, k.t * 2.2) * Math.PI) * 26 * (1 - k.out);
-    const alpha = k.out ? Math.max(0, 1 - (k.t - 1.1) * 4) : 1;
-    if (alpha <= 0) { kernel = null; return; }
-    ctx.save(); ctx.globalAlpha = alpha; ctx.translate(k.x, k.y - lift + (k.out ? (k.t - 1.1) * -300 : 0)); ctx.rotate(k.rot);
-    const s = .6 + .4 * easeOutBack(k.pop); ctx.scale(s, s);
-    // two kernel halves: each has two lobes split by a groove, with wrinkled ridges
-    [-1, 1].forEach(side => {
-      ctx.save(); ctx.translate(side * k.w * .06 * k.pop, side * k.h * 1.05 * k.pop); ctx.rotate(side * .06 * k.pop);
-      const L = k.w * .92, R = k.h * .95;
-      [-1, 1].forEach(lobe => {
-        ctx.save(); ctx.translate(0, lobe * R * .38);
-        const g = ctx.createLinearGradient(0, -R * .6, 0, R * .6);
-        g.addColorStop(0, k.golden ? '#ffe68a' : '#d99a57'); g.addColorStop(.6, k.golden ? '#f0c24a' : '#b8723a'); g.addColorStop(1, k.golden ? '#c8901f' : '#8a4f24');
-        ctx.fillStyle = g; ctx.strokeStyle = k.golden ? '#8a5a10' : '#5e3218'; ctx.lineWidth = 1.4;
-        ctx.beginPath();
-        ctx.moveTo(-L, 0);
-        // bumpy top edge
-        for (let i = 0; i <= 10; i++) { const x = -L + 2 * L * i / 10, env = Math.sin(i / 10 * Math.PI); ctx.lineTo(x, -lobe * 0 - env * R * .55 - (i % 2 ? env * 3.2 : 0)); }
-        for (let i = 10; i >= 0; i--) { const x = -L + 2 * L * i / 10, env = Math.sin(i / 10 * Math.PI); ctx.lineTo(x, env * R * .5 + (i % 2 ? env * 2.6 : 0)); }
-        ctx.closePath(); ctx.fill(); ctx.stroke();
-        // wrinkles
-        ctx.strokeStyle = k.golden ? 'rgba(120,80,10,.5)' : 'rgba(70,35,12,.5)'; ctx.lineWidth = 1.3;
-        for (let i = 1; i < 6; i++) { const x = -L + 2 * L * i / 6; ctx.beginPath(); ctx.moveTo(x - 4, -R * .32); ctx.quadraticCurveTo(x + 5, 0, x - 3, R * .3); ctx.stroke(); }
-        ctx.restore();
-      });
-      // the groove between the lobes
-      ctx.strokeStyle = k.golden ? '#8a5a10' : '#4a2510'; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(-L * .9, 0); ctx.bezierCurveTo(-L * .3, 3, L * .3, -3, L * .9, 0); ctx.stroke();
-      // a little shine
-      ctx.fillStyle = 'rgba(255,240,210,.35)'; ctx.beginPath(); ctx.ellipse(-L * .35, -R * .55, L * .25, R * .12, -.1, 0, Math.PI * 2); ctx.fill();
-      ctx.restore();
-    });
-    ctx.restore();
-  }
-  const easeOutBack = t => 1 + 2.7 * Math.pow(t - 1, 3) + 1.7 * Math.pow(t - 1, 2);
-
-  function frame(now) {
-    raf = requestAnimationFrame(frame);
-    if (!inView) return;
-    const dt = Math.min(.04, (now - (frame.t || now)) / 1000); frame.t = now;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, W, H);
-    const floor = H * .86;
-    // floor shadow line
-    ctx.fillStyle = 'rgba(90,60,30,.08)'; ctx.fillRect(0, floor + 2, W, H - floor);
-
-    // pressure
-    if (holding) { pressure = Math.min(1, pressure + dt * (Util.reduced.matches ? .8 : 1.15)); if (Math.random() < .5) Sound.creak(pressure); }
-    else pressure = Math.max(0, pressure - dt * .35);
-    if (pressure >= 1) crack();
-    shake = Math.max(0, shake - dt * 3.5); flash = Math.max(0, flash - dt * 4);
-
-    if (nut) {
-      nut.enter = Math.min(1, nut.enter + dt * 1.6);
-      const e = 1 - Math.pow(1 - nut.enter, 3);
-      const x = Util.lerp(W + nut.w * 1.4, nut.tx, e);
-      nut.x = x; nut.spin = (1 - e) * 6;
-      const jx = (Math.random() - .5) * pressure * 7, jy = (Math.random() - .5) * pressure * 5;
-      ctx.save(); ctx.translate(nut.x + jx, nut.y + jy); ctx.rotate(nut.rot - nut.spin);
-      const squeeze = 1 - pressure * .05;
-      ctx.scale(1 + pressure * .03, squeeze);
-      // shadow
-      ctx.save(); ctx.rotate(-(nut.rot - nut.spin)); ctx.fillStyle = 'rgba(60,35,15,.18)'; ctx.beginPath(); ctx.ellipse(0, floor - nut.y + 4, nut.w * .9, 10, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
-      ctx.drawImage(nut.tex.canvas, -nut.tex.w / 2, -nut.tex.h / 2, nut.tex.w, nut.tex.h);
-      // growing cracks
-      if (pressure > .05) {
-        ctx.strokeStyle = 'rgba(25,12,4,.85)'; ctx.lineWidth = 1.6; ctx.lineJoin = 'round';
-        nut.cracks.forEach(c => {
-          const n = Math.max(1, Math.floor(c.length * pressure));
-          ctx.beginPath(); ctx.moveTo(c[0][0] * nut.w, c[0][1] * nut.h);
-          for (let i = 1; i <= Math.min(n, c.length - 1); i++) ctx.lineTo(c[i][0] * nut.w * 1.3, c[i][1] * nut.h * 1.6);
-          ctx.stroke();
-        });
-      }
-      ctx.restore();
-      // pressure ring around the pointer / nut
-      if (pressure > 0) {
-        ctx.save(); ctx.strokeStyle = '#13333a'; ctx.lineWidth = 4; ctx.lineCap = 'round';
-        const r = nut.w * 1.35;
-        ctx.globalAlpha = .18; ctx.beginPath(); ctx.arc(nut.x, nut.y, r, 0, Math.PI * 2); ctx.stroke();
-        ctx.globalAlpha = 1; ctx.strokeStyle = '#e88028'; ctx.beginPath(); ctx.arc(nut.x, nut.y, r, -Math.PI / 2, -Math.PI / 2 + pressure * Math.PI * 2); ctx.stroke();
-        ctx.restore();
-      }
-    }
-    if (kernel) drawKernel(kernel, dt);
-
-    // shards
-    for (let i = shards.length - 1; i >= 0; i--) {
-      const s = shards[i];
-      s.vy += 1500 * dt; s.x += s.vx * dt; s.y += s.vy * dt; s.rot += s.vr * dt; s.life -= dt;
-      if (s.y > floor) { s.y = floor; s.vy *= -.32; s.vx *= .7; s.vr *= .6; if (Math.abs(s.vy) < 40) s.vy = 0; }
-      if (s.x < -50 || s.x > W + 50 || s.life <= 0) { shards.splice(i, 1); continue; }
-      ctx.save(); ctx.globalAlpha = clamp(s.life, 0, 1); ctx.translate(s.x, s.y); ctx.rotate(s.rot);
-      ctx.beginPath(); s.poly.forEach((p, j) => (j ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath();
-      ctx.save(); ctx.clip(); ctx.drawImage(s.tex.canvas, -s.tex.w / 2, -s.tex.h / 2, s.tex.w, s.tex.h); ctx.restore();
-      ctx.strokeStyle = s.golden ? '#f3dc9a' : '#e3c79a'; ctx.lineWidth = 2.2; ctx.stroke();
-      ctx.restore();
-    }
-    for (let i = dust.length - 1; i >= 0; i--) {
-      const d = dust[i]; d.vy += 900 * dt; d.x += d.vx * dt; d.y += d.vy * dt; d.life -= dt;
-      if (d.life <= 0) { dust.splice(i, 1); continue; }
-      ctx.globalAlpha = clamp(d.life * 2, 0, 1); ctx.fillStyle = d.c; ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2); ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-    if (flash > 0) { ctx.fillStyle = `rgba(255,248,234,${flash * .35})`; ctx.fillRect(0, 0, W, H); }
-    if (shake > 0) cv.style.transform = `translate(${(Math.random() - .5) * shake * 10}px, ${(Math.random() - .5) * shake * 8}px)`;
-    else if (cv.style.transform) cv.style.transform = '';
-  }
-
-  function resize() {
-    const r = cv.getBoundingClientRect(); dpr = Math.min(2, window.devicePixelRatio || 1);
-    W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr;
-    if (nut) { nut.tex = texture(nut); nut.tx = W * .5; nut.y = H * .5; } else newNut();
-  }
-
-  function init() {
-    cv = document.getElementById('nutCanvas'); ctx = cv.getContext('2d');
-    const saved = Util.store.get('nut', { count: 0, best: 0 });
-    count = saved.count || 0; best = saved.best || 0;
-    const cnt = document.getElementById('nutCount'), bst = document.getElementById('nutBest');
-    if (cnt) cnt.textContent = count; if (bst) bst.textContent = best;
-    let taps = 0, tapTimer, downAt = 0;
-    cv.addEventListener('pointerdown', e => {
-      e.preventDefault(); holding = true; downAt = performance.now();
-      try { cv.setPointerCapture(e.pointerId); } catch (_) {}
-    });
-    const up = () => {
-      if (!holding) return; holding = false;
-      if (performance.now() - downAt < 220) { // a tap
-        pressure = Math.min(1, pressure + .36); shake = .35; Sound.creak(pressure);
-        taps++; clearTimeout(tapTimer); tapTimer = setTimeout(() => (taps = 0), 900);
-      }
-    };
-    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up); cv.addEventListener('pointerleave', up);
-    cv.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) { e.preventDefault(); holding = true; } });
-    cv.addEventListener('keyup', e => { if (e.key === ' ' || e.key === 'Enter') holding = false; });
-    new ResizeObserver(resize).observe(cv);
-    new IntersectionObserver(es => es.forEach(e => {
-      inView = e.isIntersecting;
-      if (inView && !raf) raf = requestAnimationFrame(frame);
-    }), { rootMargin: '80px' }).observe(cv);
-  }
-  // the flavour finder: a golden "your pecan" while a result waits, and a hook on every crack
-  const listeners = [];
-  function special(on) { specialNext = on; if (nut) { nut.golden = on; nut.tex = texture(nut); } }
-  return { init, special, onCrack: fn => listeners.push(fn) };
-})();
-
 /* ---- shop.js ---- */
 /* Shop: product cards, bundles, product detail sheet, and the cart. */
 const byId = id => DATA.flavours.find(f => f.id === id);
@@ -3587,99 +3354,123 @@ const Farm = (() => {
 })();
 
 /* ---- quiz.js ---- */
-/* Flavour finder: four questions, then crack the pecan to reveal your flavour.
-   Questions and scoring live in DATA.quiz (data.js). */
+/* Flavour finder: four questions; the eight packs react live to every answer
+   (matches grow, the rest fade), then the winner is shown as a 3D pack with
+   Add to cart. Questions and scoring live in DATA.quiz (data.js). */
 const Quiz = (() => {
-  const { $ } = Util;
+  const { $, $$ } = Util;
   const T = {
-    en: { done: 'All four answered', of: (a, b) => `Question ${a} of ${b}`, back: 'Back', ready: 'Your pecan is ready.', crack: 'Crack it open to see your flavour.', show: 'Just show me', again: 'Start over', yours: 'Your flavour', also: n => `Also try: ${n}`, hint: 'Crack it to see your flavour', pick: 'Answer the questions first, or crack a few for fun' },
-    nl: { done: 'Alle vier beantwoord', of: (a, b) => `Vraag ${a} van ${b}`, back: 'Terug', ready: 'Je pecan is klaar.', crack: 'Kraak hem open en zie je smaak.', show: 'Laat maar zien', again: 'Opnieuw', yours: 'Jouw smaak', also: n => `Probeer ook: ${n}`, hint: 'Kraak hem en zie je smaak', pick: 'Beantwoord eerst de vragen, of kraak er een paar voor de lol' },
+    en: { of: (a, b) => `Question ${a} of ${b}`, back: 'Back', again: 'Start over', yours: 'Your flavour', also: 'Also try', done: 'All done', notYou: 'Not quite you?', notYouP: 'Try the runner-up, or start again.' },
+    nl: { of: (a, b) => `Vraag ${a} van ${b}`, back: 'Terug', again: 'Opnieuw', yours: 'Jouw smaak', also: 'Probeer ook', done: 'Klaar', notYou: 'Niet helemaal jij?', notYouP: 'Probeer de nummer twee, of begin opnieuw.' },
   };
   const t = () => T[I18N.lang] || T.en;
-  let step = 0, answers = [], ready = false, revealed = false;
   const Q = () => DATA.quiz.questions;
+  let step = 0, answers = [], shown = null, pack = null;
 
   function scores() {
     const s = {}; DATA.flavours.forEach(f => (s[f.id] = 0));
-    answers.forEach((a, i) => Object.entries(Q()[i].options[a].pts).forEach(([id, p]) => (s[id] += p)));
-    return DATA.flavours.map(f => ({ f, p: s[f.id] })).sort((a, b) => b.p - a.p);   // stable: ties keep data order
+    answers.forEach((a, i) => { if (a != null) Object.entries(Q()[i].options[a].pts).forEach(([id, p]) => (s[id] += p)); });
+    return DATA.flavours.map(f => ({ f, p: s[f.id] })).sort((a, b) => b.p - a.p);   // ties keep data order
   }
 
-  function render(dir = 1) {
+  /* ---- the pack grid on the right ---- */
+  function buildGrid() {
+    $('#quizGrid').innerHTML = DATA.flavours.map(f => `
+      <div class="qg-item" data-id="${f.id}" style="--qg-body:${f.colors.body}">
+        <img src="${f.img.perched}" alt="" draggable="false"><span>${fname(f)}</span>
+      </div>`).join('');
+  }
+  function updateGrid() {
+    const res = scores(), max = res[0].p;
+    $$('#quizGrid .qg-item').forEach(el => {
+      const r = res.find(x => x.f.id === el.dataset.id), k = max ? r.p / max : 1;
+      el.style.setProperty('--k', k.toFixed(2));
+      el.classList.toggle('lead', !!max && r === res[0]);
+    });
+    $('#quizGrid').classList.toggle('scored', !!max);
+  }
+
+  /* ---- the card on the left ---- */
+  function renderCard(dir = 1) {
     const card = $('#quizCard'), L = I18N.lang, s = t();
     let html;
-    if (!ready) {
+    if (!shown) {
       const q = Q()[step];
       html = `<p class="quiz-step">${s.of(step + 1, Q().length)}</p>
         <div class="quiz-dots" aria-hidden="true">${Q().map((_, i) => `<span class="${i < step ? 'done' : i === step ? 'now' : ''}"></span>`).join('')}</div>
-        <h3 class="quiz-q" tabindex="-1">${q.q[L]}</h3>
+        <h3 class="quiz-q">${q.q[L]}</h3>
         <div class="quiz-opts">${q.options.map((o, i) => `<button type="button" class="quiz-opt" data-a="${i}" aria-pressed="${answers[step] === i}">${o.t[L]}</button>`).join('')}</div>
         ${step > 0 ? `<button type="button" class="quiz-link" data-quiz="back">← ${s.back}</button>` : ''}`;
     } else {
-      const res = revealed ? scores() : null;
-      html = revealed
-        ? `<p class="quiz-step">${s.yours}</p><h3 class="quiz-q" tabindex="-1">${fname(res[0].f)}</h3>
-           <p class="quiz-you">${DATA.quiz.you[res[0].f.id][L]}</p>
-           <p class="quiz-also">${s.also(fname(res[1].f))}</p>
-           <button type="button" class="quiz-link" data-quiz="again">↺ ${s.again}</button>`
-        : `<p class="quiz-step">${s.done}</p><h3 class="quiz-q" tabindex="-1">${s.ready}</h3><p class="quiz-you">${s.crack}</p>
-           <div class="quiz-row"><button type="button" class="btn btn-line btn-sm" data-quiz="show">${s.show}</button><button type="button" class="quiz-link" data-quiz="again">↺ ${s.again}</button></div>`;
+      const res = scores(), other = res.find(r => r.f.id !== shown.id);
+      html = `<p class="quiz-step">${s.done}</p>
+        <h3 class="quiz-q">${s.notYou}</h3>
+        <p class="quiz-you">${s.notYouP}</p>
+        <div class="quiz-row">
+          <button type="button" class="quiz-chip" data-quiz="alt" data-id="${other.f.id}" style="--qc:${other.f.colors.body}">${s.also}: ${fname(other.f)}</button>
+          <button type="button" class="quiz-link" data-quiz="again">↺ ${s.again}</button>
+        </div>`;
     }
-    const paint = () => { card.innerHTML = html; const h = card.querySelector('.quiz-q'); if (h && document.activeElement && card.contains(document.activeElement) === false && card.dataset.focus) h.focus({ preventScroll: true }); };
     if (window.gsap && !Util.reduced.matches && card.children.length) {
-      gsap.to(card, { x: -24 * dir, opacity: 0, duration: .18, ease: 'power2.in', onComplete: () => { paint(); gsap.fromTo(card, { x: 24 * dir, opacity: 0 }, { x: 0, opacity: 1, duration: .45, ease: 'expo.out' }); } });
-    } else paint();
-    $('#nutHint').textContent = ready && !revealed ? s.hint : I18N.lang === 'nl' ? NL['nut.hint'] : I18N.en['nut.hint'];
+      gsap.to(card, { x: -20 * dir, opacity: 0, duration: .16, ease: 'power2.in', onComplete: () => { card.innerHTML = html; gsap.fromTo(card, { x: 20 * dir, opacity: 0 }, { x: 0, opacity: 1, duration: .45, ease: 'expo.out' }); } });
+    } else card.innerHTML = html;
   }
 
-  function reveal() {
-    if (!ready || revealed) return;
-    revealed = true;
-    const [top] = scores(), f = top.f, s = t(), L = I18N.lang;
+  /* ---- the result on the right ---- */
+  function showResult(f, first) {
+    shown = f;
+    const s = t(), L = I18N.lang, stage = $('#quizStage'), box = $('#quizResult');
     World.set(f, { duration: 1 });
-    const box = $('#quizReveal');
-    box.innerHTML = `<p class="pr-eyebrow">${s.yours}</p>
-      <img class="pack-mini" src="${f.img.perched}" alt="${fname(f)} pack">
-      <h3>${fname(f)}</h3>
-      <p class="why">${DATA.quiz.you[f.id][L]}</p>
-      <div class="row"><span class="price">${Util.priceHTML(f.priceCents)}</span><button type="button" class="btn btn-solid magnetic" data-add="${f.id}">${I18N.s().addToCart}</button><button type="button" class="btn btn-line" data-detail="${f.id}">${I18N.s().details}</button></div>`;
-    box.hidden = false;
-    $('#nutHint').style.visibility = 'hidden';
+    box.style.setProperty('--r-body', f.colors.body); box.style.setProperty('--r-band', f.colors.band); box.style.setProperty('--r-ink', Util.inkFor(f.colors.body));
+    box.innerHTML = `<div class="qr-pack"></div>
+      <div class="qr-copy">
+        <p class="qr-eyebrow">${s.yours}</p>
+        <h3>${fname(f)}</h3>
+        <p class="qr-notes">${f.notes.join(', ')}</p>
+        <p class="qr-why">${DATA.quiz.you[f.id][L]}</p>
+        <div class="qr-buy"><span class="price">${Util.priceHTML(f.priceCents)}</span><span class="size">${I18N.s().size(DATA.packSizeG)}</span></div>
+        <div class="qr-actions"><button type="button" class="btn btn-solid magnetic" data-add="${f.id}">${I18N.s().addToCart}</button><button type="button" class="btn btn-line" data-detail="${f.id}">${I18N.s().details}</button></div>
+      </div>`;
+    pack = createPack(box.querySelector('.qr-pack'), f, { ry: -16, bob: 8 });
+    stage.classList.add('done');
     if (window.gsap && !Util.reduced.matches) {
-      gsap.fromTo(box, { opacity: 0 }, { opacity: 1, duration: .5 });
-      gsap.from(box.querySelector('.pack-mini'), { y: 50, scale: .5, rotate: -12, duration: 1, ease: 'back.out(1.8)' });
-      gsap.from(box.querySelectorAll('h3, .why, .row'), { y: 16, opacity: 0, duration: .7, ease: 'expo.out', stagger: .08, delay: .2 });
+      gsap.fromTo(box, { opacity: 0 }, { opacity: 1, duration: .5, delay: first ? .35 : 0 });
+      gsap.from(box.querySelector('.qr-pack'), { y: 60, scale: .6, rotate: -10, duration: 1.1, ease: 'back.out(1.6)', delay: first ? .4 : .05 });
+      gsap.from(box.querySelectorAll('.qr-copy > *'), { y: 18, opacity: 0, duration: .7, ease: 'expo.out', stagger: .06, delay: first ? .55 : .15 });
+      setTimeout(() => pack && pack.spin(1), first ? 900 : 300);
     }
-    Sound.melody(); Bird.happy(1200); Bird.hop(2);
-    render(1);
+    if (first) { Sound.melody(); Bird.happy(1200); }
+    renderCard(1);
+    // phones: the result sits below the questions, so bring it into view
+    if (matchMedia('(max-width: 820px)').matches) setTimeout(() => stage.scrollIntoView({ behavior: Util.reduced.matches ? 'auto' : 'smooth', block: 'center' }), first ? 300 : 0);
   }
 
+  function answer(i) {
+    answers[step] = i;
+    updateGrid();
+    Sound.pluck(523 + step * 70);
+    if (step < Q().length - 1) { step++; renderCard(1); }
+    else setTimeout(() => showResult(scores()[0].f, true), Util.reduced.matches ? 0 : 450);   // let the grid settle first
+  }
   function reset() {
-    step = 0; answers = []; ready = false; revealed = false;
-    $('#quizReveal').hidden = true; $('#nutHint').style.visibility = ''; Nut.special(false);
-    render(-1);
+    step = 0; answers = []; shown = null; pack = null;
+    $('#quizStage').classList.remove('done'); $('#quizResult').innerHTML = '';
+    updateGrid(); renderCard(-1);
   }
 
   function init() {
+    buildGrid(); updateGrid(); renderCard();
     $('#quizCard').addEventListener('click', e => {
       const o = e.target.closest('[data-a]'), q = e.target.closest('[data-quiz]');
-      $('#quizCard').dataset.focus = '1';
-      if (o) {
-        answers[step] = +o.dataset.a;
-        if (step < Q().length - 1) { step++; render(1); }
-        else { ready = true; Nut.special(true); render(1); }
-        Sound.pluck(523 + step * 60);
-      }
-      if (q?.dataset.quiz === 'back' && step > 0) { step--; render(-1); }
-      if (q?.dataset.quiz === 'again') reset();
-      if (q?.dataset.quiz === 'show') reveal();
+      if (o) answer(+o.dataset.a);
+      if (!q) return;
+      if (q.dataset.quiz === 'back' && step > 0) { step--; answers.length = step; updateGrid(); renderCard(-1); }
+      if (q.dataset.quiz === 'again') reset();
+      if (q.dataset.quiz === 'alt') showResult(byId(q.dataset.id), false);
     });
-    $('#quizReveal').addEventListener('click', e => { if (e.target === e.currentTarget) e.currentTarget.hidden = true; });
-    // cracking the "ready" pecan reveals the result once the kernel has popped out
-    Nut.onCrack(() => { if (ready && !revealed) setTimeout(reveal, 650); });
-    render();
   }
-  return { init, rerender: () => { if (revealed) { revealed = false; reveal(); } else render(0); } };
+  function rerender() { buildGrid(); updateGrid(); if (shown) showResult(shown, false); else renderCard(0); }
+  return { init, rerender };
 })();
 
 /* ---- main.js ---- */
@@ -3694,7 +3485,7 @@ const App = (() => {
   const PERCHES = [
     { sec: '#hero', sel: '#heroPack', fx: .64, fy: .035 },
     { sec: '#origin', sel: '.origin-stage', fx: .84, fy: 0, fixed: true },   // pinned while you scroll
-    { sec: '#nut', sel: '.nut-stage', fx: .8, fy: 0 },
+    { sec: '#nut', sel: '.quiz-stage', fx: .8, fy: 0 },
     { sec: '#shop', sel: '#shopTitle, .bundles-head .h2', line: true },
     { sec: '#pairing', sel: '#pairTitle', line: true },
     { sec: '#pairing', sel: '#pairStage', fx: .82, fy: 0 },
@@ -3852,13 +3643,12 @@ const App = (() => {
       lastTarget = t;
       if (!t.closest) return;
       const typing = !!t.closest(TYPING);
-      const lab = t.closest('#nutCanvas') ? (NL() ? 'kraak' : 'crack') : t.closest('[data-cursor="drag"]') ? (NL() ? 'draai' : 'turn') : '';
+      const lab = t.closest('[data-cursor="drag"]') ? (NL() ? 'draai' : 'turn') : '';
       const interactive = t.closest('a, button, label, summary, [data-cursor], .bird, .pack-slot, canvas, [role=tab], [role=radio]');
       cur.classList.toggle('off', typing);                               // text fields keep the normal I-beam only
       cur.classList.toggle('hover', !!interactive && !lab);
       cur.classList.toggle('label', !!lab);
       label.textContent = lab;
-      cur.classList.toggle('on-nut', !!t.closest('#nutCanvas'));
       cur.classList.toggle('on-dark', !!t.closest('.pairing, .retail, .footer, .strip, .bundle'));
     }, { passive: true });
     addEventListener('pointerdown', e => { if (e.pointerType !== 'touch') cur.classList.add('down'); });
@@ -4000,7 +3790,6 @@ const App = (() => {
     Bird.build();
     Hero.init();
     Origin.init();
-    Nut.init();
     Shop.init();
     Checkout.init();
     Pairing.init();

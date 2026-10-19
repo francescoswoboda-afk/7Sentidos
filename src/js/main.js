@@ -59,19 +59,32 @@ const App = (() => {
   addEventListener('resize', () => { navPoint = null; });
   const NAV_PERCH = { el: null, get: () => { if (!navPoint) { const r = NAV_PERCH.el.getBoundingClientRect(); navPoint = { x: r.left + r.width * .6, y: r.top + r.height * .46 }; } return navPoint; }, nav: true };
   function goHome() { if (Bird.currentPerch() === NAV_PERCH && Bird.mode !== 'idle') return; Bird.setMini(.55); Bird.perchOn(NAV_PERCH, { force: true }); }
+  // Scrolling: the bird waits on the navbar branch (a fast scroll sends it straight there).
+  // After 5 seconds without scrolling it flies down to a spot on the screen.
+  const IDLE_MS = 5000, FAST_PX_S = 1600;
+  let lastScroll = -1e9, lastY = scrollY, lastT = performance.now(), speed = 0;
+  addEventListener('scroll', () => {
+    const now = performance.now(), dt = Math.max(16, now - lastT);
+    speed = speed * .6 + Math.abs(scrollY - lastY) / dt * 1000 * .4;
+    lastY = scrollY; lastT = now; lastScroll = now;
+  }, { passive: true });
   function perchManager() {
     if (['#checkout', '#product', '#cart', '#legal'].some(s => Util.isOpen($(s)))) return;
-    if (Origin.onRoute && !reduced.matches) { if (Bird.mode !== 'track' && !Bird.busy) { Bird.setMini(1); Bird.track(Origin.routePoint); } return; }
+    const now = performance.now(), quiet = now - lastScroll > IDLE_MS, fast = now - lastScroll < 250 && speed > FAST_PX_S;
+    if (Origin.onRoute && !reduced.matches && !fast) { if (Bird.mode !== 'track' && !Bird.busy) { Bird.setMini(1); Bird.track(Origin.routePoint); } return; }
     if (Bird.mode === 'track') Bird.untrack();
     if (Bird.busy || Bird.mode === 'busy') return;
     const cur = Bird.currentPerch(), sec = activeSection();
+    if (fast) { goHome(); return; }
+    // already sitting somewhere on the page and still in view: stay (it scrolls with the page)
     if (cur && !cur.nav && sec && Bird.mode !== 'idle') {
       const stillHere = candidates(sec).some(p => p.el === cur.el) && cur.el.isConnected && goodPoint(pointOf(cur));
       if (stillHere) return;
     }
+    if (!quiet) { goHome(); return; }       // still scrolling recently: wait on the branch
     const b = bestPerch();
     if (b) { Bird.setMini(1); Bird.perchOn(b); }
-    else goHome();        // nowhere to sit in this part of the page: back to the navbar branch
+    else goHome();
   }
 
   /* ---------- scrolling: native, no smoothing, so it stops when you stop ---------- */
@@ -204,7 +217,7 @@ const App = (() => {
   function setLang(lang) {
     if (lang === I18N.lang) return;
     I18N.apply(lang); store.set('lang', lang);
-    Shop.render(); Hero.relabel(); Pairing.rerender(); Checkout.rerender(); Farm.relabel();
+    Shop.render(); Hero.relabel(); Pairing.rerender(); Checkout.rerender(); Farm.relabel(); Quiz.rerender();
     if (!coarse.matches && !reduced.matches) initWeightPlay();
   }
 
@@ -307,6 +320,7 @@ const App = (() => {
     Checkout.init();
     Pairing.init();
     Farm.init();
+    Quiz.init();
     initReveals();
     initWeightPlay();
     initCursor();

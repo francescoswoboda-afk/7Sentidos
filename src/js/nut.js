@@ -4,13 +4,13 @@ const Nut = (() => {
   const { clamp, rand } = Util;
   let cv, ctx, W = 0, H = 0, dpr = 1, inView = false, raf = null;
   let nut = null, shards = [], dust = [], kernel = null, holding = false, pressure = 0, shake = 0, count = 0, streak = 0, best = 0, lastCrack = 0, flash = 0;
-  let pointer = { x: -1, y: -1 };
+  let pointer = { x: -1, y: -1 }, specialNext = false;
 
   function newNut() {
     const s = Math.min(W, H) * (W < 500 ? .3 : .26);
     nut = {
       x: W + s * 1.4, y: H * .5, tx: W * .5, w: s * rand(1, 1.1), h: s * rand(.46, .52), rot: rand(-.2, .2), spin: 0,
-      golden: Math.random() < .08, stripes: Array.from({ length: 11 }, () => ({ y: rand(-.75, .75), w: rand(.05, .14), l: rand(.25, .75), o: rand(-.15, .15) })),
+      golden: specialNext || Math.random() < .08, stripes: Array.from({ length: 11 }, () => ({ y: rand(-.75, .75), w: rand(.05, .14), l: rand(.25, .75), o: rand(-.15, .15) })),
       cracks: makeCracks(), crackP: 0, enter: 0,
     };
     nut.tex = texture(nut);
@@ -86,10 +86,11 @@ const Nut = (() => {
     streak = now - lastCrack < 4500 ? streak + 1 : 1; lastCrack = now;
     count++; best = Math.max(best, streak);
     Util.store.set('nut', { count, best });
-    document.getElementById('nutCount').textContent = count;
-    document.getElementById('nutBest').textContent = best;
-    document.getElementById('nutHint').textContent = I18N.s().nutAgain(count) + (streak > 2 ? ` × ${streak}` : '');
-    if (window.gsap) gsap.fromTo('#nutCount', { scale: 1.35 }, { scale: 1, duration: .6, ease: 'elastic.out(1,.5)' });
+    const cnt = document.getElementById('nutCount'), bst = document.getElementById('nutBest');
+    if (cnt) cnt.textContent = count; if (bst) bst.textContent = best;
+    if (!specialNext) document.getElementById('nutHint').textContent = I18N.s().nutAgain(count) + (streak > 2 ? ` × ${streak}` : '');
+    listeners.forEach(fn => fn());
+    specialNext = false;
     if (count % 4 === 0 && Bird.currentPerch()?.el?.classList.contains('nut-stage')) Bird.crack();
     nut = null;
     setTimeout(() => { if (kernel) kernel.out = 1; }, 1100);
@@ -217,7 +218,8 @@ const Nut = (() => {
     cv = document.getElementById('nutCanvas'); ctx = cv.getContext('2d');
     const saved = Util.store.get('nut', { count: 0, best: 0 });
     count = saved.count || 0; best = saved.best || 0;
-    document.getElementById('nutCount').textContent = count; document.getElementById('nutBest').textContent = best;
+    const cnt = document.getElementById('nutCount'), bst = document.getElementById('nutBest');
+    if (cnt) cnt.textContent = count; if (bst) bst.textContent = best;
     let taps = 0, tapTimer, downAt = 0;
     cv.addEventListener('pointerdown', e => {
       e.preventDefault(); holding = true; downAt = performance.now();
@@ -239,5 +241,8 @@ const Nut = (() => {
       if (inView && !raf) raf = requestAnimationFrame(frame);
     }), { rootMargin: '80px' }).observe(cv);
   }
-  return { init };
+  // the flavour finder: a golden "your pecan" while a result waits, and a hook on every crack
+  const listeners = [];
+  function special(on) { specialNext = on; if (nut) { nut.golden = on; nut.tex = texture(nut); } }
+  return { init, special, onCrack: fn => listeners.push(fn) };
 })();

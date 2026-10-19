@@ -62,7 +62,7 @@
   <nav aria-label="Mobile">
     <a href="#shop" data-i18n="nav.shop">Shop</a>
     <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
-    <a href="#nut" data-i18n="nav.nut">Crack one</a>
+    <a href="#nut" data-i18n="nav.nut">Your flavour</a>
     <a href="#origin" data-i18n="nav.origin">Origin</a>
     <a href="#bird" data-i18n="nav.bird">The bird</a>
     <a href="#farm" data-i18n="nav.farm">The farm</a>
@@ -145,17 +145,15 @@
 <section class="nut" id="nut" aria-labelledby="nutTitle">
   <div class="wrap nut-grid">
     <div class="nut-copy">
-      <p class="eyebrow" data-i18n="nut.eyebrow">The nut</p>
-      <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Crack one open</h2>
-      <p class="lead" data-i18n="nut.lead">Under a thin, striped shell: two buttery halves, folded like a little brain. That is the part we roast and coat. Go on, crack a few.</p>
-      <dl class="nut-stats">
-        <div><dt data-i18n="nut.count">Cracked</dt><dd id="nutCount">0</dd></div>
-        <div><dt data-i18n="nut.best">Best streak</dt><dd id="nutBest">0</dd></div>
-      </dl>
+      <p class="eyebrow" data-i18n="nut.eyebrow">Find your flavour</p>
+      <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Which pecan are you?</h2>
+      <p class="lead" data-i18n="nut.lead">Four quick questions. Then crack your pecan open to see which flavour is inside.</p>
+      <div class="quiz-card" id="quizCard" aria-live="polite"></div>
     </div>
     <div class="nut-stage" data-perch="nut" data-perch-x="0.82" data-perch-y="0.02">
-      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it." role="img" tabindex="0"></canvas>
+      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it and see your flavour." role="img" tabindex="0"></canvas>
       <p class="nut-hint" id="nutHint" data-i18n="nut.hint">Press and hold to crack · or tap three times</p>
+      <div class="quiz-reveal" id="quizReveal" aria-live="polite" hidden></div>
     </div>
   </div>
 </section>

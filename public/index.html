@@ -269,10 +269,29 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 /* ---------- nut ---------- */
 .nut { background: var(--cream); padding-block: clamp(80px, 12vw, 160px); position: relative; overflow: hidden; }
 .nut-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
-.nut-stats { display: flex; gap: 40px; margin: 34px 0 0; }
-.nut-stats div { display: grid; gap: 2px; }
-.nut-stats dt { font-family: var(--display); font-weight: 600; font-size: var(--fs-eyebrow); letter-spacing: .22em; text-transform: uppercase; }
-.nut-stats dd { margin: 0; font-family: var(--text); font-weight: 600; font-size: clamp(2.4rem, 2rem + 2vw, 3.6rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.quiz-card { margin-top: 30px; padding: clamp(20px, 2.4vw, 28px); border-radius: var(--radius); background: var(--paper); box-shadow: inset 0 0 0 1px var(--line), 0 24px 40px -32px rgba(19,51,58,.5); min-height: 260px; }
+.quiz-step { margin: 0; font-family: var(--display); font-weight: 600; font-size: var(--fs-eyebrow); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+.quiz-dots { display: flex; gap: 6px; margin: 10px 0 16px; }
+.quiz-dots span { flex: 1; height: 4px; border-radius: 4px; background: rgba(19,51,58,.14); }
+.quiz-dots .done { background: var(--ink-2); } .quiz-dots .now { background: var(--f-body); }
+.quiz-q { font-size: clamp(1.35rem, 1.1rem + 1vw, 1.9rem); text-transform: uppercase; letter-spacing: .02em; margin: 6px 0 16px; padding-top: .1em; }
+.quiz-q:focus { outline: none; }
+.quiz-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.quiz-opt { text-align: left; min-height: 52px; padding: 12px 16px; border-radius: 14px; border: 1.5px solid var(--line); background: #fff; color: var(--ink); font-size: 1rem; line-height: 1.3; transition: background .2s, border-color .2s, transform .3s var(--ease-out); }
+.quiz-opt:hover { border-color: var(--ink); transform: translateY(-2px); }
+.quiz-opt[aria-pressed="true"] { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.quiz-link { margin-top: 14px; border: 0; background: transparent; padding: 8px 0; min-height: 40px; font-family: var(--display); font-weight: 700; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.quiz-you { margin: 0 0 6px; font-size: var(--fs-lead); line-height: 1.45; }
+.quiz-also { margin: 6px 0 0; color: var(--muted); }
+.quiz-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+.quiz-row .quiz-link { margin-top: 0; }
+.quiz-reveal { position: absolute; inset: 0; border-radius: inherit; display: grid; place-content: center; justify-items: center; gap: 10px; padding: 24px; text-align: center; background: color-mix(in srgb, var(--f-body) 88%, transparent); color: var(--f-ink); }
+.quiz-reveal .pr-eyebrow { font-family: var(--display); font-weight: 600; font-size: var(--fs-eyebrow); letter-spacing: .24em; text-transform: uppercase; margin: 0; }
+.quiz-reveal .pack-mini { width: clamp(90px, 12vw, 130px); filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
+.quiz-reveal h3 { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem); text-transform: uppercase; }
+.quiz-reveal .why { margin: 0; max-width: 34ch; font-size: var(--fs-lead); line-height: 1.45; }
+.quiz-reveal .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.quiz-reveal .btn { --b-bg: var(--f-ink); --b-fg: var(--f-body); }
 .nut-stage { position: relative; aspect-ratio: 5 / 4; border-radius: calc(var(--radius) + 8px); background: radial-gradient(120% 90% at 50% 100%, #e7d6b4, #f3e7cf 60%, var(--paper)); box-shadow: inset 0 0 0 1px var(--line); }
 .nut-stage canvas { width: 100%; height: 100%; border-radius: inherit; touch-action: none; cursor: none; }
 .nut-stage canvas:focus-visible { outline-offset: -6px; }
@@ -685,7 +704,6 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   .nut-grid, .pair-grid, .bird-grid, .farm-grid, .retail-grid, .shop-head { grid-template-columns: minmax(0, 1fr); }
   .farm-map { position: static; order: -1; }
   .nut-stage { aspect-ratio: 1 / 1; }
-  .nut-stats { margin-top: 22px; }
   .form-fields { grid-template-columns: minmax(0, 1fr); }
   .co-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
   .co-nav .btn-line { flex: 0 0 auto; padding-inline: 18px; }
@@ -780,7 +798,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
   <nav aria-label="Mobile">
     <a href="#shop" data-i18n="nav.shop">Shop</a>
     <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
-    <a href="#nut" data-i18n="nav.nut">Crack one</a>
+    <a href="#nut" data-i18n="nav.nut">Your flavour</a>
     <a href="#origin" data-i18n="nav.origin">Origin</a>
     <a href="#bird" data-i18n="nav.bird">The bird</a>
     <a href="#farm" data-i18n="nav.farm">The farm</a>
@@ -863,17 +881,15 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 <section class="nut" id="nut" aria-labelledby="nutTitle">
   <div class="wrap nut-grid">
     <div class="nut-copy">
-      <p class="eyebrow" data-i18n="nut.eyebrow">The nut</p>
-      <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Crack one open</h2>
-      <p class="lead" data-i18n="nut.lead">Under a thin, striped shell: two buttery halves, folded like a little brain. That is the part we roast and coat. Go on, crack a few.</p>
-      <dl class="nut-stats">
-        <div><dt data-i18n="nut.count">Cracked</dt><dd id="nutCount">0</dd></div>
-        <div><dt data-i18n="nut.best">Best streak</dt><dd id="nutBest">0</dd></div>
-      </dl>
+      <p class="eyebrow" data-i18n="nut.eyebrow">Find your flavour</p>
+      <h2 class="h2 split" id="nutTitle" data-i18n="nut.title">Which pecan are you?</h2>
+      <p class="lead" data-i18n="nut.lead">Four quick questions. Then crack your pecan open to see which flavour is inside.</p>
+      <div class="quiz-card" id="quizCard" aria-live="polite"></div>
     </div>
     <div class="nut-stage" data-perch="nut" data-perch-x="0.82" data-perch-y="0.02">
-      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it." role="img" tabindex="0"></canvas>
+      <canvas id="nutCanvas" aria-label="A pecan. Press and hold, or press Space, to crack it and see your flavour." role="img" tabindex="0"></canvas>
       <p class="nut-hint" id="nutHint" data-i18n="nut.hint">Press and hold to crack · or tap three times</p>
+      <div class="quiz-reveal" id="quizReveal" aria-live="polite" hidden></div>
     </div>
   </div>
 </section>
@@ -1220,6 +1236,49 @@ const DATA = {
       priceCents: 2400 },         // [TBD] placeholder
   ],
 
+  /* ---------------- Flavour finder (the quiz in the "nut" section) ----
+     Each answer gives points to flavours (by id). The flavour with the
+     most points wins; ties go to the one listed first in `flavours`.
+     `you` is the line shown with the result.                           */
+  quiz: {
+    questions: [
+      { q: { en: 'Sweet or salty?', nl: 'Zoet of zout?' }, options: [
+        { t: { en: 'Sweet tooth', nl: 'Zoetekauw' }, pts: { caramel: 2, 'doce-de-leite': 2, 'cinnamon-sugar': 2, chocolate: 1, 'coffee-chocolate': 1 } },
+        { t: { en: 'A bit of both', nl: 'Een beetje van allebei' }, pts: { 'salted-caramel': 2, 'honey-sea-salt': 2, 'chocolate-sea-salt': 2 } },
+        { t: { en: 'Salty, always', nl: 'Zout, altijd' }, pts: { 'chocolate-sea-salt': 2, 'salted-caramel': 1, 'honey-sea-salt': 1 } },
+      ] },
+      { q: { en: 'Which texture do you love?', nl: 'Van welke textuur houd je?' }, options: [
+        { t: { en: 'A glassy crunch', nl: 'Een glazen krak' }, pts: { 'salted-caramel': 2, caramel: 2 } },
+        { t: { en: 'Smooth and rich', nl: 'Zacht en vol' }, pts: { chocolate: 2, 'chocolate-sea-salt': 1, 'coffee-chocolate': 1, 'doce-de-leite': 1 } },
+        { t: { en: 'A sugary crust', nl: 'Een suikerkorstje' }, pts: { 'cinnamon-sugar': 3 } },
+        { t: { en: 'Light, so the nut comes through', nl: 'Licht, zodat je de noot proeft' }, pts: { 'honey-sea-salt': 2, 'doce-de-leite': 1 } },
+      ] },
+      { q: { en: 'When do you reach for a snack?', nl: 'Wanneer pak je iets lekkers?' }, options: [
+        { t: { en: 'With my morning coffee', nl: 'Bij mijn ochtendkoffie' }, pts: { 'coffee-chocolate': 3, 'cinnamon-sugar': 1 } },
+        { t: { en: 'With wine or cheese', nl: 'Bij wijn of kaas' }, pts: { 'chocolate-sea-salt': 1, 'salted-caramel': 1, 'honey-sea-salt': 1, chocolate: 1 } },
+        { t: { en: 'An afternoon treat', nl: 'Als middagtraktatie' }, pts: { 'doce-de-leite': 2, caramel: 1, 'cinnamon-sugar': 1 } },
+        { t: { en: 'Film night on the sofa', nl: 'Filmavond op de bank' }, pts: { 'salted-caramel': 2, chocolate: 1 } },
+      ] },
+      { q: { en: 'Which flavour pulls you in?', nl: 'Welke smaak trekt je aan?' }, options: [
+        { t: { en: 'Toffee and caramel', nl: 'Toffee en karamel' }, pts: { caramel: 2, 'salted-caramel': 2 } },
+        { t: { en: 'Dark and a little bitter', nl: 'Donker en een beetje bitter' }, pts: { chocolate: 2, 'coffee-chocolate': 2, 'chocolate-sea-salt': 1 } },
+        { t: { en: 'Warm spice', nl: 'Warme specerijen' }, pts: { 'cinnamon-sugar': 3 } },
+        { t: { en: 'Golden honey', nl: 'Goudgele honing' }, pts: { 'honey-sea-salt': 3 } },
+        { t: { en: 'Soft and milky', nl: 'Zacht en romig' }, pts: { 'doce-de-leite': 3 } },
+      ] },
+    ],
+    you: {
+      'salted-caramel': { en: 'Sweet and salty at once, with a glassy crunch. Made for film nights and a glass of tawny.', nl: 'Zoet en zout tegelijk, met een glazen krak. Gemaakt voor filmavonden en een glas tawny.' },
+      chocolate: { en: 'Deep, dark and rich. You like your treats grown-up.', nl: 'Diep, donker en vol. Jij houdt van volwassen lekkers.' },
+      'chocolate-sea-salt': { en: 'Dark chocolate with a pinch of salt: rich, but never too sweet.', nl: 'Pure chocolade met een snufje zout: vol, maar nooit te zoet.' },
+      caramel: { en: 'Golden caramel and a crisp shell. A classic, done properly.', nl: 'Goudkleurige karamel en een knapperig laagje. Een klassieker, goed gedaan.' },
+      'doce-de-leite': { en: 'Soft, milky and warm, like Brazil’s favourite caramel.', nl: 'Zacht, romig en warm, zoals Brazilië’s favoriete karamel.' },
+      'cinnamon-sugar': { en: 'Warm cinnamon and a sugary crust. Cosy in a pouch.', nl: 'Warme kaneel en een suikerkorstje. Gezelligheid in een zakje.' },
+      'coffee-chocolate': { en: 'Coffee and dark chocolate. Your morning, in a nut.', nl: 'Koffie en pure chocolade. Je ochtend, in een noot.' },
+      'honey-sea-salt': { en: 'Golden honey with a little sea salt. Bright, light and easy to love.', nl: 'Goudgele honing met een beetje zeezout. Fris, licht en makkelijk om van te houden.' },
+    },
+  },
+
   /* ---------------- Pairing ritual --------------------------------
      For each wine or cheese: the flavour it suggests and why.
      These are our suggestions, to be confirmed at a real tasting [TBD]. */
@@ -1262,7 +1321,7 @@ const DATA = {
 const NL = {
   'skip': 'Naar de winkel',
   'nav.shop': 'Winkel', 'nav.pairing': 'Pairing', 'nav.origin': 'Herkomst', 'nav.farm': 'De boerderij', 'nav.retail': 'Voor winkels',
-  'nav.nut': 'Kraak er een', 'nav.bird': 'De vogel', 'nav.cart': 'Mand',
+  'nav.nut': 'Jouw smaak', 'nav.bird': 'De vogel', 'nav.cart': 'Mand',
   'hero.eyebrow': 'Braziliaanse pecannoten met smaak',
   'hero.title': 'Wild lekkere pecans',
   'hero.lead': 'Gegroeid in het verre zuiden van Brazilië, waar de winters koud genoeg zijn voor pecannoten. Geroosterd, in acht smaken gehuld en naar Nederland gebracht.',
@@ -1273,8 +1332,8 @@ const NL = {
   'origin.s3.t': 'Herfst · de oogst', 'origin.s3.p': 'De bolsters springen open en de pecans vallen. De oogst loopt door de zuidelijke herfst. <span class="tbd">[VERIFY oogstmaanden bij El Porvenir]</span>',
   'origin.s4.t': 'Winter · juni tot augustus', 'origin.s4.p': 'Kale takken en echte kou. Pecans hebben die kou nodig om te rusten. Daarom groeien ze hier, in het zuiden van Brazilië, en niet in de tropen.',
   'origin.s5.t': '10.687 km van onze boerderij', 'origin.s5.p': 'El Porvenir, onze eigen boerderij in Monte Alverne bij Santa Cruz do Sul, ligt 10.687 km van Nederland. Daar groeit een deel van wat we verkopen; de rest komt van partnerboerderijen die op dezelfde manier werken. <span class="tbd">[TBD welke boerderijen en waar]</span>',
-  'nut.eyebrow': 'De noot', 'nut.title': 'Kraak er een open',
-  'nut.lead': 'Onder een dunne, gestreepte dop: twee boterzachte helften, gevouwen als een klein brein. Dat deel roosteren en omhullen wij. Kraak er gerust een paar.',
+  'nut.eyebrow': 'Vind je smaak', 'nut.title': 'Welke pecan ben jij?',
+  'nut.lead': 'Vier korte vragen. Kraak daarna je pecan open en zie welke smaak erin zit.',
   'nut.count': 'Gekraakt', 'nut.best': 'Beste reeks', 'nut.hint': 'Houd ingedrukt om te kraken · of tik drie keer',
   'shop.eyebrow': 'De winkel · zakjes van 100 g', 'shop.title': 'Kies een kleur',
   'shop.lead': 'Elke smaak heeft zijn eigen zak en zijn eigen stemming. Draai een zak om en lees de achterkant.',
@@ -2518,13 +2577,13 @@ const Nut = (() => {
   const { clamp, rand } = Util;
   let cv, ctx, W = 0, H = 0, dpr = 1, inView = false, raf = null;
   let nut = null, shards = [], dust = [], kernel = null, holding = false, pressure = 0, shake = 0, count = 0, streak = 0, best = 0, lastCrack = 0, flash = 0;
-  let pointer = { x: -1, y: -1 };
+  let pointer = { x: -1, y: -1 }, specialNext = false;
 
   function newNut() {
     const s = Math.min(W, H) * (W < 500 ? .3 : .26);
     nut = {
       x: W + s * 1.4, y: H * .5, tx: W * .5, w: s * rand(1, 1.1), h: s * rand(.46, .52), rot: rand(-.2, .2), spin: 0,
-      golden: Math.random() < .08, stripes: Array.from({ length: 11 }, () => ({ y: rand(-.75, .75), w: rand(.05, .14), l: rand(.25, .75), o: rand(-.15, .15) })),
+      golden: specialNext || Math.random() < .08, stripes: Array.from({ length: 11 }, () => ({ y: rand(-.75, .75), w: rand(.05, .14), l: rand(.25, .75), o: rand(-.15, .15) })),
       cracks: makeCracks(), crackP: 0, enter: 0,
     };
     nut.tex = texture(nut);
@@ -2600,10 +2659,11 @@ const Nut = (() => {
     streak = now - lastCrack < 4500 ? streak + 1 : 1; lastCrack = now;
     count++; best = Math.max(best, streak);
     Util.store.set('nut', { count, best });
-    document.getElementById('nutCount').textContent = count;
-    document.getElementById('nutBest').textContent = best;
-    document.getElementById('nutHint').textContent = I18N.s().nutAgain(count) + (streak > 2 ? ` × ${streak}` : '');
-    if (window.gsap) gsap.fromTo('#nutCount', { scale: 1.35 }, { scale: 1, duration: .6, ease: 'elastic.out(1,.5)' });
+    const cnt = document.getElementById('nutCount'), bst = document.getElementById('nutBest');
+    if (cnt) cnt.textContent = count; if (bst) bst.textContent = best;
+    if (!specialNext) document.getElementById('nutHint').textContent = I18N.s().nutAgain(count) + (streak > 2 ? ` × ${streak}` : '');
+    listeners.forEach(fn => fn());
+    specialNext = false;
     if (count % 4 === 0 && Bird.currentPerch()?.el?.classList.contains('nut-stage')) Bird.crack();
     nut = null;
     setTimeout(() => { if (kernel) kernel.out = 1; }, 1100);
@@ -2731,7 +2791,8 @@ const Nut = (() => {
     cv = document.getElementById('nutCanvas'); ctx = cv.getContext('2d');
     const saved = Util.store.get('nut', { count: 0, best: 0 });
     count = saved.count || 0; best = saved.best || 0;
-    document.getElementById('nutCount').textContent = count; document.getElementById('nutBest').textContent = best;
+    const cnt = document.getElementById('nutCount'), bst = document.getElementById('nutBest');
+    if (cnt) cnt.textContent = count; if (bst) bst.textContent = best;
     let taps = 0, tapTimer, downAt = 0;
     cv.addEventListener('pointerdown', e => {
       e.preventDefault(); holding = true; downAt = performance.now();
@@ -2753,7 +2814,10 @@ const Nut = (() => {
       if (inView && !raf) raf = requestAnimationFrame(frame);
     }), { rootMargin: '80px' }).observe(cv);
   }
-  return { init };
+  // the flavour finder: a golden "your pecan" while a result waits, and a hook on every crack
+  const listeners = [];
+  function special(on) { specialNext = on; if (nut) { nut.golden = on; nut.tex = texture(nut); } }
+  return { init, special, onCrack: fn => listeners.push(fn) };
 })();
 
 /* ---- shop.js ---- */
@@ -3522,6 +3586,102 @@ const Farm = (() => {
   return { init, relabel };
 })();
 
+/* ---- quiz.js ---- */
+/* Flavour finder: four questions, then crack the pecan to reveal your flavour.
+   Questions and scoring live in DATA.quiz (data.js). */
+const Quiz = (() => {
+  const { $ } = Util;
+  const T = {
+    en: { done: 'All four answered', of: (a, b) => `Question ${a} of ${b}`, back: 'Back', ready: 'Your pecan is ready.', crack: 'Crack it open to see your flavour.', show: 'Just show me', again: 'Start over', yours: 'Your flavour', also: n => `Also try: ${n}`, hint: 'Crack it to see your flavour', pick: 'Answer the questions first, or crack a few for fun' },
+    nl: { done: 'Alle vier beantwoord', of: (a, b) => `Vraag ${a} van ${b}`, back: 'Terug', ready: 'Je pecan is klaar.', crack: 'Kraak hem open en zie je smaak.', show: 'Laat maar zien', again: 'Opnieuw', yours: 'Jouw smaak', also: n => `Probeer ook: ${n}`, hint: 'Kraak hem en zie je smaak', pick: 'Beantwoord eerst de vragen, of kraak er een paar voor de lol' },
+  };
+  const t = () => T[I18N.lang] || T.en;
+  let step = 0, answers = [], ready = false, revealed = false;
+  const Q = () => DATA.quiz.questions;
+
+  function scores() {
+    const s = {}; DATA.flavours.forEach(f => (s[f.id] = 0));
+    answers.forEach((a, i) => Object.entries(Q()[i].options[a].pts).forEach(([id, p]) => (s[id] += p)));
+    return DATA.flavours.map(f => ({ f, p: s[f.id] })).sort((a, b) => b.p - a.p);   // stable: ties keep data order
+  }
+
+  function render(dir = 1) {
+    const card = $('#quizCard'), L = I18N.lang, s = t();
+    let html;
+    if (!ready) {
+      const q = Q()[step];
+      html = `<p class="quiz-step">${s.of(step + 1, Q().length)}</p>
+        <div class="quiz-dots" aria-hidden="true">${Q().map((_, i) => `<span class="${i < step ? 'done' : i === step ? 'now' : ''}"></span>`).join('')}</div>
+        <h3 class="quiz-q" tabindex="-1">${q.q[L]}</h3>
+        <div class="quiz-opts">${q.options.map((o, i) => `<button type="button" class="quiz-opt" data-a="${i}" aria-pressed="${answers[step] === i}">${o.t[L]}</button>`).join('')}</div>
+        ${step > 0 ? `<button type="button" class="quiz-link" data-quiz="back">← ${s.back}</button>` : ''}`;
+    } else {
+      const res = revealed ? scores() : null;
+      html = revealed
+        ? `<p class="quiz-step">${s.yours}</p><h3 class="quiz-q" tabindex="-1">${fname(res[0].f)}</h3>
+           <p class="quiz-you">${DATA.quiz.you[res[0].f.id][L]}</p>
+           <p class="quiz-also">${s.also(fname(res[1].f))}</p>
+           <button type="button" class="quiz-link" data-quiz="again">↺ ${s.again}</button>`
+        : `<p class="quiz-step">${s.done}</p><h3 class="quiz-q" tabindex="-1">${s.ready}</h3><p class="quiz-you">${s.crack}</p>
+           <div class="quiz-row"><button type="button" class="btn btn-line btn-sm" data-quiz="show">${s.show}</button><button type="button" class="quiz-link" data-quiz="again">↺ ${s.again}</button></div>`;
+    }
+    const paint = () => { card.innerHTML = html; const h = card.querySelector('.quiz-q'); if (h && document.activeElement && card.contains(document.activeElement) === false && card.dataset.focus) h.focus({ preventScroll: true }); };
+    if (window.gsap && !Util.reduced.matches && card.children.length) {
+      gsap.to(card, { x: -24 * dir, opacity: 0, duration: .18, ease: 'power2.in', onComplete: () => { paint(); gsap.fromTo(card, { x: 24 * dir, opacity: 0 }, { x: 0, opacity: 1, duration: .45, ease: 'expo.out' }); } });
+    } else paint();
+    $('#nutHint').textContent = ready && !revealed ? s.hint : I18N.lang === 'nl' ? NL['nut.hint'] : I18N.en['nut.hint'];
+  }
+
+  function reveal() {
+    if (!ready || revealed) return;
+    revealed = true;
+    const [top] = scores(), f = top.f, s = t(), L = I18N.lang;
+    World.set(f, { duration: 1 });
+    const box = $('#quizReveal');
+    box.innerHTML = `<p class="pr-eyebrow">${s.yours}</p>
+      <img class="pack-mini" src="${f.img.perched}" alt="${fname(f)} pack">
+      <h3>${fname(f)}</h3>
+      <p class="why">${DATA.quiz.you[f.id][L]}</p>
+      <div class="row"><span class="price">${Util.priceHTML(f.priceCents)}</span><button type="button" class="btn btn-solid magnetic" data-add="${f.id}">${I18N.s().addToCart}</button><button type="button" class="btn btn-line" data-detail="${f.id}">${I18N.s().details}</button></div>`;
+    box.hidden = false;
+    $('#nutHint').style.visibility = 'hidden';
+    if (window.gsap && !Util.reduced.matches) {
+      gsap.fromTo(box, { opacity: 0 }, { opacity: 1, duration: .5 });
+      gsap.from(box.querySelector('.pack-mini'), { y: 50, scale: .5, rotate: -12, duration: 1, ease: 'back.out(1.8)' });
+      gsap.from(box.querySelectorAll('h3, .why, .row'), { y: 16, opacity: 0, duration: .7, ease: 'expo.out', stagger: .08, delay: .2 });
+    }
+    Sound.melody(); Bird.happy(1200); Bird.hop(2);
+    render(1);
+  }
+
+  function reset() {
+    step = 0; answers = []; ready = false; revealed = false;
+    $('#quizReveal').hidden = true; $('#nutHint').style.visibility = ''; Nut.special(false);
+    render(-1);
+  }
+
+  function init() {
+    $('#quizCard').addEventListener('click', e => {
+      const o = e.target.closest('[data-a]'), q = e.target.closest('[data-quiz]');
+      $('#quizCard').dataset.focus = '1';
+      if (o) {
+        answers[step] = +o.dataset.a;
+        if (step < Q().length - 1) { step++; render(1); }
+        else { ready = true; Nut.special(true); render(1); }
+        Sound.pluck(523 + step * 60);
+      }
+      if (q?.dataset.quiz === 'back' && step > 0) { step--; render(-1); }
+      if (q?.dataset.quiz === 'again') reset();
+      if (q?.dataset.quiz === 'show') reveal();
+    });
+    $('#quizReveal').addEventListener('click', e => { if (e.target === e.currentTarget) e.currentTarget.hidden = true; });
+    // cracking the "ready" pecan reveals the result once the kernel has popped out
+    Nut.onCrack(() => { if (ready && !revealed) setTimeout(reveal, 650); });
+    render();
+  }
+  return { init, rerender: () => { if (revealed) { revealed = false; reveal(); } else render(0); } };
+})();
+
 /* ---- main.js ---- */
 /* Wiring: smooth scroll, the bird's perches, reveals, cursor, magnetic buttons,
    language, sound, cookies, legal pages, forms and the easter eggs. */
@@ -3584,19 +3744,32 @@ const App = (() => {
   addEventListener('resize', () => { navPoint = null; });
   const NAV_PERCH = { el: null, get: () => { if (!navPoint) { const r = NAV_PERCH.el.getBoundingClientRect(); navPoint = { x: r.left + r.width * .6, y: r.top + r.height * .46 }; } return navPoint; }, nav: true };
   function goHome() { if (Bird.currentPerch() === NAV_PERCH && Bird.mode !== 'idle') return; Bird.setMini(.55); Bird.perchOn(NAV_PERCH, { force: true }); }
+  // Scrolling: the bird waits on the navbar branch (a fast scroll sends it straight there).
+  // After 5 seconds without scrolling it flies down to a spot on the screen.
+  const IDLE_MS = 5000, FAST_PX_S = 1600;
+  let lastScroll = -1e9, lastY = scrollY, lastT = performance.now(), speed = 0;
+  addEventListener('scroll', () => {
+    const now = performance.now(), dt = Math.max(16, now - lastT);
+    speed = speed * .6 + Math.abs(scrollY - lastY) / dt * 1000 * .4;
+    lastY = scrollY; lastT = now; lastScroll = now;
+  }, { passive: true });
   function perchManager() {
     if (['#checkout', '#product', '#cart', '#legal'].some(s => Util.isOpen($(s)))) return;
-    if (Origin.onRoute && !reduced.matches) { if (Bird.mode !== 'track' && !Bird.busy) { Bird.setMini(1); Bird.track(Origin.routePoint); } return; }
+    const now = performance.now(), quiet = now - lastScroll > IDLE_MS, fast = now - lastScroll < 250 && speed > FAST_PX_S;
+    if (Origin.onRoute && !reduced.matches && !fast) { if (Bird.mode !== 'track' && !Bird.busy) { Bird.setMini(1); Bird.track(Origin.routePoint); } return; }
     if (Bird.mode === 'track') Bird.untrack();
     if (Bird.busy || Bird.mode === 'busy') return;
     const cur = Bird.currentPerch(), sec = activeSection();
+    if (fast) { goHome(); return; }
+    // already sitting somewhere on the page and still in view: stay (it scrolls with the page)
     if (cur && !cur.nav && sec && Bird.mode !== 'idle') {
       const stillHere = candidates(sec).some(p => p.el === cur.el) && cur.el.isConnected && goodPoint(pointOf(cur));
       if (stillHere) return;
     }
+    if (!quiet) { goHome(); return; }       // still scrolling recently: wait on the branch
     const b = bestPerch();
     if (b) { Bird.setMini(1); Bird.perchOn(b); }
-    else goHome();        // nowhere to sit in this part of the page: back to the navbar branch
+    else goHome();
   }
 
   /* ---------- scrolling: native, no smoothing, so it stops when you stop ---------- */
@@ -3729,7 +3902,7 @@ const App = (() => {
   function setLang(lang) {
     if (lang === I18N.lang) return;
     I18N.apply(lang); store.set('lang', lang);
-    Shop.render(); Hero.relabel(); Pairing.rerender(); Checkout.rerender(); Farm.relabel();
+    Shop.render(); Hero.relabel(); Pairing.rerender(); Checkout.rerender(); Farm.relabel(); Quiz.rerender();
     if (!coarse.matches && !reduced.matches) initWeightPlay();
   }
 
@@ -3832,6 +4005,7 @@ const App = (() => {
     Checkout.init();
     Pairing.init();
     Farm.init();
+    Quiz.init();
     initReveals();
     initWeightPlay();
     initCursor();

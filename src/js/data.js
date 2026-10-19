@@ -129,6 +129,49 @@ const DATA = {
       priceCents: 2400 },         // [TBD] placeholder
   ],
 
+  /* ---------------- Flavour finder (the quiz in the "nut" section) ----
+     Each answer gives points to flavours (by id). The flavour with the
+     most points wins; ties go to the one listed first in `flavours`.
+     `you` is the line shown with the result.                           */
+  quiz: {
+    questions: [
+      { q: { en: 'Sweet or salty?', nl: 'Zoet of zout?' }, options: [
+        { t: { en: 'Sweet tooth', nl: 'Zoetekauw' }, pts: { caramel: 2, 'doce-de-leite': 2, 'cinnamon-sugar': 2, chocolate: 1, 'coffee-chocolate': 1 } },
+        { t: { en: 'A bit of both', nl: 'Een beetje van allebei' }, pts: { 'salted-caramel': 2, 'honey-sea-salt': 2, 'chocolate-sea-salt': 2 } },
+        { t: { en: 'Salty, always', nl: 'Zout, altijd' }, pts: { 'chocolate-sea-salt': 2, 'salted-caramel': 1, 'honey-sea-salt': 1 } },
+      ] },
+      { q: { en: 'Which texture do you love?', nl: 'Van welke textuur houd je?' }, options: [
+        { t: { en: 'A glassy crunch', nl: 'Een glazen krak' }, pts: { 'salted-caramel': 2, caramel: 2 } },
+        { t: { en: 'Smooth and rich', nl: 'Zacht en vol' }, pts: { chocolate: 2, 'chocolate-sea-salt': 1, 'coffee-chocolate': 1, 'doce-de-leite': 1 } },
+        { t: { en: 'A sugary crust', nl: 'Een suikerkorstje' }, pts: { 'cinnamon-sugar': 3 } },
+        { t: { en: 'Light, so the nut comes through', nl: 'Licht, zodat je de noot proeft' }, pts: { 'honey-sea-salt': 2, 'doce-de-leite': 1 } },
+      ] },
+      { q: { en: 'When do you reach for a snack?', nl: 'Wanneer pak je iets lekkers?' }, options: [
+        { t: { en: 'With my morning coffee', nl: 'Bij mijn ochtendkoffie' }, pts: { 'coffee-chocolate': 3, 'cinnamon-sugar': 1 } },
+        { t: { en: 'With wine or cheese', nl: 'Bij wijn of kaas' }, pts: { 'chocolate-sea-salt': 1, 'salted-caramel': 1, 'honey-sea-salt': 1, chocolate: 1 } },
+        { t: { en: 'An afternoon treat', nl: 'Als middagtraktatie' }, pts: { 'doce-de-leite': 2, caramel: 1, 'cinnamon-sugar': 1 } },
+        { t: { en: 'Film night on the sofa', nl: 'Filmavond op de bank' }, pts: { 'salted-caramel': 2, chocolate: 1 } },
+      ] },
+      { q: { en: 'Which flavour pulls you in?', nl: 'Welke smaak trekt je aan?' }, options: [
+        { t: { en: 'Toffee and caramel', nl: 'Toffee en karamel' }, pts: { caramel: 2, 'salted-caramel': 2 } },
+        { t: { en: 'Dark and a little bitter', nl: 'Donker en een beetje bitter' }, pts: { chocolate: 2, 'coffee-chocolate': 2, 'chocolate-sea-salt': 1 } },
+        { t: { en: 'Warm spice', nl: 'Warme specerijen' }, pts: { 'cinnamon-sugar': 3 } },
+        { t: { en: 'Golden honey', nl: 'Goudgele honing' }, pts: { 'honey-sea-salt': 3 } },
+        { t: { en: 'Soft and milky', nl: 'Zacht en romig' }, pts: { 'doce-de-leite': 3 } },
+      ] },
+    ],
+    you: {
+      'salted-caramel': { en: 'Sweet and salty at once, with a glassy crunch. Made for film nights and a glass of tawny.', nl: 'Zoet en zout tegelijk, met een glazen krak. Gemaakt voor filmavonden en een glas tawny.' },
+      chocolate: { en: 'Deep, dark and rich. You like your treats grown-up.', nl: 'Diep, donker en vol. Jij houdt van volwassen lekkers.' },
+      'chocolate-sea-salt': { en: 'Dark chocolate with a pinch of salt: rich, but never too sweet.', nl: 'Pure chocolade met een snufje zout: vol, maar nooit te zoet.' },
+      caramel: { en: 'Golden caramel and a crisp shell. A classic, done properly.', nl: 'Goudkleurige karamel en een knapperig laagje. Een klassieker, goed gedaan.' },
+      'doce-de-leite': { en: 'Soft, milky and warm, like Brazil’s favourite caramel.', nl: 'Zacht, romig en warm, zoals Brazilië’s favoriete karamel.' },
+      'cinnamon-sugar': { en: 'Warm cinnamon and a sugary crust. Cosy in a pouch.', nl: 'Warme kaneel en een suikerkorstje. Gezelligheid in een zakje.' },
+      'coffee-chocolate': { en: 'Coffee and dark chocolate. Your morning, in a nut.', nl: 'Koffie en pure chocolade. Je ochtend, in een noot.' },
+      'honey-sea-salt': { en: 'Golden honey with a little sea salt. Bright, light and easy to love.', nl: 'Goudgele honing met een beetje zeezout. Fris, licht en makkelijk om van te houden.' },
+    },
+  },
+
   /* ---------------- Pairing ritual --------------------------------
      For each wine or cheese: the flavour it suggests and why.
      These are our suggestions, to be confirmed at a real tasting [TBD]. */

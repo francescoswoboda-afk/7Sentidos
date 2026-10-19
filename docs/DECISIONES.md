@@ -136,6 +136,10 @@ El cliente pidió quitar la sección de la familia y propuso seis argumentos de 
 
 **Actualización: fincas asociadas.** El Porvenir es la finca de la familia, pero no todas las nueces vienen de ella: el resto procede de fincas asociadas con las mismas prácticas (20% de bosque nativo, arroyos protegidos, sin pesticidas). La sección se llama ahora "Nuestras fincas" y todo lo que dice vale para todas, con [VERIFY]. El cliente dijo que las fincas son "bio": no uso las palabras "organic", "bio" ni "eco", porque en la UE solo se pueden usar con certificado ecológico (Reglamento (UE) 2018/848). Tampoco "sostenible" como etiqueta genérica. Escribo "bosque nativo" en lugar de "bosque primario" hasta confirmar que nunca se taló.
 
+**Buscador de sabor (sustituye al juego de la nuez, a petición del cliente).** Cuatro preguntas (dulce o salado, textura, momento, nota de sabor) que suman puntos a los ocho sabores; las preguntas y la puntuación están en `DATA.quiz`. El juego de romper la nuez se mantiene como revelación: al terminar, la pecana se vuelve dorada y al romperla aparece tu sabor con su pack y el botón de compra. Hay un atajo "Laat maar zien / Just show me".
+
+**El pájaro y el scroll:** mientras el usuario hace scroll, el pájaro espera en la rama de la barra de navegación (un scroll rápido lo manda allí enseguida); tras 5 segundos sin scroll baja a un sitio de la pantalla.
+
 ## 7. Descartado
 
 - **three.js para los packs** (ver arriba).

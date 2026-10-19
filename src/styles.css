@@ -296,6 +296,25 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 .qr-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
 .qr-actions .btn { --b-bg: var(--r-ink); --b-fg: var(--r-body); }
 @media (prefers-reduced-motion: reduce) { .qg-item.lead img { animation: none; } }
+/* laptops and desktops: the whole flavour finder (headline, questions, answers, packs) fits one screen */
+@media (min-width: 821px) {
+  .nut { min-height: 100svh; display: flex; align-items: center; padding-block: calc(var(--nav-h) + 3.5vh) 3vh; }
+  .nut .wrap { width: 100%; }
+  .nut-grid { align-items: center; }
+  .nut .h2 { font-size: min(var(--fs-h2), 7vh); }
+  .nut .lead { font-size: min(var(--fs-lead), 1.5vh + .6rem); margin-top: 1.6vh; max-width: 42ch; }
+  .quiz-card { margin-top: 2.4vh; padding: min(26px, 2.6vh) clamp(18px, 2vw, 26px); min-height: 0; }
+  .quiz-dots { margin: 1vh 0 1.4vh; }
+  .quiz-q { font-size: min(1.9rem, 3.1vh + .2rem); margin: .4vh 0 1.4vh; }
+  .quiz-opts { gap: min(8px, .9vh); }
+  .quiz-opt { min-height: min(52px, 5.6vh); padding: .8vh 16px; }
+  .quiz-link { margin-top: 1vh; min-height: 34px; }
+  .quiz-stage { min-height: 0; height: calc(100svh - var(--nav-h) - 9vh); max-height: 640px; }
+  .quiz-grid { gap: 1.6vh 10px; padding: 2.4vh 22px; }
+  .qg-item img { max-width: min(108px, 10.5vh); }
+  .quiz-result { overflow: hidden; }
+  .qr-pack { width: min(100%, 230px, 26vh); }
+}
 
 /* ---------- shop ---------- */
 .shop { background: color-mix(in srgb, var(--f-body) 9%, var(--paper)); padding-block: clamp(80px, 11vw, 150px); transition: background-color .8s; }

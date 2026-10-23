@@ -1,0 +1,310 @@
+{
+  "brand": "Araçari",
+  "tagline": "Wildly good pecans",
+  "version": "v3 (23 October 2026 packaging: flavour name on top, toucan holding a pecan at the bottom, empty dark strip)",
+  "strip_text": "SELECTED BRAZILIAN PECANS",
+  "formats": [
+    {
+      "id": "pouch-250g",
+      "name": "Stand-up pouch",
+      "net_weight_g": 250,
+      "size_mm": "150 x 220, 80 mm bottom gusset",
+      "capacity_l": 0.9,
+      "material": "mono-PE with a thin EVOH oxygen barrier, matte varnish, PE zip; nitrogen flushed (O2 < 2%)",
+      "disposal": "Plastic bin (PMD) in NL and BE"
+    },
+    {
+      "id": "tube-500g",
+      "name": "Paper tube",
+      "net_weight_g": 500,
+      "size_mm": "diameter 105 x 210",
+      "capacity_l": 1.6,
+      "material": "wound paperboard (90%+ paper) with barrier liner, peel-off membrane, metal slip lid; nitrogen flushed (O2 < 2%)",
+      "disposal": "Tube: paper bin. Lid: PMD bin. Membrane: depends on supplier [VERIFY]"
+    }
+  ],
+  "flavours": [
+    {
+      "slug": "salted-caramel",
+      "name": "Salted caramel",
+      "status": "designed (Oct 2026); recipe and launch range [VERIFY]",
+      "colors": {
+        "body": "#dd6c22",
+        "strip": "#13333a",
+        "band": "#c1d04a",
+        "band_text": "#13333a",
+        "strip_text": "#cbe4e8",
+        "logo": "#ffffff",
+        "name_on_front": "#13333a"
+      },
+      "handwritten_note": "sweet, salty & crunchy",
+      "back_tagline": "SWEET · SALTY · CRUNCHY",
+      "allergens_on_pack": "pecans (tree nuts)",
+      "images": {
+        "pouch_front": {
+          "png": "packs/v3/salted-caramel/aracari-salted-caramel-pouch-250g-front.png",
+          "webp": "packs/v3/salted-caramel/aracari-salted-caramel-pouch-250g-front.webp",
+          "small_webp": "packs/v3/salted-caramel/aracari-salted-caramel-pouch-250g-front-600.webp"
+        },
+        "pouch_back": {
+          "png": "packs/v3/salted-caramel/aracari-salted-caramel-pouch-250g-back.png",
+          "webp": "packs/v3/salted-caramel/aracari-salted-caramel-pouch-250g-back.webp",
+          "small_webp": "packs/v3/salted-caramel/aracari-salted-caramel-pouch-250g-back-600.webp"
+        },
+        "tube_front": {
+          "png": "packs/v3/salted-caramel/aracari-salted-caramel-tube-500g-front.png",
+          "webp": "packs/v3/salted-caramel/aracari-salted-caramel-tube-500g-front.webp",
+          "small_webp": "packs/v3/salted-caramel/aracari-salted-caramel-tube-500g-front-600.webp"
+        },
+        "tube_label_flat": "packs/v3/salted-caramel/aracari-salted-caramel-tube-500g-label-flat.jpg"
+      }
+    },
+    {
+      "slug": "chocolate",
+      "name": "Chocolate",
+      "status": "designed (Oct 2026); recipe and launch range [VERIFY]",
+      "colors": {
+        "body": "#4a221a",
+        "strip": "#2b1611",
+        "band": "#b4472b",
+        "band_text": "#fbefd6",
+        "strip_text": "#fff3dc",
+        "logo": "#ffffff",
+        "name_on_front": "#fbefd6"
+      },
+      "handwritten_note": "rich dark chocolate",
+      "back_tagline": "RICH · DARK · CRUNCHY",
+      "allergens_on_pack": "pecans (tree nuts); check milk and soy in the chocolate [VERIFY]",
+      "images": {
+        "pouch_front": {
+          "png": "packs/v3/chocolate/aracari-chocolate-pouch-250g-front.png",
+          "webp": "packs/v3/chocolate/aracari-chocolate-pouch-250g-front.webp",
+          "small_webp": "packs/v3/chocolate/aracari-chocolate-pouch-250g-front-600.webp"
+        },
+        "pouch_back": {
+          "png": "packs/v3/chocolate/aracari-chocolate-pouch-250g-back.png",
+          "webp": "packs/v3/chocolate/aracari-chocolate-pouch-250g-back.webp",
+          "small_webp": "packs/v3/chocolate/aracari-chocolate-pouch-250g-back-600.webp"
+        },
+        "tube_front": {
+          "png": "packs/v3/chocolate/aracari-chocolate-tube-500g-front.png",
+          "webp": "packs/v3/chocolate/aracari-chocolate-tube-500g-front.webp",
+          "small_webp": "packs/v3/chocolate/aracari-chocolate-tube-500g-front-600.webp"
+        },
+        "tube_label_flat": "packs/v3/chocolate/aracari-chocolate-tube-500g-label-flat.jpg"
+      }
+    },
+    {
+      "slug": "chocolate-sea-salt",
+      "name": "Chocolate & sea salt",
+      "status": "designed (Oct 2026); recipe and launch range [VERIFY]",
+      "colors": {
+        "body": "#1f5a5c",
+        "strip": "#113a3c",
+        "band": "#63d8da",
+        "band_text": "#143f41",
+        "strip_text": "#c9f3f1",
+        "logo": "#ffffff",
+        "name_on_front": "#ffffff"
+      },
+      "handwritten_note": "dark chocolate, a pinch of salt",
+      "back_tagline": "DARK · SALTY · CRUNCHY",
+      "allergens_on_pack": "pecans (tree nuts); check milk and soy in the chocolate [VERIFY]",
+      "images": {
+        "pouch_front": {
+          "png": "packs/v3/chocolate-sea-salt/aracari-chocolate-sea-salt-pouch-250g-front.png",
+          "webp": "packs/v3/chocolate-sea-salt/aracari-chocolate-sea-salt-pouch-250g-front.webp",
+          "small_webp": "packs/v3/chocolate-sea-salt/aracari-chocolate-sea-salt-pouch-250g-front-600.webp"
+        },
+        "pouch_back": {
+          "png": "packs/v3/chocolate-sea-salt/aracari-chocolate-sea-salt-pouch-250g-back.png",
+          "webp": "packs/v3/chocolate-sea-salt/aracari-chocolate-sea-salt-pouch-250g-back.webp",
+          "small_webp": "packs/v3/chocolate-sea-salt/aracari-chocolate-sea-salt-pouch-250g-back-600.webp"
+        },
+        "tube_front": {
+          "png": "packs/v3/chocolate-sea-salt/aracari-chocolate-sea-salt-tube-500g-front.png",
+          "webp": "packs/v3/chocolate-sea-salt/aracari-chocolate-sea-salt-tube-500g-front.webp",
+          "small_webp": "packs/v3/chocolate-sea-salt/aracari-chocolate-sea-salt-tube-500g-front-600.webp"
+        },
+        "tube_label_flat": "packs/v3/chocolate-sea-salt/aracari-chocolate-sea-salt-tube-500g-label-flat.jpg"
+      }
+    },
+    {
+      "slug": "caramel",
+      "name": "Caramel",
+      "status": "designed (Oct 2026); recipe and launch range [VERIFY]",
+      "colors": {
+        "body": "#e6d2a8",
+        "strip": "#4b2a1a",
+        "band": "#e17c20",
+        "band_text": "#46210f",
+        "strip_text": "#f3e2c6",
+        "logo": "#6b1d14",
+        "name_on_front": "#6b1d14"
+      },
+      "handwritten_note": "golden caramel, extra crunchy",
+      "back_tagline": "GOLDEN · SWEET · CRUNCHY",
+      "allergens_on_pack": "pecans (tree nuts)",
+      "images": {
+        "pouch_front": {
+          "png": "packs/v3/caramel/aracari-caramel-pouch-250g-front.png",
+          "webp": "packs/v3/caramel/aracari-caramel-pouch-250g-front.webp",
+          "small_webp": "packs/v3/caramel/aracari-caramel-pouch-250g-front-600.webp"
+        },
+        "pouch_back": {
+          "png": "packs/v3/caramel/aracari-caramel-pouch-250g-back.png",
+          "webp": "packs/v3/caramel/aracari-caramel-pouch-250g-back.webp",
+          "small_webp": "packs/v3/caramel/aracari-caramel-pouch-250g-back-600.webp"
+        },
+        "tube_front": {
+          "png": "packs/v3/caramel/aracari-caramel-tube-500g-front.png",
+          "webp": "packs/v3/caramel/aracari-caramel-tube-500g-front.webp",
+          "small_webp": "packs/v3/caramel/aracari-caramel-tube-500g-front-600.webp"
+        },
+        "tube_label_flat": "packs/v3/caramel/aracari-caramel-tube-500g-label-flat.jpg"
+      }
+    },
+    {
+      "slug": "doce-de-leite",
+      "name": "Doce de leite",
+      "status": "designed (Oct 2026); recipe and launch range [VERIFY]",
+      "colors": {
+        "body": "#c08243",
+        "strip": "#5a2f17",
+        "band": "#f2dfb6",
+        "band_text": "#5a2f17",
+        "strip_text": "#f6e6c8",
+        "logo": "#ffffff",
+        "name_on_front": "#4a2511"
+      },
+      "handwritten_note": "creamy doce de leite",
+      "back_tagline": "CREAMY · SWEET · CRUNCHY",
+      "allergens_on_pack": "pecans (tree nuts) and milk",
+      "images": {
+        "pouch_front": {
+          "png": "packs/v3/doce-de-leite/aracari-doce-de-leite-pouch-250g-front.png",
+          "webp": "packs/v3/doce-de-leite/aracari-doce-de-leite-pouch-250g-front.webp",
+          "small_webp": "packs/v3/doce-de-leite/aracari-doce-de-leite-pouch-250g-front-600.webp"
+        },
+        "pouch_back": {
+          "png": "packs/v3/doce-de-leite/aracari-doce-de-leite-pouch-250g-back.png",
+          "webp": "packs/v3/doce-de-leite/aracari-doce-de-leite-pouch-250g-back.webp",
+          "small_webp": "packs/v3/doce-de-leite/aracari-doce-de-leite-pouch-250g-back-600.webp"
+        },
+        "tube_front": {
+          "png": "packs/v3/doce-de-leite/aracari-doce-de-leite-tube-500g-front.png",
+          "webp": "packs/v3/doce-de-leite/aracari-doce-de-leite-tube-500g-front.webp",
+          "small_webp": "packs/v3/doce-de-leite/aracari-doce-de-leite-tube-500g-front-600.webp"
+        },
+        "tube_label_flat": "packs/v3/doce-de-leite/aracari-doce-de-leite-tube-500g-label-flat.jpg"
+      }
+    },
+    {
+      "slug": "cinnamon-sugar",
+      "name": "Cinnamon sugar",
+      "status": "designed (Oct 2026); recipe and launch range [VERIFY]",
+      "colors": {
+        "body": "#93301f",
+        "strip": "#4a1410",
+        "band": "#f2b46a",
+        "band_text": "#4a1410",
+        "strip_text": "#f6dcc0",
+        "logo": "#ffffff",
+        "name_on_front": "#fbefd6"
+      },
+      "handwritten_note": "warm cinnamon, sugar crust",
+      "back_tagline": "WARM · SPICED · CRUNCHY",
+      "allergens_on_pack": "pecans (tree nuts)",
+      "images": {
+        "pouch_front": {
+          "png": "packs/v3/cinnamon-sugar/aracari-cinnamon-sugar-pouch-250g-front.png",
+          "webp": "packs/v3/cinnamon-sugar/aracari-cinnamon-sugar-pouch-250g-front.webp",
+          "small_webp": "packs/v3/cinnamon-sugar/aracari-cinnamon-sugar-pouch-250g-front-600.webp"
+        },
+        "pouch_back": {
+          "png": "packs/v3/cinnamon-sugar/aracari-cinnamon-sugar-pouch-250g-back.png",
+          "webp": "packs/v3/cinnamon-sugar/aracari-cinnamon-sugar-pouch-250g-back.webp",
+          "small_webp": "packs/v3/cinnamon-sugar/aracari-cinnamon-sugar-pouch-250g-back-600.webp"
+        },
+        "tube_front": {
+          "png": "packs/v3/cinnamon-sugar/aracari-cinnamon-sugar-tube-500g-front.png",
+          "webp": "packs/v3/cinnamon-sugar/aracari-cinnamon-sugar-tube-500g-front.webp",
+          "small_webp": "packs/v3/cinnamon-sugar/aracari-cinnamon-sugar-tube-500g-front-600.webp"
+        },
+        "tube_label_flat": "packs/v3/cinnamon-sugar/aracari-cinnamon-sugar-tube-500g-label-flat.jpg"
+      }
+    },
+    {
+      "slug": "coffee-chocolate",
+      "name": "Coffee & chocolate",
+      "status": "designed (Oct 2026); recipe and launch range [VERIFY]",
+      "colors": {
+        "body": "#33201a",
+        "strip": "#a67a3c",
+        "band": "#7d4a2c",
+        "band_text": "#fbefd6",
+        "strip_text": "#fff6e0",
+        "logo": "#ffffff",
+        "name_on_front": "#fbefd6"
+      },
+      "handwritten_note": "coffee kick, dark chocolate",
+      "back_tagline": "BOLD · DARK · CRUNCHY",
+      "allergens_on_pack": "pecans (tree nuts); check milk and soy in the chocolate [VERIFY]",
+      "images": {
+        "pouch_front": {
+          "png": "packs/v3/coffee-chocolate/aracari-coffee-chocolate-pouch-250g-front.png",
+          "webp": "packs/v3/coffee-chocolate/aracari-coffee-chocolate-pouch-250g-front.webp",
+          "small_webp": "packs/v3/coffee-chocolate/aracari-coffee-chocolate-pouch-250g-front-600.webp"
+        },
+        "pouch_back": {
+          "png": "packs/v3/coffee-chocolate/aracari-coffee-chocolate-pouch-250g-back.png",
+          "webp": "packs/v3/coffee-chocolate/aracari-coffee-chocolate-pouch-250g-back.webp",
+          "small_webp": "packs/v3/coffee-chocolate/aracari-coffee-chocolate-pouch-250g-back-600.webp"
+        },
+        "tube_front": {
+          "png": "packs/v3/coffee-chocolate/aracari-coffee-chocolate-tube-500g-front.png",
+          "webp": "packs/v3/coffee-chocolate/aracari-coffee-chocolate-tube-500g-front.webp",
+          "small_webp": "packs/v3/coffee-chocolate/aracari-coffee-chocolate-tube-500g-front-600.webp"
+        },
+        "tube_label_flat": "packs/v3/coffee-chocolate/aracari-coffee-chocolate-tube-500g-label-flat.jpg"
+      }
+    },
+    {
+      "slug": "honey-sea-salt",
+      "name": "Honey & sea salt",
+      "status": "designed (Oct 2026); recipe and launch range [VERIFY]",
+      "colors": {
+        "body": "#e0a00c",
+        "strip": "#6a4208",
+        "band": "#fff0b0",
+        "band_text": "#6a4208",
+        "strip_text": "#fbeec0",
+        "logo": "#ffffff",
+        "name_on_front": "#5a3806"
+      },
+      "handwritten_note": "golden honey, a pinch of salt",
+      "back_tagline": "GOLDEN · SALTY · CRUNCHY",
+      "allergens_on_pack": "pecans (tree nuts)",
+      "images": {
+        "pouch_front": {
+          "png": "packs/v3/honey-sea-salt/aracari-honey-sea-salt-pouch-250g-front.png",
+          "webp": "packs/v3/honey-sea-salt/aracari-honey-sea-salt-pouch-250g-front.webp",
+          "small_webp": "packs/v3/honey-sea-salt/aracari-honey-sea-salt-pouch-250g-front-600.webp"
+        },
+        "pouch_back": {
+          "png": "packs/v3/honey-sea-salt/aracari-honey-sea-salt-pouch-250g-back.png",
+          "webp": "packs/v3/honey-sea-salt/aracari-honey-sea-salt-pouch-250g-back.webp",
+          "small_webp": "packs/v3/honey-sea-salt/aracari-honey-sea-salt-pouch-250g-back-600.webp"
+        },
+        "tube_front": {
+          "png": "packs/v3/honey-sea-salt/aracari-honey-sea-salt-tube-500g-front.png",
+          "webp": "packs/v3/honey-sea-salt/aracari-honey-sea-salt-tube-500g-front.webp",
+          "small_webp": "packs/v3/honey-sea-salt/aracari-honey-sea-salt-tube-500g-front-600.webp"
+        },
+        "tube_label_flat": "packs/v3/honey-sea-salt/aracari-honey-sea-salt-tube-500g-label-flat.jpg"
+      }
+    }
+  ],
+  "front_layout": "Logo and \"Wildly good pecans\" on top, then the flavour name, \"BRAZILIAN PECANS\" and the net weight; the dark strip is empty; the toucan (holding a pecan in its beak) and the pecans sit at the bottom over the strip and band.",
+  "strip_text_front": null
+}

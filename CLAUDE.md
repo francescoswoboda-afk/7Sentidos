@@ -29,4 +29,4 @@ The brand kit is in `design/`. Read `design/BRAND.md` before changing anything v
 
 ## New packaging (October 2026)
 
-The pack design changed. Read `design/packs/v2/README.md` before touching product images, formats or flavour copy: it has the new 250 g pouch and 500 g tube for all 8 flavours (front, back and tube images), `flavours-v2.json`, and the claim rules. Where it disagrees with `design/BRAND.md` (100 g pack, "slow roasted" notes, "El Porvenir Farms · Brazil" strip text), the v2 brief wins.
+The pack design changed. Read `design/packs/v3/README.md` before touching product images, formats or flavour copy: it has the final 250 g pouch and 500 g tube for all 8 flavours (front, back and tube images), `flavours-v3.json`, and the claim rules. Where it disagrees with `design/BRAND.md` (100 g pack, "slow roasted" notes, "El Porvenir Farms · Brazil" strip text), the v3 brief wins. `design/packs/v2`, `core` and `concept` are kept for reference only.

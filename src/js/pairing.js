@@ -39,10 +39,10 @@ const Pairing = (() => {
     const box = $('#pairResult');
     box.innerHTML = `
       <span class="pr-eyebrow">${s.pairFor(o.name[L])}</span>
-      <img class="pack-mini" src="${f.img.perched}" alt="${fname(f)} pack">
+      <img class="pack-mini" src="${f.img.front}" alt="${fname(f)} pack">
       <h3>${fname(f)}</h3>
       <p class="why" aria-live="off"></p>
-      <div class="row"><span class="price" style="color:var(--cream)">${Util.priceHTML(f.priceCents)}</span><button type="button" class="btn btn-solid magnetic" data-add="${f.id}">${s.addToCart}</button><button type="button" class="btn btn-line" style="--b-bg:var(--cream);--b-fg:var(--ink)" data-detail="${f.id}">${s.details}</button></div>`;
+      <div class="row"><span class="price" style="color:var(--cream)">${Util.priceHTML(f.price.pouch)}</span><button type="button" class="btn btn-solid magnetic" data-add="${f.id}">${s.addToCart}</button><button type="button" class="btn btn-line" style="--b-bg:var(--cream);--b-fg:var(--ink)" data-detail="${f.id}">${s.details}</button></div>`;
     const why = box.querySelector('.why'), text = o.why[L];
     box.setAttribute('aria-label', `${fname(f)}. ${text}`);
     if (window.gsap && !Util.reduced.matches) {
@@ -78,7 +78,7 @@ const Pairing = (() => {
     // open in a working state: the first wine is already poured
     const o = DATA.pairings.wine[0]; choice = o.id; options(); art(o);
     const f = byId(o.pick), s = I18N.s();
-    $('#pairResult').innerHTML = `<span class="pr-eyebrow">${s.pairFor(o.name[I18N.lang])}</span><img class="pack-mini" src="${f.img.perched}" alt="${fname(f)} pack"><h3>${fname(f)}</h3><p class="why">${o.why[I18N.lang]}</p><div class="row"><span class="price" style="color:var(--cream)">${Util.priceHTML(f.priceCents)}</span><button type="button" class="btn btn-solid magnetic" data-add="${f.id}">${s.addToCart}</button><button type="button" class="btn btn-line" style="--b-bg:var(--cream);--b-fg:var(--ink)" data-detail="${f.id}">${s.details}</button></div>`;
+    $('#pairResult').innerHTML = `<span class="pr-eyebrow">${s.pairFor(o.name[I18N.lang])}</span><img class="pack-mini" src="${f.img.front}" alt="${fname(f)} pack"><h3>${fname(f)}</h3><p class="why">${o.why[I18N.lang]}</p><div class="row"><span class="price" style="color:var(--cream)">${Util.priceHTML(f.price.pouch)}</span><button type="button" class="btn btn-solid magnetic" data-add="${f.id}">${s.addToCart}</button><button type="button" class="btn btn-line" style="--b-bg:var(--cream);--b-fg:var(--ink)" data-detail="${f.id}">${s.details}</button></div>`;
   }
   return { init, rerender: () => { options(); if (choice) { const o = DATA.pairings[kind].find(x => x.id === choice); art(o); result(o); } } };
 })();

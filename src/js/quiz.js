@@ -21,7 +21,7 @@ const Quiz = (() => {
   function buildGrid() {
     $('#quizGrid').innerHTML = DATA.flavours.map(f => `
       <div class="qg-item" data-id="${f.id}" style="--qg-body:${f.colors.body}">
-        <img src="${f.img.perched}" alt="" draggable="false"><span>${fname(f)}</span>
+        <img src="${f.img.front}" alt="" draggable="false"><span>${fname(f)}</span>
       </div>`).join('');
   }
   function updateGrid() {
@@ -70,9 +70,9 @@ const Quiz = (() => {
       <div class="qr-copy">
         <p class="qr-eyebrow">${s.yours}</p>
         <h3>${fname(f)}</h3>
-        <p class="qr-notes">${f.notes.join(', ')}</p>
+        <p class="qr-notes">${f.note[L]}</p>
         <p class="qr-why">${DATA.quiz.you[f.id][L]}</p>
-        <div class="qr-buy"><span class="price">${Util.priceHTML(f.priceCents)}</span><span class="size">${I18N.s().size(DATA.packSizeG)}</span></div>
+        <div class="qr-buy"><span class="price">${Util.priceHTML(f.price.pouch)}</span><span class="size">${fmtName('pouch')}</span></div>
         <div class="qr-actions"><button type="button" class="btn btn-solid magnetic" data-add="${f.id}">${I18N.s().addToCart}</button><button type="button" class="btn btn-line" data-detail="${f.id}">${I18N.s().details}</button></div>
       </div>`;
     pack = createPack(box.querySelector('.qr-pack'), f, { ry: -16, bob: 8 });

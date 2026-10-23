@@ -102,7 +102,7 @@ const Checkout = (() => {
     const s = I18N.s();
     const wide = !window.matchMedia('(max-width: 820px)').matches;
     $('#coSummary').innerHTML = `<details class="co-sum-d" ${wide ? 'open' : ''}><summary><h3>${s.co.summary}</h3><span class="co-sum-total">${money(Cart.total())}</span></summary>
-      <ul>${Cart.lines.map(l => `<li><span>${l.qty} × ${Cart.lineName(l)}${l.sub ? ' · ' + s.monthly : ''}</span><span>${money(Cart.unit(l) * l.qty)}</span></li>`).join('')}</ul>
+      <ul>${Cart.lines.map(l => `<li><span>${l.qty} × ${Cart.lineName(l)} · ${Cart.lineSub(l)}</span><span>${money(Cart.unit(l) * l.qty)}</span></li>`).join('')}</ul>
       <dl class="totals">${Cart.totalsHTML()}</dl></details>`;
   }
 
@@ -140,7 +140,7 @@ const Checkout = (() => {
   function confirm(no) {
     const s = I18N.s(), c = s.co;
     $('#coSteps').hidden = true; $('#coSummary').hidden = true;
-    const items = Cart.lines.map(l => `<li><span>${l.qty} × ${Cart.lineName(l)}${l.sub ? ' · ' + s.monthly : ''}</span><span>${money(Cart.unit(l) * l.qty)}</span></li>`).join('');
+    const items = Cart.lines.map(l => `<li><span>${l.qty} × ${Cart.lineName(l)} · ${Cart.lineSub(l)}</span><span>${money(Cart.unit(l) * l.qty)}</span></li>`).join('');
     const total = money(Cart.total());
     $('#coForm').innerHTML = `<div class="confirm">
       <div class="confirm-perch" id="confirmPerch"></div>

@@ -62,6 +62,7 @@
   <nav aria-label="Mobile">
     <a href="#shop" data-i18n="nav.shop">Shop</a>
     <a href="#pairing" data-i18n="nav.pairing">Pairing</a>
+    <a href="#packaging" data-i18n="nav.pack">Packaging</a>
     <a href="#nut" data-i18n="nav.nut">Your flavour</a>
     <a href="#origin" data-i18n="nav.origin">Origin</a>
     <a href="#bird" data-i18n="nav.bird">The bird</a>
@@ -78,7 +79,7 @@
     <div class="hero-copy">
       <p class="eyebrow" data-i18n="hero.eyebrow">Flavoured Brazilian pecans</p>
       <h1 class="display split" id="heroTitle" data-i18n="hero.title">Wildly good pecans</h1>
-      <p class="lead" data-i18n="hero.lead">Grown in the far south of Brazil, where winters are cold enough for pecans. Roasted, coated in eight flavours and brought to the Netherlands.</p>
+      <p class="lead" data-i18n="hero.lead">Grown in the far south of Brazil, where winters are cold enough for pecans. Coated in eight flavours and brought to the Netherlands.</p>
       <div class="hero-cta">
         <a class="btn btn-solid magnetic" href="#shop" data-i18n="hero.cta">Shop now</a>
         <a class="btn btn-line magnetic" href="#pairing" data-i18n="hero.cta2">Find your pairing</a>
@@ -87,7 +88,7 @@
     <div class="hero-stage">
       <div class="pack3d hero-pack" id="heroPack" data-perch="hero" data-perch-x="0.64" data-perch-y="0.035"></div>
       <div class="hero-note" aria-hidden="true">
-        <span class="hn hn1"></span><span class="hn hn2"></span><span class="hn hn3"></span>
+        <span class="hn hn1"></span>
       </div>
     </div>
   </div>
@@ -103,10 +104,10 @@
   <div class="wrap">
     <div class="shop-head">
       <div>
-        <p class="eyebrow" data-i18n="shop.eyebrow">The shop · 100 g pouches</p>
+        <p class="eyebrow" data-i18n="shop.eyebrow">The shop · 250 g pouches and 500 g tubes</p>
         <h2 class="h2 split" id="shopTitle" data-i18n="shop.title">Pick a colour</h2>
       </div>
-      <p class="lead" data-i18n="shop.lead">Every flavour has its own pouch and its own mood. Turn a pack around to read the back.</p>
+      <p class="lead" data-i18n="shop.lead">Every flavour comes in a 250 g pouch and a 500 g paper tube. Turn a pouch around to read the back.</p>
     </div>
     <ul class="ship-facts" id="shipFacts"></ul>
     <p class="price-note" id="priceNote" hidden data-i18n="shop.priceNote">Prices shown are placeholders until launch. [TBD]</p>
@@ -117,6 +118,50 @@
       <h3 class="h2 h2-sm split" data-i18n="bundles.title">More than one pack</h3>
     </div>
     <div class="bundle-grid" id="bundleGrid"></div>
+  </div>
+</section>
+
+<!-- ============ PACKAGING ============ -->
+<!-- Facts from design/packs/v3/README.md. Claims stay [VERIFY] until the supplier confirms them;
+     no "sustainable", "eco", "plastic-free" or "compostable" (see the claim rules in the brief). -->
+<section class="packaging" id="packaging" aria-labelledby="packTitle">
+  <div class="wrap">
+    <div class="pk-head">
+      <div>
+        <p class="eyebrow" data-i18n="pk.eyebrow">Our packaging</p>
+        <h2 class="h2 split" id="packTitle" data-i18n="pk.title">Two packs, and where they go after</h2>
+      </div>
+      <p class="lead" data-i18n="pk.lead">Every flavour comes in a 250 g pouch and a 500 g paper tube. Both are filled with nitrogen before sealing, so the pecans stay fresh longer. <span class="tbd">[VERIFY with the supplier]</span></p>
+    </div>
+    <div class="pk-grid">
+      <article class="pk-card">
+        <div class="pk-img" style="--pk-bg:#dd6c22"><img src="assets/salted-caramel-pouch-front.webp" alt="" loading="lazy" width="600" height="909"></div>
+        <div class="pk-body">
+          <h3 data-i18n="pk.pouch.t">250 g stand-up pouch</h3>
+          <p class="pk-size" data-i18n="pk.pouch.size">150 × 220 mm · press-to-close zip</p>
+          <dl>
+            <dt data-i18n="pk.made">Made of</dt>
+            <dd data-i18n="pk.pouch.made">Mostly one plastic (PE), with a very thin oxygen barrier (EVOH) and a matte varnish. <span class="tbd">[VERIFY]</span></dd>
+            <dt data-i18n="pk.bin">When it’s empty</dt>
+            <dd data-i18n="pk.pouch.bin">Recyclable: put it in the plastic bin (PMD) in the Netherlands and Belgium. <span class="tbd">[VERIFY]</span></dd>
+          </dl>
+        </div>
+      </article>
+      <article class="pk-card">
+        <div class="pk-img" style="--pk-bg:#1f5a5c"><img src="assets/chocolate-sea-salt-tube.webp" alt="" loading="lazy" width="600" height="1130"></div>
+        <div class="pk-body">
+          <h3 data-i18n="pk.tube.t">500 g paper tube</h3>
+          <p class="pk-size" data-i18n="pk.tube.size">Ø 105 × 210 mm · metal lid</p>
+          <dl>
+            <dt data-i18n="pk.made">Made of</dt>
+            <dd data-i18n="pk.tube.made">Wound paperboard, more than 90% paper, with a barrier liner and a peel-off seal. <span class="tbd">[VERIFY]</span></dd>
+            <dt data-i18n="pk.bin">When it’s empty</dt>
+            <dd data-i18n="pk.tube.bin">Tube in the paper bin, metal lid in the plastic bin (PMD). The peel-off seal depends on the supplier. <span class="tbd">[VERIFY]</span></dd>
+          </dl>
+        </div>
+      </article>
+    </div>
+    <p class="small muted pk-note" data-i18n="pk.note">The pack images on this site are digital mockups, not photos of the product. The packaging supplier is not chosen yet, so every figure here is still to be checked.</p>
   </div>
 </section>
 

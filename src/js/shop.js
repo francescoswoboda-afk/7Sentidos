@@ -1,14 +1,18 @@
 /* Shop: product cards, bundles, product detail sheet, and the cart. */
 const byId = id => DATA.flavours.find(f => f.id === id);
 const bundleById = id => DATA.bundles.find(b => b.id === id);
+const fmtOf = l => (l.fmt === 'tube' ? 'tube' : 'pouch');
+const packImg = (f, fmt) => (fmt === 'tube' ? f.img.tube : f.img.front);
+const fmtName = fmt => DATA.formats[fmt].name[I18N.lang];
 
 const Cart = (() => {
   const { $, money, store } = Util;
-  let lines = store.get('cart', []).filter(l => (l.type === 'flavour' ? byId(l.id) : bundleById(l.id)));
+  let lines = store.get('cart', []).filter(l => (l.type === 'flavour' ? byId(l.id) : bundleById(l.id)))
+    .map(l => (l.type === 'flavour' ? { ...l, fmt: fmtOf(l) } : l));
 
   const unit = l => {
     if (l.type === 'bundle') return bundleById(l.id).priceCents;
-    const p = byId(l.id).priceCents;
+    const p = byId(l.id).price[fmtOf(l)];
     return l.sub ? Math.round(p * (1 - DATA.subscription.discountPercent / 100)) : p;
   };
   const subtotal = () => lines.reduce((s, l) => s + unit(l) * l.qty, 0);
@@ -16,19 +20,19 @@ const Cart = (() => {
   const shipping = () => (subtotal() === 0 || subtotal() >= DATA.shipping.freeFromCents ? 0 : DATA.shipping.standardCents);
   const total = () => subtotal() + shipping();
   const vatIncluded = () => Math.round(total() - total() / (1 + DATA.vat.foodRatePercent / 100));
-  const key = it => [it.type, it.id, it.sub ? 'm' : 'o', it.msg || ''].join('|');
+  const key = it => [it.type, it.id, it.type === 'flavour' ? fmtOf(it) : '', it.sub ? 'm' : 'o', it.msg || ''].join('|');
   const save = () => store.set('cart', lines);
 
   let lastAdd = -1e9;
   function add(item, fromEl) {
     lastAdd = performance.now(); $('#nav').classList.remove('hide');
     const k = key(item), found = lines.find(l => key(l) === k);
-    if (found) found.qty += item.qty || 1; else lines.push({ type: item.type, id: item.id, qty: item.qty || 1, sub: !!item.sub, msg: item.msg || '' });
+    if (found) found.qty += item.qty || 1; else lines.push({ type: item.type, id: item.id, fmt: item.type === 'flavour' ? fmtOf(item) : undefined, qty: item.qty || 1, sub: !!item.sub, msg: item.msg || '' });
     save(); render();
     const name = item.type === 'flavour' ? fname(byId(item.id)) : bundleById(item.id).name[I18N.lang];
     Util.toast(I18N.s().added(name));
     Sound.pluck(659);
-    const img = item.type === 'flavour' ? byId(item.id).img.perched : byId((bundleById(item.id).contents === 'all' ? DATA.flavours[0].id : bundleById(item.id).contents[0])).img.perched;
+    const img = item.type === 'flavour' ? packImg(byId(item.id), fmtOf(item)) : byId((bundleById(item.id).contents === 'all' ? DATA.flavours[0].id : bundleById(item.id).contents[0])).img.front;
     if (fromEl) Bird.deliver(fromEl, img, $('#cartBtn')); else bump();
   }
   function setQty(i, q) { if (q <= 0) lines.splice(i, 1); else lines[i].qty = Math.min(99, q); save(); render(); }
@@ -43,7 +47,8 @@ const Cart = (() => {
 
   function lineName(l) { return l.type === 'flavour' ? fname(byId(l.id)) : bundleById(l.id).name[I18N.lang]; }
   function lineColor(l) { return l.type === 'flavour' ? byId(l.id).colors.body : '#285c69'; }
-  function lineImg(l) { const b = l.type === 'bundle' && bundleById(l.id); return l.type === 'flavour' ? byId(l.id).img.perched : byId(b.contents === 'all' ? 'salted-caramel' : b.contents[0]).img.perched; }
+  function lineImg(l) { const b = l.type === 'bundle' && bundleById(l.id); return l.type === 'flavour' ? packImg(byId(l.id), fmtOf(l)) : byId(b.contents === 'all' ? 'salted-caramel' : b.contents[0]).img.front; }
+  function lineSub(l) { const s = I18N.s(), b = l.type === 'bundle' && bundleById(l.id); return (b ? s.bundleOf(b.contents === 'all' ? DATA.flavours.length : b.contents.length) : fmtName(fmtOf(l))) + (l.sub ? ' · ' + s.monthly : ''); }
 
   function upsell() {
     const s = I18N.s();
@@ -51,8 +56,8 @@ const Cart = (() => {
     const singles = lines.filter(l => l.type === 'flavour').reduce((a, l) => a + l.qty, 0);
     const box = bundleById('tasting-box');
     if (singles >= 3 && !lines.some(l => l.id === 'tasting-box')) {
-      const eight = DATA.flavours.reduce((a, f) => a + f.priceCents, 0), save = eight - box.priceCents;
-      return { html: s.upsellBox(save > 0 ? s.upsellSave(money(save)) : ''), item: { type: 'bundle', id: box.id }, img: byId('salted-caramel').img.perched, color: '#285c69' };
+      const eight = DATA.flavours.reduce((a, f) => a + f.price.pouch, 0), save = eight - box.priceCents;
+      return { html: s.upsellBox(save > 0 ? s.upsellSave(money(save)) : ''), item: { type: 'bundle', id: box.id }, img: byId('salted-caramel').img.front, color: '#285c69' };
     }
     // balance the cart: sweet carts get something salty, salty carts something sweet or spiced
     const tastes = lines.filter(l => l.type === 'flavour').map(l => byId(l.id).taste);
@@ -60,7 +65,7 @@ const Cart = (() => {
     const want = salty > sweet ? ['sweet', 'spiced', 'rich'] : ['salty-sweet', 'salty-rich'];
     const pick = DATA.flavours.find(f => want.includes(f.taste) && !lines.some(l => l.id === f.id));
     if (!pick) return '';
-    return { html: s.upsellPair(fname(pick)), item: { type: 'flavour', id: pick.id }, img: pick.img.perched, color: pick.colors.body };
+    return { html: s.upsellPair(fname(pick)), item: { type: 'flavour', id: pick.id, fmt: 'pouch' }, img: pick.img.front, color: pick.colors.body };
   }
 
   function render() {
@@ -73,7 +78,7 @@ const Cart = (() => {
         <div class="line-img"><img src="${lineImg(l)}" alt=""></div>
         <div>
           <h3>${lineName(l)}</h3>
-          <div class="sub">${l.type === 'bundle' ? s.bundleOf(bundleById(l.id).contents === 'all' ? DATA.flavours.length : bundleById(l.id).contents.length) : s.size(DATA.packSizeG)}${l.sub ? ' · ' + s.monthly : ''}</div>
+          <div class="sub">${lineSub(l)}</div>
           ${l.msg ? `<div class="gift">“${escapeHTML(l.msg)}”</div>` : ''}
           <button type="button" class="remove" data-rm="${i}">${s.remove}</button>
         </div>
@@ -113,7 +118,7 @@ const Cart = (() => {
   });
   function open() { render(); Util.open($('#cart'), { trigger: $('#cartBtn'), onClose: App.birdHome }); App.birdTo($('#cartTitle')); }
 
-  return { get lastAdd() { return lastAdd; }, add, setQty, clear, render, open, bump, totalsHTML, get lines() { return lines; }, unit, lineName, subtotal, shipping, total, vatIncluded, count };
+  return { get lastAdd() { return lastAdd; }, add, setQty, clear, render, open, bump, totalsHTML, get lines() { return lines; }, unit, lineName, lineSub, subtotal, shipping, total, vatIncluded, count };
 })();
 
 function escapeHTML(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
@@ -141,14 +146,18 @@ const Shop = (() => {
         <div class="card-stage" data-cursor="drag">
           <div class="pack-slot" tabindex="0" role="img" aria-label="${fname(f)} pack. ${s.rotate}"></div>
           <span class="rotate-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg></span>
+          <button type="button" class="alt-pack" data-alt="tube" aria-label="${s.alsoIn(fmtName('tube'))}"><img src="${f.img.tube}" alt=""><span>${s.alsoShort(DATA.formats.tube.g)}</span></button>
         </div>
         <div class="card-body">
           <h3>${fname(f)}</h3>
-          <p class="card-notes">${f.notes.join(', ')}</p>
-          <span class="allergen">${s.allergen}</span>
-          <div class="card-meta"><span class="price">${priceHTML(f.priceCents)}</span><span class="size">${s.size(DATA.packSizeG)}</span></div>
+          <p class="card-notes">${f.note[I18N.lang]}</p>
+          <span class="allergen">${f.allergen[I18N.lang]}</span>
+          <div class="fmt-toggle" role="group" aria-label="${s.format}: ${fname(f)}">
+            ${Object.keys(DATA.formats).map(k => `<button type="button" data-fmt="${k}" aria-pressed="${k === 'pouch'}">${fmtName(k)}</button>`).join('')}
+          </div>
+          <div class="card-meta"><span class="price">${priceHTML(f.price.pouch)}</span></div>
           <div class="card-actions">
-            <button type="button" class="btn btn-solid magnetic" data-add="${f.id}">${s.addToCart}</button>
+            <button type="button" class="btn btn-solid magnetic" data-add="${f.id}" data-fmt="pouch">${s.addToCart}</button>
             <button type="button" class="btn btn-line" data-detail="${f.id}" aria-label="${s.details}: ${fname(f)}">${s.details}</button>
           </div>
         </div>
@@ -157,6 +166,21 @@ const Shop = (() => {
       const p = createPack(c.querySelector('.pack-slot'), DATA.flavours[i], { ry: -12, idle: false });
       packs.push(p);
       const f = DATA.flavours[i];
+      // pouch / tube: swaps the 3D pack, the price and what "Add to cart" adds.
+      // The small pack in the corner always shows the other format, so both are visible.
+      const alt = c.querySelector('.alt-pack');
+      const setFmt = fmt => {
+        const other = fmt === 'tube' ? 'pouch' : 'tube', s = I18N.s();
+        c.querySelectorAll('.fmt-toggle button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.fmt === fmt)));
+        c.querySelector('.card-meta .price').innerHTML = priceHTML(f.price[fmt]);
+        c.querySelector('[data-add]').dataset.fmt = fmt;
+        alt.dataset.alt = other; alt.querySelector('img').src = packImg(f, other);
+        alt.querySelector('span').textContent = s.alsoShort(DATA.formats[other].g);
+        alt.setAttribute('aria-label', s.alsoIn(fmtName(other)));
+        p.setFmt(fmt);
+      };
+      c.querySelector('.fmt-toggle').addEventListener('click', e => { const b = e.target.closest('[data-fmt]'); if (b) setFmt(b.dataset.fmt); });
+      alt.addEventListener('click', e => { e.stopPropagation(); setFmt(alt.dataset.alt); });
       c.addEventListener('pointerenter', () => World.set(f, { duration: .8 }));
       c.addEventListener('focusin', () => World.set(f, { duration: .8 }));
     });
@@ -174,7 +198,7 @@ const Shop = (() => {
       const ids = b.contents === 'all' ? DATA.flavours.map(f => f.id) : b.contents;
       const n = ids.length, imgs = ids.map((id, i) => {
         const x = n === 1 ? 50 : 8 + (i / (n - 1)) * 64, r = (i - (n - 1) / 2) * (n > 4 ? 4 : 7);
-        return `<img src="${byId(id).img.perched}" alt="" style="left:${x}%;transform:rotate(${r}deg);--r2:${r * 1.6}deg;z-index:${i < n / 2 ? i : n - i}">`;
+        return `<img src="${byId(id).img.front}" alt="" style="left:${x}%;transform:rotate(${r}deg);--r2:${r * 1.6}deg;z-index:${i < n / 2 ? i : n - i}">`;
       }).join('');
       return `<article class="bundle" data-bundle="${b.id}">
         <div class="bundle-stage" style="--bd-bg:${bg[b.kind]}">${imgs}</div>
@@ -194,26 +218,33 @@ const Shop = (() => {
 
   /* ---- product detail ---- */
   let detailPack = null;
-  function detail(id) {
+  function detail(id, startFmt = 'pouch') {
     const f = byId(id), s = I18N.s(), info = DATA.productInfo, L = I18N.lang;
     World.set(f, { duration: .6 });
     const pairs = [...DATA.pairings.wine, ...DATA.pairings.cheese].filter(p => p.pick === id);
     const sub = DATA.subscription;
-    const subPrice = Math.round(f.priceCents * (1 - sub.discountPercent / 100));
+    const subPrice = fmt => Math.round(f.price[fmt] * (1 - sub.discountPercent / 100));
+    let fmt = startFmt === 'tube' ? 'tube' : 'pouch';
     $('#productBody').innerHTML = `
       <div class="pd-hero" style="--c-body:${f.colors.body};--c-band:${f.colors.band};--c-ink:${Util.inkFor(f.colors.body)}">
-        <div class="pd-pack" data-cursor="drag"></div>
+        <div class="pd-packcol">
+          <div class="pd-pack" data-cursor="drag"></div>
+          <button type="button" class="pd-flip" id="pdFlip" aria-pressed="false">${s.seeBack}</button>
+        </div>
         <div>
-          <p class="eyebrow">${s.size(DATA.packSizeG)} · ${I18N.lang === 'nl' ? 'Braziliaanse pecannoten' : 'Brazilian pecans'}</p>
+          <p class="eyebrow">${f.tagline[L]}</p>
           <h2 id="pdTitle">${fname(f)}</h2>
-          <p class="note">${f.notes.join(', ')}</p>
+          <p class="note">${f.note[L]}</p>
         </div>
       </div>
       <div class="pd-main">
         <form class="pd-buy" id="pdBuy">
+          <div class="opt opt-fmt" role="radiogroup" aria-label="${s.format}">
+            ${Object.entries(DATA.formats).map(([k, v]) => `<label><input type="radio" name="fmt" value="${k}"${k === fmt ? ' checked' : ''}><span class="o-t">${v.name[L]}<span class="o-s">${s.fmtSub[k]}</span></span><span class="o-p price">${priceHTML(f.price[k])}</span></label>`).join('')}
+          </div>
           <div class="opt" role="radiogroup" aria-label="${s.oneOff} / ${s.subscribe}">
-            <label><input type="radio" name="plan" value="once" checked><span class="o-t">${s.oneOff}<span class="o-s">${s.oneOffSub}</span></span><span class="o-p price">${priceHTML(f.priceCents)}</span></label>
-            ${sub.enabled ? `<label><input type="radio" name="plan" value="sub"><span class="o-t">${s.subscribe}<span class="o-s">${s.subscribeSub(sub.discountPercent)}</span></span><span class="o-p">${money(subPrice)} ${s.perMonth}</span></label>` : ''}
+            <label><input type="radio" name="plan" value="once" checked><span class="o-t">${s.oneOff}<span class="o-s">${s.oneOffSub}</span></span></label>
+            ${sub.enabled ? `<label><input type="radio" name="plan" value="sub"><span class="o-t">${s.subscribe}<span class="o-s">${s.subscribeSub(sub.discountPercent)}</span></span><span class="o-p" id="pdSubPrice">${money(subPrice(fmt))} ${s.perMonth}</span></label>` : ''}
           </div>
           <div class="pd-buyrow">
             <div class="qty" role="group" aria-label="${s.qty}"><button type="button" data-pdq="-1" aria-label="−1">−</button><output id="pdQty">1</output><button type="button" data-pdq="1" aria-label="+1">+</button></div>
@@ -221,8 +252,8 @@ const Shop = (() => {
           </div>
           <p class="small muted" style="margin:0">${s.shipStd(money(DATA.shipping.standardCents))} · ${s.shipFree(money(DATA.shipping.freeFromCents))} · ${s.shipDays(DATA.shipping.deliveryDays)} <span class="tbd">[TBD]</span></p>
         </form>
-        <div class="allergen-box" role="note">${info.allergen[L]} ${s.traces}: ${info.traces}</div>
-        <div class="pd-sec"><h3>${s.tasting}</h3><p><span class="tbd">[TBD]</span> ${s.tastingTBD} <span class="note">${f.notes.join(', ')}</span></p></div>
+        <div class="allergen-box" role="note">${f.allergen[L]} ${s.traces}: ${info.traces}</div>
+        <div class="pd-sec"><h3>${s.tasting}</h3><p><span class="tbd">[TBD]</span> ${s.tastingTBD} <span class="note">${f.note[L]}</span></p></div>
         ${pairs.length ? `<div class="pd-sec"><h3>${s.pairings}</h3><p>${pairs.map(p => `<strong>${p.name[L]}</strong>: ${p.why[L]}`).join('<br><br>')}</p></div>` : ''}
         <div class="pd-cols">
           <div class="pd-sec"><h3>${s.ingredients}</h3><p>${info.ingredients}</p>
@@ -234,14 +265,23 @@ const Shop = (() => {
             </tbody></table></div>
         </div>
       </div>`;
-    detailPack = createPack($('#productBody .pd-pack'), f, { ry: -18, bob: 8 });
+    detailPack = createPack($('#productBody .pd-pack'), f, { ry: -18, bob: 8, fmt });
     setTimeout(() => detailPack.spin(1), 350);
+    // front / back: both packs have a printed back (the tube turns round as a cylinder)
+    const flip = $('#pdFlip');
+    const syncFlip = () => { flip.setAttribute('aria-pressed', String(detailPack.back)); flip.textContent = detailPack.back ? s.seeFront : s.seeBack; };
+    flip.onclick = () => { detailPack.showBack(!detailPack.back); syncFlip(); };
+    syncFlip();
+    $$('#pdBuy input[name="fmt"]').forEach(r => r.addEventListener('change', () => {
+      fmt = r.value; detailPack.setFmt(fmt); detailPack.showBack(false); syncFlip();
+      const sp = $('#pdSubPrice'); if (sp) sp.textContent = `${money(subPrice(fmt))} ${s.perMonth}`;
+    }));
     let qty = 1;
     $('#productBody').onclick = e => { const b = e.target.closest('[data-pdq]'); if (b) { qty = Math.max(1, Math.min(99, qty + +b.dataset.pdq)); $('#pdQty').textContent = qty; } };
     $('#pdBuy').onsubmit = e => {
       e.preventDefault();
       const subOn = new FormData(e.target).get('plan') === 'sub';
-      Cart.add({ type: 'flavour', id, qty, sub: subOn });
+      Cart.add({ type: 'flavour', id, fmt, qty, sub: subOn });
       Util.close($('#product'));
       setTimeout(() => Cart.open(), 500);
     };
@@ -252,7 +292,7 @@ const Shop = (() => {
   function bind() {
     document.addEventListener('click', e => {
       const a = e.target.closest('[data-add]');
-      if (a) { const card = a.closest('.card'); Cart.add({ type: 'flavour', id: a.dataset.add }, card ? card.querySelector('.card-stage') : null); }
+      if (a) { const card = a.closest('.card'); Cart.add({ type: 'flavour', id: a.dataset.add, fmt: a.dataset.fmt }, card ? card.querySelector('.card-stage') : null); }
       const d = e.target.closest('[data-detail]'); if (d) detail(d.dataset.detail);
       const b = e.target.closest('[data-add-bundle]');
       if (b) {
@@ -265,7 +305,8 @@ const Shop = (() => {
     $('#productGrid').addEventListener('click', e => {
       const st = e.target.closest('.card-stage'); if (!st) return;
       const slot = st.querySelector('.pack-slot'); if (slot.dataset.dragged) return;
-      detail(st.closest('.card').dataset.id);
+      const card = st.closest('.card');
+      detail(card.dataset.id, card.querySelector('[data-add]').dataset.fmt);
     });
     $('#cartBtn').addEventListener('click', () => Cart.open());
   }

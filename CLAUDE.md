@@ -17,7 +17,7 @@ The brand kit is in `design/`. Read `design/BRAND.md` before changing anything v
 
 - `src/` is the source: `index.html`, `styles.css`, `js/` (loaded in the order listed in `build.js`) and `assets/` (600 px pack webps, wordmarks, icons).
 - `src/js/data.js` holds every flavour, product, bundle, price, shipping rule and pairing. Change shop data there only.
-- `npm run build` inlines everything into one self-contained `public/index.html`. Always rebuild after editing `src/`, and commit the rebuilt file.
+- `npm run build` inlines everything into `public/index.html`, except the large full-resolution tube labels (`*-tube-label.webp`), which it copies to `public/assets/` so they load only when a tube is shown. Always rebuild after editing `src/`, and commit the rebuilt files.
 - `docs/DECISIONES.md` (Spanish) explains the design decisions; `docs/type-study/` is the typography study.
 
 ## Site

@@ -224,20 +224,21 @@ h3 { font-family: var(--display); font-weight: 700; font-size: var(--fs-h3); lin
 .pack-face img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 1px rgba(0,0,0,.15)); user-select: none; -webkit-user-drag: none; pointer-events: none; }
 .pack-sheen { position: absolute; inset: 0; -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.38) 45%, transparent 58%); background-size: 260% 100%; background-position: var(--sheen, 50%) 0; mix-blend-mode: soft-light; pointer-events: none; }
 .pack-back { transform: rotateY(180deg); }
-/* the 500 g tube: a cylinder of 24 strips (pack.js sets --th height, --tw strip width, --tr radius; data-f picks the label) */
+/* the 500 g tube: a cylinder of --tn strips (pack.js sets --tn count, --th height, --tw strip width, --tr radius; data-f picks the label) */
 .tube3d { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
 .tube-side {
-  position: absolute; width: calc(var(--tw) + 2px); height: var(--th); left: calc(var(--tw) / -2 - 1px); top: calc(var(--th) / -2);
-  transform: rotateY(calc(var(--i) * 15deg)) translateZ(var(--tr)); backface-visibility: hidden; -webkit-backface-visibility: hidden;
-  /* background-image (lid, rim, label) comes from one rule per flavour written by pack.js */
-  background-size: 100% 4.5%, 100% 2.4%, calc(var(--tw) * 24) 100%;
-  background-position: 0 0, 0 100%, calc(1px - (var(--i) * var(--tw) + var(--tw) * 5.5)) 0;
-  background-repeat: no-repeat, no-repeat, repeat-x;
+  position: absolute; width: calc(var(--tw) + 1.2px); height: var(--th); left: calc(var(--tw) / -2 - .6px); top: calc(var(--th) / -2);
+  transform: rotateY(calc((var(--i) + .5) * 360deg / var(--tn))) translateZ(var(--tr));   /* +.5: Chrome draws a strip at exactly 0deg with a seam */ backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  /* background-image (lid, lid shadow, rim, label) comes from one rule per flavour written by pack.js */
+  background-size: 100% 5%, 100% 2.6%, 100% 1.6%, calc(var(--tw) * var(--tn)) 100%;   /* the copper band stays just inside the lid */
+  background-position: 0 0, 0 calc(var(--th) * .06), 0 100%, calc(.6px - (var(--i) * var(--tw) + var(--tw) * var(--tn) / 4)) 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat-x;
 }
-.tube-side i { position: absolute; inset: 0; background: #1b0d06; opacity: .3; }
 .tube-cap { position: absolute; width: calc(var(--tr) * 2); height: calc(var(--tr) * 2); left: calc(var(--tr) * -1); top: calc(var(--tr) * -1); border-radius: 50%; }
-.tube-top { transform: translateY(calc(var(--th) / -2)) rotateX(90deg); background: radial-gradient(circle at 42% 40%, #f6d6a2, #c98a45 45%, #8b4b1d 78%, #5a2c0f); }
-.tube-bottom { transform: translateY(calc(var(--th) / 2)) rotateX(-90deg); background: radial-gradient(circle, #6d3a17, #3e1d09); }
+/* the copper lid, drawn as one SVG over the tube by pack.js (drawLid) */
+.lid2d { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; shape-rendering: geometricPrecision; }
+.tube-bottom { width: calc(var(--tr) * 2); height: calc(var(--tr) * 2); left: calc(var(--tr) * -1); top: calc(var(--tr) * -1);
+  transform: translateY(calc(var(--th) / 2)) rotateX(-90deg); background: radial-gradient(closest-side, #6a2f10, #3e1806 86%, #c9773a 94%, #3e1806); }
 .pack-shadow { position: absolute; left: 14%; right: 14%; bottom: -7%; height: 9%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.33), transparent); filter: blur(4px); transform: translateZ(-1px); }
 
 /* ---------- origin ---------- */

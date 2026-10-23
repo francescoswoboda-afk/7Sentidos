@@ -23,7 +23,15 @@ function dataUri(file) {
   }
   return assetCache[file];
 }
-const inlineAssets = text => text.replace(/assets\/([a-z0-9-]+\.(?:webp|png|jpg|svg))/g, (_, f) => dataUri(f));
+// Large images that are only needed once something is on screen (the full-resolution tube labels)
+// stay separate files in public/assets/ instead of being inlined, so the page itself stays light.
+// The claude.ai preview (build/artifact.html) cannot load these.
+const EXTERNAL = /-tube-label\.webp$/;
+const external = new Set();
+const inlineAssets = text => text.replace(/assets\/([a-z0-9-]+\.(?:webp|png|jpg|svg))/g, (m, f) => {
+  if (EXTERNAL.test(f)) { external.add(f); return m; }
+  return dataUri(f);
+});
 
 let html = fs.readFileSync(src('index.html'), 'utf8');
 const css = fs.readFileSync(src('styles.css'), 'utf8');
@@ -35,6 +43,11 @@ html = inlineAssets(html);
 
 fs.mkdirSync(path.join(root, 'public'), { recursive: true });
 fs.writeFileSync(path.join(root, 'public', 'index.html'), html);
+// copy the external images, and remove ones the page no longer uses
+const pubAssets = path.join(root, 'public', 'assets');
+fs.mkdirSync(pubAssets, { recursive: true });
+for (const f of fs.readdirSync(pubAssets)) if (!external.has(f)) fs.rmSync(path.join(pubAssets, f));
+for (const f of external) fs.copyFileSync(path.join(root, 'src', 'assets', f), path.join(pubAssets, f));
 
 // Artifact version: the host adds its own doctype, html, head and body.
 const head = html.match(/<head>([\s\S]*?)<\/head>/)[1].replace(/<meta charset[^>]*>\s*/, '').replace(/<meta name="viewport"[^>]*>\s*/, '');

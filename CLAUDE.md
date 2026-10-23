@@ -26,3 +26,7 @@ The brand kit is in `design/`. Read `design/BRAND.md` before changing anything v
 - Live at https://7sentidos.francesco-swoboda.workers.dev
 - Pushing to GitHub does NOT deploy: Cloudflare is not connected to the repo. Deploy with `npm run deploy` (builds, then uploads with wrangler; needs `npx wrangler login` once per machine). After deploying, open the live URL and check it changed.
 - Run it locally with `npm run start` (http://localhost:3000).
+
+## New packaging (October 2026)
+
+The pack design changed. Read `design/packs/v2/README.md` before touching product images, formats or flavour copy: it has the new 250 g pouch and 500 g tube for all 8 flavours (front, back and tube images), `flavours-v2.json`, and the claim rules. Where it disagrees with `design/BRAND.md` (100 g pack, "slow roasted" notes, "El Porvenir Farms · Brazil" strip text), the v2 brief wins.
